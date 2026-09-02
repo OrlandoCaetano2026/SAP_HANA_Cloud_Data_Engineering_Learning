@@ -282,47 +282,64 @@ New directories will be introduced only when implementation creates a real need.
 
 ## 🅱️ Block B — SQL for SAP Data
 
-B1 DDL · B2 DML · B3 Filtering & Sorting · B4 Joins · B5 Aggregations · B6 Subqueries & CTEs · B7 Window Functions · B8 Views · B9 SQLScript · B10 Performance Fundamentals.
+| # | Scenario | Objective | Status |
+|---|---|---|---|
+| B1 | DDL Fundamentals | Create and manage database structures using Data Definition Language | ⏳ |
+| B2 | DML Fundamentals | Insert, update, and delete data using Data Manipulation Language | ⏳ |
+| B3 | Filtering & Sorting | Query data using filters, sorting, and conditions | ⏳ |
+| B4 | Joins | Relate SAP/MES entities using different JOIN strategies | ⏳ |
+| B5 | Aggregations | Consolidate data using aggregation functions and grouping | ⏳ |
+| B6 | Subqueries & CTEs | Build complex queries using subqueries and Common Table Expressions | ⏳ |
+| B7 | Window Functions | Apply analytical calculations, rankings, and aggregations over data windows | ⏳ |
+| B8 | Views | Create reusable query and data abstraction layers | ⏳ |
+| B9 | SQLScript | Introduce procedural logic and advanced processing in SAP HANA | ⏳ |
+| B10 | Performance Fundamentals | Understand query performance and optimization fundamentals | ⏳ |
 
 ## 🅲 Block C — Professional SAP HANA Development
 
-C1 Business Application Studio · C2 HANA Database Project · C3 HDI Container · C4 Design-Time Artifacts · C5 CDS Database Artifacts · C6 Deployment · C7 Runtime Objects · C8 Synonyms & Cross-Schema Access · C9 Calculation Views · C10 Security & Privileges.
+| # | Scenario | Objective | Status |
+|---|---|---|---|
+| C1 | Business Application Studio | Prepare a professional SAP HANA development environment | ⏳ |
+| C2 | HANA Database Project | Create and structure an SAP HANA database project | ⏳ |
+| C3 | HDI Container | Understand isolation, deployment, and lifecycle management with HDI | ⏳ |
+| C4 | Design-Time Artifacts | Develop version-controlled artifacts that generate runtime database objects | ⏳ |
+| C5 | CDS Database Artifacts | Model entities and relationships using Core Data Services | ⏳ |
+| C6 | Deployment | Deploy database artifacts to SAP HANA Cloud | ⏳ |
+| C7 | Runtime Objects | Analyze database objects generated through deployment | ⏳ |
+| C8 | Synonyms & Cross-Schema Access | Access objects outside the container in a controlled manner | ⏳ |
+| C9 | Calculation Views | Build analytical models using Calculation Views | ⏳ |
+| C10 | Security & Privileges | Apply users, roles, grants, and least-privilege concepts | ⏳ |
 
 ## 🅳 Block D — Data Engineering
 
-D1 Data Ingestion · D2 Data Cleansing · D3 Transformation Pipelines · D4 Data Quality · D5 Incremental Loading · D6 Delta Processing · D7 Deduplication · D8 Data Lineage · D9 Remote Sources · D10 Virtual Tables · D11 Replication · D12 Performance & Optimization.
+| # | Scenario | Objective | Status |
+|---|---|---|---|
+| D1 | Data Ingestion | Ingest fictional data from different sources into SAP HANA Cloud | ⏳ |
+| D2 | Data Cleansing | Identify and handle inconsistencies, NULL values, and invalid formats | ⏳ |
+| D3 | Transformation Pipelines | Transform RAW data into curated and business-ready structures | ⏳ |
+| D4 | Data Quality | Define and validate technical and functional data quality rules | ⏳ |
+| D5 | Incremental Loading | Process only new or modified records | ⏳ |
+| D6 | Delta Processing | Implement strategies for identifying and processing data deltas | ⏳ |
+| D7 | Deduplication | Detect and handle duplicate records | ⏳ |
+| D8 | Data Lineage | Document data origin, processing, transformations, and destination | ⏳ |
+| D9 | Remote Sources | Explore access to remote data sources | ⏳ |
+| D10 | Virtual Tables | Consume remote data without mandatory physical replication | ⏳ |
+| D11 | Replication | Explore data replication and persistence strategies | ⏳ |
+| D12 | Performance & Optimization | Evaluate and optimize data pipelines and models | ⏳ |
 
 ## 🅴 Block E — Transactional SAP Data
 
-E1 Purchase Orders · E2 Goods Receipt · E3 Material Movements · E4 Inventory Snapshot · E5 Production Orders · E6 Production Confirmations · E7 Inspection Lots · E8 Quality Results · E9 Warehouse Movements.
-
-## 🅵 Block F — CAP & Data APIs
-
-F1 CAP Foundation · F2 Domain Modeling · F3 HANA Persistence · F4 OData Service · F5 REST · F6 Filtering & Paging · F7 Business Logic · F8 Authentication · F9 Authorization.
-
-## 🅶 Block G — SAP Fiori Data Applications
-
-G1 Material Master Explorer · G2 Procurement Explorer · G3 Quality Cockpit · G4 Inventory Cockpit · G5 Manufacturing Cockpit · G6 MES Production Cockpit.
-
-## 🅷 Block H — Analytics & Business KPIs
-
-Procurement, Inventory, Production, Quality, and MES KPIs built on top of previously validated project models.
-
-## 🅸 Block I — Integration & Event-Driven Data
-
-I1 REST Data Ingestion · I2 Integration Suite → HANA · I3 MES → Integration Suite · I4 Event Mesh · I5 Manufacturing Events · I6 Failure / Retry / DLQ · I7 Idempotent Data Ingestion.
-
-## 🅹 Block J — Cloud-Native Data Applications
-
-J1 Containers Foundation · J2 Docker · J3 Kubernetes Foundation · J4 SAP BTP Kyma Runtime · J5 Containerized CAP Service · J6 HANA Service Binding · J7 MES Event Microservice · J8 Cloud Foundry vs. Kyma.
-
-## 🅺 Block K — AI-Ready Data
-
-K1 AI-ready Datasets · K2 Business Semantics · K3 Vector Concepts · K4 Embeddings · K5 SAP HANA Vector Capabilities · K6 Semantic Search · K7 RAG Foundation.
-
-## 🅻 Block L — AI-Powered Manufacturing
-
-L1 Procurement Assistant · L2 Inventory Assistant · L3 Quality Assistant · L4 Production Assistant · L5 MES Manufacturing Assistant.
+| # | Scenario | Objective | Status |
+|---|---|---|---|
+| E1 | Purchase Orders | Model fictional purchase order transactional data | ⏳ |
+| E2 | Goods Receipt | Relate goods receipts to purchasing documents | ⏳ |
+| E3 | Material Movements | Model inventory movements and movement types | ⏳ |
+| E4 | Inventory Snapshot | Build a consolidated view of inventory positions | ⏳ |
+| E5 | Production Orders | Model production orders and their main relationships | ⏳ |
+| E6 | Production Confirmations | Record and analyze production confirmations | ⏳ |
+| E7 | Inspection Lots | Model inspection lots within the SAP QM context | ⏳ |
+| E8 | Quality Results | Structure quality results and indicators | ⏳ |
+| E9 | Warehouse Movements | Model movements and structures related to
 
 ---
 

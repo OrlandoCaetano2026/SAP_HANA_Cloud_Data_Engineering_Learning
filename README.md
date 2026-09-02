@@ -282,47 +282,147 @@ Novas pastas serão adicionadas apenas quando houver necessidade real de impleme
 
 ## 🅱️ Bloco B — SQL for SAP Data
 
-B1 DDL · B2 DML · B3 Filtering & Sorting · B4 Joins · B5 Aggregations · B6 Subqueries & CTEs · B7 Window Functions · B8 Views · B9 SQLScript · B10 Performance Fundamentals.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| B1 | DDL Fundamentals | Criar e gerenciar estruturas de banco de dados com Data Definition Language | ⏳ |
+| B2 | DML Fundamentals | Inserir, atualizar e excluir dados utilizando Data Manipulation Language | ⏳ |
+| B3 | Filtering & Sorting | Consultar dados utilizando filtros, ordenação e condições | ⏳ |
+| B4 | Joins | Relacionar entidades SAP/MES utilizando diferentes estratégias de JOIN | ⏳ |
+| B5 | Aggregations | Consolidar dados utilizando funções de agregação e agrupamentos | ⏳ |
+| B6 | Subqueries & CTEs | Construir consultas complexas utilizando subqueries e Common Table Expressions | ⏳ |
+| B7 | Window Functions | Aplicar cálculos analíticos, rankings e agregações sobre janelas de dados | ⏳ |
+| B8 | Views | Criar camadas reutilizáveis de consulta e abstração de dados | ⏳ |
+| B9 | SQLScript | Introduzir lógica procedural e processamento avançado no SAP HANA | ⏳ |
+| B10 | Performance Fundamentals | Compreender fundamentos de performance e otimização de consultas | ⏳ |
 
 ## 🅲 Bloco C — Professional SAP HANA Development
 
-C1 Business Application Studio · C2 HANA Database Project · C3 HDI Container · C4 Design-Time Artifacts · C5 CDS Database Artifacts · C6 Deployment · C7 Runtime Objects · C8 Synonyms & Cross-Schema Access · C9 Calculation Views · C10 Security & Privileges.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| C1 | Business Application Studio | Preparar o ambiente profissional de desenvolvimento SAP HANA | ⏳ |
+| C2 | HANA Database Project | Criar e estruturar um projeto de banco SAP HANA | ⏳ |
+| C3 | HDI Container | Compreender isolamento, deployment e gerenciamento com HDI | ⏳ |
+| C4 | Design-Time Artifacts | Desenvolver artefatos versionáveis para geração de objetos runtime | ⏳ |
+| C5 | CDS Database Artifacts | Modelar entidades e relacionamentos utilizando Core Data Services | ⏳ |
+| C6 | Deployment | Implantar artefatos de banco de dados no SAP HANA Cloud | ⏳ |
+| C7 | Runtime Objects | Analisar os objetos gerados pelo processo de deployment | ⏳ |
+| C8 | Synonyms & Cross-Schema Access | Acessar objetos externos ao container de maneira controlada | ⏳ |
+| C9 | Calculation Views | Construir modelos analíticos utilizando Calculation Views | ⏳ |
+| C10 | Security & Privileges | Aplicar conceitos de usuários, roles, grants e menor privilégio | ⏳ |
 
 ## 🅳 Bloco D — Data Engineering
 
-D1 Data Ingestion · D2 Data Cleansing · D3 Transformation Pipelines · D4 Data Quality · D5 Incremental Loading · D6 Delta Processing · D7 Deduplication · D8 Data Lineage · D9 Remote Sources · D10 Virtual Tables · D11 Replication · D12 Performance & Optimization.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| D1 | Data Ingestion | Ingerir dados fictícios de diferentes origens no SAP HANA Cloud | ⏳ |
+| D2 | Data Cleansing | Identificar e tratar inconsistências, NULLs e formatos inválidos | ⏳ |
+| D3 | Transformation Pipelines | Transformar dados RAW em estruturas curated e business-ready | ⏳ |
+| D4 | Data Quality | Definir e validar regras técnicas e funcionais de qualidade | ⏳ |
+| D5 | Incremental Loading | Processar somente registros novos ou modificados | ⏳ |
+| D6 | Delta Processing | Implementar estratégias para identificação e processamento de deltas | ⏳ |
+| D7 | Deduplication | Detectar e tratar registros duplicados | ⏳ |
+| D8 | Data Lineage | Documentar origem, processamento e destino das informações | ⏳ |
+| D9 | Remote Sources | Explorar acesso a fontes de dados remotas | ⏳ |
+| D10 | Virtual Tables | Consumir dados remotamente sem replicação obrigatória | ⏳ |
+| D11 | Replication | Explorar estratégias de replicação e persistência | ⏳ |
+| D12 | Performance & Optimization | Avaliar e otimizar pipelines e modelos de dados | ⏳ |
 
 ## 🅴 Bloco E — Transactional SAP Data
 
-E1 Purchase Orders · E2 Goods Receipt · E3 Material Movements · E4 Inventory Snapshot · E5 Production Orders · E6 Production Confirmations · E7 Inspection Lots · E8 Quality Results · E9 Warehouse Movements.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| E1 | Purchase Orders | Modelar dados transacionais fictícios de pedidos de compra | ⏳ |
+| E2 | Goods Receipt | Relacionar recebimentos de mercadorias aos documentos de compras | ⏳ |
+| E3 | Material Movements | Modelar movimentações e tipos de movimento de estoque | ⏳ |
+| E4 | Inventory Snapshot | Construir uma visão consolidada da posição de estoque | ⏳ |
+| E5 | Production Orders | Modelar ordens de produção e seus relacionamentos principais | ⏳ |
+| E6 | Production Confirmations | Registrar e analisar confirmações de produção | ⏳ |
+| E7 | Inspection Lots | Modelar lotes de inspeção dentro do contexto QM | ⏳ |
+| E8 | Quality Results | Estruturar resultados e indicadores de qualidade | ⏳ |
+| E9 | Warehouse Movements | Modelar movimentações e estruturas relacionadas ao contexto WM | ⏳ |
 
 ## 🅵 Bloco F — CAP & Data APIs
 
-F1 CAP Foundation · F2 Domain Modeling · F3 HANA Persistence · F4 OData Service · F5 REST · F6 Filtering & Paging · F7 Business Logic · F8 Authentication · F9 Authorization.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| F1 | CAP Foundation | Introduzir os fundamentos do SAP Cloud Application Programming Model | ⏳ |
+| F2 | Domain Modeling | Modelar entidades e serviços utilizando CDS | ⏳ |
+| F3 | HANA Persistence | Persistir entidades CAP no SAP HANA Cloud | ⏳ |
+| F4 | OData Service | Expor dados do projeto através de serviços OData | ⏳ |
+| F5 | REST APIs | Criar serviços REST para consumo de dados | ⏳ |
+| F6 | Filtering & Paging | Implementar filtros, seleção, ordenação e paginação | ⏳ |
+| F7 | Business Logic | Adicionar validações e lógica de negócio aos serviços | ⏳ |
+| F8 | Authentication | Proteger aplicações e serviços por autenticação | ⏳ |
+| F9 | Authorization | Controlar acesso aos dados e operações por autorização | ⏳ |
 
 ## 🅶 Bloco G — SAP Fiori Data Applications
 
-G1 Material Master Explorer · G2 Procurement Explorer · G3 Quality Cockpit · G4 Inventory Cockpit · G5 Manufacturing Cockpit · G6 MES Production Cockpit.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| G1 | Material Master Explorer | Criar uma aplicação Fiori para consulta do modelo de materiais | ⏳ |
+| G2 | Procurement Explorer | Explorar fornecedores, materiais, Info Records e dados de compras | ⏳ |
+| G3 | Quality Cockpit | Visualizar informações e indicadores do contexto QM | ⏳ |
+| G4 | Inventory Cockpit | Visualizar estoque por material, centro e localização | ⏳ |
+| G5 | Manufacturing Cockpit | Acompanhar ordens, operações, centros de trabalho e produção | ⏳ |
+| G6 | MES Production Cockpit | Consumir dados MES e apresentar produção, scrap, recursos e downtime | ⏳ |
 
 ## 🅷 Bloco H — Analytics & Business KPIs
 
-KPIs de Procurement, Inventory, Production, Quality e MES, desenvolvidos sobre modelos previamente validados no projeto.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| H1 | Procurement Analytics | Analisar spend, preços, fornecedores e lead time | ⏳ |
+| H2 | Supplier Performance | Construir indicadores de desempenho de fornecedores | ⏳ |
+| H3 | Inventory Analytics | Analisar estoque, cobertura e materiais críticos | ⏳ |
+| H4 | Production Analytics | Acompanhar produção, quantidades e desempenho operacional | ⏳ |
+| H5 | Quality Analytics | Construir indicadores de inspeção e qualidade | ⏳ |
+| H6 | MES Operations Analytics | Analisar throughput, scrap, downtime e utilização de recursos | ⏳ |
 
 ## 🅸 Bloco I — Integration & Event-Driven Data
 
-I1 REST Data Ingestion · I2 Integration Suite → HANA · I3 MES → Integration Suite · I4 Event Mesh · I5 Manufacturing Events · I6 Failure / Retry / DLQ · I7 Idempotent Data Ingestion.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| I1 | REST Data Ingestion | Ingerir dados externos através de APIs REST | ⏳ |
+| I2 | Integration Suite → HANA | Integrar SAP Integration Suite ao SAP HANA Cloud | ⏳ |
+| I3 | MES → Integration Suite | Simular ingestão de informações provenientes de um MES | ⏳ |
+| I4 | Event Mesh | Introduzir comunicação orientada a eventos no pipeline de dados | ⏳ |
+| I5 | Manufacturing Events | Processar eventos fictícios de manufatura | ⏳ |
+| I6 | Failure / Retry / DLQ | Explorar resiliência, retry e tratamento de mensagens com falha | ⏳ |
+| I7 | Idempotent Data Ingestion | Evitar efeitos duplicados durante ingestão e reprocessamento | ⏳ |
 
 ## 🅹 Bloco J — Cloud-Native Data Applications
 
-J1 Containers Foundation · J2 Docker · J3 Kubernetes Foundation · J4 SAP BTP Kyma Runtime · J5 Containerized CAP Service · J6 HANA Service Binding · J7 MES Event Microservice · J8 Cloud Foundry vs. Kyma.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| J1 | Containers Foundation | Compreender imagens, containers e fundamentos de execução isolada | ⏳ |
+| J2 | Docker | Criar e executar aplicações containerizadas | ⏳ |
+| J3 | Kubernetes Foundation | Aprender pods, deployments, services, namespaces e configuração | ⏳ |
+| J4 | SAP BTP Kyma Runtime | Utilizar Kubernetes gerenciado dentro do ecossistema SAP BTP | ⏳ |
+| J5 | Containerized CAP Service | Executar um serviço CAP em arquitetura containerizada | ⏳ |
+| J6 | HANA Service Binding | Conectar aplicações cloud-native ao SAP HANA Cloud | ⏳ |
+| J7 | MES Event Microservice | Construir um microserviço para processamento de eventos MES | ⏳ |
+| J8 | Cloud Foundry vs. Kyma | Implementar e comparar arquiteturas equivalentes nos dois runtimes | ⏳ |
 
 ## 🅺 Bloco K — AI-Ready Data
 
-K1 AI-ready Datasets · K2 Business Semantics · K3 Vector Concepts · K4 Embeddings · K5 SAP HANA Vector Capabilities · K6 Semantic Search · K7 RAG Foundation.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| K1 | AI-ready Datasets | Preparar datasets confiáveis para consumo por soluções de IA | ⏳ |
+| K2 | Business Semantics | Adicionar contexto funcional e semântico aos dados | ⏳ |
+| K3 | Vector Concepts | Compreender representação vetorial e similaridade | ⏳ |
+| K4 | Embeddings | Gerar e utilizar representações vetoriais de informações | ⏳ |
+| K5 | SAP HANA Vector Capabilities | Explorar capacidades vetoriais disponíveis no SAP HANA Cloud | ⏳ |
+| K6 | Semantic Search | Implementar busca baseada em significado e similaridade | ⏳ |
+| K7 | RAG Foundation | Construir fundamentos de Retrieval-Augmented Generation sobre dados governados | ⏳ |
 
 ## 🅻 Bloco L — AI-Powered Manufacturing
 
-L1 Procurement Assistant · L2 Inventory Assistant · L3 Quality Assistant · L4 Production Assistant · L5 MES Manufacturing Assistant.
+| # | Cenário | Objetivo | Status |
+|---|---|---|---|
+| L1 | Procurement Assistant | Consultar e interpretar informações fictícias de compras com IA | ⏳ |
+| L2 | Inventory Assistant | Analisar estoque e situações críticas utilizando linguagem natural | ⏳ |
+| L3 | Quality Assistant | Investigar indicadores e ocorrências de qualidade com IA | ⏳ |
+| L4 | Production Assistant | Interpretar ordens, produção e desvios operacionais | ⏳ |
+| L5 | MES Manufacturing Assistant | Explorar recursos, eventos, scrap e downtime por meio de IA | ⏳ |
 
 ---
 
