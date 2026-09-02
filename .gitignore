@@ -1,0 +1,47 @@
+﻿# Node.js / CAP
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment and secrets
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# SAP / Cloud Foundry
+.cf/
+*.mtar
+
+# IDE
+.vscode/
+.idea/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Local or private datasets
+datasets/private/
+datasets/local/
+
+# Generated artifacts
+gen/
+dist/
+mta_archives/
