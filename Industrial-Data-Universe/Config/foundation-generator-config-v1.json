@@ -1,0 +1,66 @@
+﻿{
+  "configuration": {
+    "id": "FOUNDATION_GENERATOR_CONFIG_V1",
+    "version": "1.0.0",
+    "status": "APPROVED",
+    "blueprint_id": "INDUSTRIAL_DATA_UNIVERSE_V1",
+    "blueprint_version": "1.0.0",
+    "laboratory": "LAB_A1",
+    "target_schema": "LAB_A1",
+    "seed": 20260903,
+    "encoding": "UTF-8",
+    "delimiter": ",",
+    "include_header": true
+  },
+  "company": {
+    "id": "FIG",
+    "name": "Fictional Industrial Manufacturing Group",
+    "data_classification": "SYNTHETIC_EDUCATIONAL_ONLY"
+  },
+  "output": {
+    "root_directory": "Industrial-Data-Universe/Datasets/Foundation",
+    "valid_directory": "Valid",
+    "invalid_directory": "Invalid",
+    "validation_directory": "Validation"
+  },
+  "volumes": {
+    "plants": 20,
+    "materials": 300,
+    "storage_locations_minimum": 150,
+    "storage_locations_maximum": 180,
+    "material_plants_minimum": 900,
+    "material_plants_maximum": 1200,
+    "material_storage_locations_minimum": 2000,
+    "material_storage_locations_maximum": 3000
+  },
+  "files": {
+    "plants": "01-plants.csv",
+    "materials": "02-materials.csv",
+    "storage_locations": "03-storage-locations.csv",
+    "material_plants": "04-material-plants.csv",
+    "material_storage_locations": "05-material-storage-locations.csv"
+  },
+  "load_order": [
+    "PLANT",
+    "MATERIAL",
+    "STORAGE_LOCATION",
+    "MATERIAL_PLANT",
+    "MATERIAL_STORAGE_LOCATION"
+  ],
+  "negative_tests": {
+    "duplicate_plant": "01-duplicate-plant.csv",
+    "duplicate_material": "02-duplicate-material.csv",
+    "orphan_storage_location": "03-orphan-storage-location.csv",
+    "orphan_material_plant": "04-orphan-material-plant.csv",
+    "orphan_material_storage_location": "05-orphan-material-storage-location.csv"
+  },
+  "validation": {
+    "reject_duplicate_primary_keys": true,
+    "reject_orphan_foreign_keys": true,
+    "reject_blank_required_fields": true,
+    "validate_target_lengths": true,
+    "generate_sha256": true,
+    "generate_manifest": true,
+    "generate_markdown_report": true
+  }
+}

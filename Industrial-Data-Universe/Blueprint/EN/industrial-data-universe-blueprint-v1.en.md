@@ -1,4 +1,4 @@
-# Industrial Data Universe Blueprint v1
+﻿# Industrial Data Universe Blueprint v1
 
 **🌐 Language / Idioma:** [🇧🇷 Português](./industrial-data-universe-blueprint-v1.md) | 🇺🇸 **English**
 
@@ -16,7 +16,7 @@ This blueprint defines the project's complete industrial universe early without 
 ```mermaid
 flowchart TB
     BP["Industrial Data Universe Blueprint"]:::blueprint
-    F["Foundation Package<br/>LAB_02"]:::active
+    F["Foundation Package<br/>LAB_A1"]:::active
     PP["PP Master Data"]:::future
     QM["QM Master Data"]:::future
     WM["WM Master Data"]:::future
@@ -43,7 +43,7 @@ flowchart TB
     classDef hana fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E,stroke-width:3px;
 ```
 
-## LAB_02 package to be materialized
+## LAB_A1 package to be materialized
 
 | Entity | Volume |
 |---|---:|
@@ -74,7 +74,7 @@ This aligns with SAP's Plant concept as a logistics unit used by production, pro
 
 | Domain | Stage | Status |
 |---|---|---|
-| Foundation | DOC 02 / LAB_02 | Materialize now |
+| Foundation | DOC 02 / LAB_A1 | Materialize now |
 | Supplier / Procurement | A4-A6 | Blueprint until validation |
 | PP Master Data | A7 | Blueprint until validation |
 | QM Master Data | A6/A7 | Blueprint until validation |
@@ -108,4 +108,4 @@ Production inspections also require a validated scenario. Origin 03 supports in-
 
 ## Next action
 
-Implement **Foundation Generator v1** from this blueprint, generate the five valid LAB_02 CSV files, create negative-test packages, and run local validation before any SAP HANA Cloud import.
+Implement **Foundation Generator v1** from this blueprint, generate the five valid LAB_A1 CSV files, create negative-test packages, and run local validation before any SAP HANA Cloud import.

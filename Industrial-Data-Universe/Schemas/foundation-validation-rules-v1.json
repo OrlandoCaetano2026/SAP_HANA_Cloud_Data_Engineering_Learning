@@ -1,0 +1,181 @@
+﻿{
+  "validation_rules": {
+    "id": "FOUNDATION_VALIDATION_RULES_V1",
+    "version": "1.0.0",
+    "status": "APPROVED",
+    "contract_id": "FOUNDATION_DATASET_CONTRACT_V1",
+    "laboratory": "LAB_A1",
+    "stop_on_unexpected_error": true
+  },
+  "global_rules": {
+    "encoding": "UTF-8",
+    "delimiter": ",",
+    "header_required": true,
+    "reject_blank_required_fields": true,
+    "reject_duplicate_primary_keys": true,
+    "reject_orphan_foreign_keys": true,
+    "reject_invalid_column_count": true,
+    "reject_invalid_column_order": true,
+    "reject_values_exceeding_maximum_length": true,
+    "reject_values_outside_allowed_values": true
+  },
+  "volume_rules": [
+    {
+      "dataset_id": "PLANTS",
+      "exact_count": 20
+    },
+    {
+      "dataset_id": "MATERIALS",
+      "exact_count": 300
+    },
+    {
+      "dataset_id": "STORAGE_LOCATIONS",
+      "minimum_count": 150,
+      "maximum_count": 180
+    },
+    {
+      "dataset_id": "MATERIAL_PLANTS",
+      "minimum_count": 900,
+      "maximum_count": 1200
+    },
+    {
+      "dataset_id": "MATERIAL_STORAGE_LOCATIONS",
+      "minimum_count": 2000,
+      "maximum_count": 3000
+    }
+  ],
+  "business_rules": [
+    {
+      "rule_id": "BR-001",
+      "dataset_id": "PLANTS",
+      "description": "WERKS must contain exactly four characters.",
+      "columns": [
+        "WERKS"
+      ],
+      "validation_type": "EXACT_LENGTH",
+      "expected_length": 4
+    },
+    {
+      "rule_id": "BR-002",
+      "dataset_id": "STORAGE_LOCATIONS",
+      "description": "LGORT must contain exactly four characters.",
+      "columns": [
+        "LGORT"
+      ],
+      "validation_type": "EXACT_LENGTH",
+      "expected_length": 4
+    },
+    {
+      "rule_id": "BR-003",
+      "dataset_id": "MATERIALS",
+      "description": "MATNR must start with an approved family prefix.",
+      "columns": [
+        "MATNR"
+      ],
+      "validation_type": "PREFIX_IN_SET",
+      "allowed_prefixes": [
+        "RM-",
+        "EC-",
+        "MC-",
+        "SA-",
+        "FG-",
+        "PK-"
+      ]
+    },
+    {
+      "rule_id": "BR-004",
+      "dataset_id": "MATERIALS",
+      "description": "Material type must be coherent with its material family.",
+      "columns": [
+        "MATNR",
+        "MTART"
+      ],
+      "validation_type": "PREFIX_VALUE_MAPPING",
+      "mapping": {
+        "RM-": [
+          "ROH"
+        ],
+        "EC-": [
+          "ROH"
+        ],
+        "MC-": [
+          "ROH"
+        ],
+        "SA-": [
+          "HALB"
+        ],
+        "FG-": [
+          "FERT"
+        ],
+        "PK-": [
+          "VERP"
+        ]
+      }
+    },
+    {
+      "rule_id": "BR-005",
+      "dataset_id": "MATERIAL_PLANTS",
+      "description": "Internally produced materials must use an approved manufacturing-capable plant.",
+      "columns": [
+        "MATNR",
+        "WERKS",
+        "PROCUREMENT_TYPE"
+      ],
+      "validation_type": "CONDITIONAL_PLANT_CAPABILITY",
+      "condition": {
+        "PROCUREMENT_TYPE": "E"
+      },
+      "required_capability": "PRODUCTION"
+    },
+    {
+      "rule_id": "BR-006",
+      "dataset_id": "MATERIAL_STORAGE_LOCATIONS",
+      "description": "Storage status must be A or I.",
+      "columns": [
+        "STORAGE_STATUS"
+      ],
+      "validation_type": "VALUE_IN_SET",
+      "allowed_values": [
+        "A",
+        "I"
+      ]
+    }
+  ],
+  "negative_test_expectations": [
+    {
+      "file_name": "01-duplicate-plant.csv",
+      "expected_failure": "DUPLICATE_PRIMARY_KEY",
+      "expected_dataset": "PLANTS"
+    },
+    {
+      "file_name": "02-duplicate-material.csv",
+      "expected_failure": "DUPLICATE_PRIMARY_KEY",
+      "expected_dataset": "MATERIALS"
+    },
+    {
+      "file_name": "03-orphan-storage-location.csv",
+      "expected_failure": "ORPHAN_FOREIGN_KEY",
+      "expected_dataset": "STORAGE_LOCATIONS"
+    },
+    {
+      "file_name": "04-orphan-material-plant.csv",
+      "expected_failure": "ORPHAN_FOREIGN_KEY",
+      "expected_dataset": "MATERIAL_PLANTS"
+    },
+    {
+      "file_name": "05-orphan-material-storage-location.csv",
+      "expected_failure": "ORPHAN_COMPOSITE_FOREIGN_KEY",
+      "expected_dataset": "MATERIAL_STORAGE_LOCATIONS"
+    }
+  ],
+  "reporting": {
+    "generate_json_manifest": true,
+    "generate_markdown_report": true,
+    "calculate_sha256": true,
+    "include_dataset_counts": true,
+    "include_primary_key_results": true,
+    "include_foreign_key_results": true,
+    "include_business_rule_results": true,
+    "include_negative_test_results": true
+  }
+}

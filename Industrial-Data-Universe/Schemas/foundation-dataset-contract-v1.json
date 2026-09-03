@@ -1,0 +1,303 @@
+﻿{
+  "contract": {
+    "id": "FOUNDATION_DATASET_CONTRACT_V1",
+    "version": "1.0.0",
+    "status": "APPROVED",
+    "blueprint_id": "INDUSTRIAL_DATA_UNIVERSE_V1",
+    "configuration_id": "FOUNDATION_GENERATOR_CONFIG_V1",
+    "laboratory": "LAB_A1",
+    "target_schema": "LAB_A1",
+    "encoding": "UTF-8",
+    "delimiter": ",",
+    "include_header": true
+  },
+  "datasets": [
+    {
+      "sequence": 1,
+      "dataset_id": "PLANTS",
+      "file_name": "01-plants.csv",
+      "target_table": "LAB_A1.PLANT",
+      "primary_key": [
+        "WERKS"
+      ],
+      "foreign_keys": [],
+      "columns": [
+        {
+          "name": "WERKS",
+          "position": 1,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 4,
+          "required": true
+        },
+        {
+          "name": "PLANT_NAME",
+          "position": 2,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 100,
+          "required": true
+        },
+        {
+          "name": "COUNTRY",
+          "position": 3,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+      "sequence": 2,
+      "dataset_id": "MATERIALS",
+      "file_name": "02-materials.csv",
+      "target_table": "LAB_A1.MATERIAL",
+      "primary_key": [
+        "MATNR"
+      ],
+      "foreign_keys": [],
+      "columns": [
+        {
+          "name": "MATNR",
+          "position": 1,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 40,
+          "required": true
+        },
+        {
+          "name": "DESCRIPTION",
+          "position": 2,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 100,
+          "required": true
+        },
+        {
+          "name": "MTART",
+          "position": 3,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 4,
+          "required": true
+        },
+        {
+          "name": "MATKL",
+          "position": 4,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 9,
+          "required": true
+        },
+        {
+          "name": "MEINS",
+          "position": 5,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 3,
+          "required": true
+        }
+      ]
+    },
+    {
+      "sequence": 3,
+      "dataset_id": "STORAGE_LOCATIONS",
+      "file_name": "03-storage-locations.csv",
+      "target_table": "LAB_A1.STORAGE_LOCATION",
+      "primary_key": [
+        "WERKS",
+        "LGORT"
+      ],
+      "foreign_keys": [
+        {
+          "name": "FK_STORAGE_LOCATION_PLANT",
+          "source_columns": [
+            "WERKS"
+          ],
+          "referenced_dataset": "PLANTS",
+          "referenced_columns": [
+            "WERKS"
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "WERKS",
+          "position": 1,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 4,
+          "required": true
+        },
+        {
+          "name": "LGORT",
+          "position": 2,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 4,
+          "required": true
+        },
+        {
+          "name": "STORAGE_LOCATION_NAME",
+          "position": 3,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 100,
+          "required": true
+        }
+      ]
+    },
+    {
+      "sequence": 4,
+      "dataset_id": "MATERIAL_PLANTS",
+      "file_name": "04-material-plants.csv",
+      "target_table": "LAB_A1.MATERIAL_PLANT",
+      "primary_key": [
+        "MATNR",
+        "WERKS"
+      ],
+      "foreign_keys": [
+        {
+          "name": "FK_MATERIAL_PLANT_MATERIAL",
+          "source_columns": [
+            "MATNR"
+          ],
+          "referenced_dataset": "MATERIALS",
+          "referenced_columns": [
+            "MATNR"
+          ]
+        },
+        {
+          "name": "FK_MATERIAL_PLANT_PLANT",
+          "source_columns": [
+            "WERKS"
+          ],
+          "referenced_dataset": "PLANTS",
+          "referenced_columns": [
+            "WERKS"
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "MATNR",
+          "position": 1,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 40,
+          "required": true
+        },
+        {
+          "name": "WERKS",
+          "position": 2,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 4,
+          "required": true
+        },
+        {
+          "name": "PROCUREMENT_TYPE",
+          "position": 3,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 1,
+          "required": true,
+          "allowed_values": [
+            "E",
+            "F",
+            "X"
+          ]
+        },
+        {
+          "name": "MRP_TYPE",
+          "position": 4,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 2,
+          "required": true,
+          "allowed_values": [
+            "PD",
+            "VB",
+            "ND"
+          ]
+        }
+      ]
+    },
+    {
+      "sequence": 5,
+      "dataset_id": "MATERIAL_STORAGE_LOCATIONS",
+      "file_name": "05-material-storage-locations.csv",
+      "target_table": "LAB_A1.MATERIAL_STORAGE_LOCATION",
+      "primary_key": [
+        "MATNR",
+        "WERKS",
+        "LGORT"
+      ],
+      "foreign_keys": [
+        {
+          "name": "FK_MAT_SLOC_MATERIAL_PLANT",
+          "source_columns": [
+            "MATNR",
+            "WERKS"
+          ],
+          "referenced_dataset": "MATERIAL_PLANTS",
+          "referenced_columns": [
+            "MATNR",
+            "WERKS"
+          ]
+        },
+        {
+          "name": "FK_MAT_SLOC_STORAGE_LOCATION",
+          "source_columns": [
+            "WERKS",
+            "LGORT"
+          ],
+          "referenced_dataset": "STORAGE_LOCATIONS",
+          "referenced_columns": [
+            "WERKS",
+            "LGORT"
+          ]
+        }
+      ],
+      "columns": [
+        {
+          "name": "MATNR",
+          "position": 1,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 40,
+          "required": true
+        },
+        {
+          "name": "WERKS",
+          "position": 2,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 4,
+          "required": true
+        },
+        {
+          "name": "LGORT",
+          "position": 3,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 4,
+          "required": true
+        },
+        {
+          "name": "STORAGE_STATUS",
+          "position": 4,
+          "logical_type": "STRING",
+          "hana_type": "NVARCHAR",
+          "maximum_length": 1,
+          "required": true,
+          "allowed_values": [
+            "A",
+            "I"
+          ]
+        }
+      ]
+    }
+  ]
+}

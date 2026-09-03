@@ -1,4 +1,4 @@
-# Industrial Data Universe Blueprint v1
+﻿# Industrial Data Universe Blueprint v1
 
 **🌐 Idioma / Language:** 🇧🇷 **Português** | [🇺🇸 English](./industrial-data-universe-blueprint-v1.en.md)
 
@@ -16,7 +16,7 @@ Este blueprint define desde o início o universo industrial completo do projeto,
 ```mermaid
 flowchart TB
     BP["Industrial Data Universe Blueprint"]:::blueprint
-    F["Foundation Package<br/>LAB_02"]:::active
+    F["Foundation Package<br/>LAB_A1"]:::active
     PP["PP Master Data"]:::future
     QM["QM Master Data"]:::future
     WM["WM Master Data"]:::future
@@ -43,7 +43,7 @@ flowchart TB
     classDef hana fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E,stroke-width:3px;
 ```
 
-## Pacote que será materializado no LAB_02
+## Pacote que será materializado no LAB_A1
 
 | Entidade | Volume |
 |---|---:|
@@ -74,7 +74,7 @@ A definição está alinhada ao conceito SAP de Plant como unidade logística us
 
 | Domínio | Momento | Situação |
 |---|---|---|
-| Foundation | DOC 02 / LAB_02 | Materializar agora |
+| Foundation | DOC 02 / LAB_A1 | Materializar agora |
 | Supplier / Procurement | A4-A6 | Blueprint até validação |
 | PP Master Data | A7 | Blueprint até validação |
 | QM Master Data | A6/A7 | Blueprint até validação |
@@ -108,4 +108,4 @@ Inspeções produtivas também exigem definição prévia do cenário. Origem 03
 
 ## Próxima ação
 
-Implementar o **Foundation Generator v1** usando este blueprint, gerar os cinco CSVs válidos do LAB_02, criar os pacotes negativos e executar a validação local antes de qualquer importação no SAP HANA Cloud.
+Implementar o **Foundation Generator v1** usando este blueprint, gerar os cinco CSVs válidos do LAB_A1, criar os pacotes negativos e executar a validação local antes de qualquer importação no SAP HANA Cloud.

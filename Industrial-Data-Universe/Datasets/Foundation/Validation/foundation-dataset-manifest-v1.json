@@ -1,0 +1,142 @@
+{
+  "manifest": {
+    "id": "FOUNDATION_DATASET_MANIFEST_V1",
+    "version": "1.0.0",
+    "generated_at_utc": "2026-09-03T14:50:39.896629+00:00",
+    "laboratory": "LAB_A1",
+    "target_schema": "LAB_A1",
+    "seed": 20260903,
+    "configuration_id": "FOUNDATION_GENERATOR_CONFIG_V1",
+    "contract_id": "FOUNDATION_DATASET_CONTRACT_V1",
+    "validation_rules_id": "FOUNDATION_VALIDATION_RULES_V1",
+    "overall_status": "PASSED"
+  },
+  "valid_datasets": [
+    {
+      "dataset_id": "PLANTS",
+      "file_name": "01-plants.csv",
+      "target_table": "LAB_A1.PLANT",
+      "row_count": 20,
+      "primary_key": [
+        "WERKS"
+      ],
+      "foreign_key_count": 0,
+      "sha256": "66579214870cd337e74d3301118877ac5730ed244194c3054e2e951dfc8ac15d",
+      "size_bytes": 737,
+      "status": "PASSED",
+      "errors": []
+    },
+    {
+      "dataset_id": "MATERIALS",
+      "file_name": "02-materials.csv",
+      "target_table": "LAB_A1.MATERIAL",
+      "row_count": 300,
+      "primary_key": [
+        "MATNR"
+      ],
+      "foreign_key_count": 0,
+      "sha256": "d169f14862001df8f12a31d3f120ec90fe575aca88a6a2d78f48b864842df64b",
+      "size_bytes": 15644,
+      "status": "PASSED",
+      "errors": []
+    },
+    {
+      "dataset_id": "STORAGE_LOCATIONS",
+      "file_name": "03-storage-locations.csv",
+      "target_table": "LAB_A1.STORAGE_LOCATION",
+      "row_count": 152,
+      "primary_key": [
+        "WERKS",
+        "LGORT"
+      ],
+      "foreign_key_count": 1,
+      "sha256": "84986740102b4be44a3c56a4de6a49797ce3933c979f7dfff7da2fc2edbbeb60",
+      "size_bytes": 4171,
+      "status": "PASSED",
+      "errors": []
+    },
+    {
+      "dataset_id": "MATERIAL_PLANTS",
+      "file_name": "04-material-plants.csv",
+      "target_table": "LAB_A1.MATERIAL_PLANT",
+      "row_count": 1080,
+      "primary_key": [
+        "MATNR",
+        "WERKS"
+      ],
+      "foreign_key_count": 2,
+      "sha256": "6972ebf27066f71fc32bb0d148d37550dd902ae864b6b221dc6581381aecd98e",
+      "size_bytes": 21638,
+      "status": "PASSED",
+      "errors": []
+    },
+    {
+      "dataset_id": "MATERIAL_STORAGE_LOCATIONS",
+      "file_name": "05-material-storage-locations.csv",
+      "target_table": "LAB_A1.MATERIAL_STORAGE_LOCATION",
+      "row_count": 2163,
+      "primary_key": [
+        "MATNR",
+        "WERKS",
+        "LGORT"
+      ],
+      "foreign_key_count": 2,
+      "sha256": "9ca6d88b714b4458d14f81be70ce62de299496bbef8e77b7d01f15a4426acb7b",
+      "size_bytes": 47619,
+      "status": "PASSED",
+      "errors": []
+    }
+  ],
+  "negative_tests": [
+    {
+      "file_name": "01-duplicate-plant.csv",
+      "dataset_id": "PLANTS",
+      "expected_failure": "DUPLICATE_PRIMARY_KEY",
+      "row_count": 2,
+      "sha256": "5f1f99de1139a816ff9b45f23445644e814076f18b187bed5cfe1107ce1f096f",
+      "size_bytes": 95,
+      "status": "PASSED",
+      "details": "DUPLICATE_PRIMARY_KEY detected"
+    },
+    {
+      "file_name": "02-duplicate-material.csv",
+      "dataset_id": "MATERIALS",
+      "expected_failure": "DUPLICATE_PRIMARY_KEY",
+      "row_count": 2,
+      "sha256": "e88acbd2dc42eb961557f2f497b0500a5e6e3b28b320055ba60e5d76b9959412",
+      "size_bytes": 140,
+      "status": "PASSED",
+      "details": "DUPLICATE_PRIMARY_KEY detected"
+    },
+    {
+      "file_name": "03-orphan-storage-location.csv",
+      "dataset_id": "STORAGE_LOCATIONS",
+      "expected_failure": "ORPHAN_FOREIGN_KEY",
+      "row_count": 1,
+      "sha256": "21b8043a8236d5404870bcef9362742c4759c221ffa6d4aca691c2908d8267a7",
+      "size_bytes": 76,
+      "status": "PASSED",
+      "details": "ORPHAN_FOREIGN_KEY: constraint=FK_STORAGE_LOCATION_PLANT, row=2, key=('9999',)"
+    },
+    {
+      "file_name": "04-orphan-material-plant.csv",
+      "dataset_id": "MATERIAL_PLANTS",
+      "expected_failure": "ORPHAN_FOREIGN_KEY",
+      "row_count": 1,
+      "sha256": "66518c8eab2701586c52263411a6cf14a12a4c82423627da31e19048a92e242c",
+      "size_bytes": 58,
+      "status": "PASSED",
+      "details": "ORPHAN_FOREIGN_KEY: constraint=FK_MATERIAL_PLANT_MATERIAL, row=2, key=('FG-999999',)"
+    },
+    {
+      "file_name": "05-orphan-material-storage-location.csv",
+      "dataset_id": "MATERIAL_STORAGE_LOCATIONS",
+      "expected_failure": "ORPHAN_COMPOSITE_FOREIGN_KEY",
+      "row_count": 1,
+      "sha256": "ffbea965dcc99cd60a86aefc03fd646d5d71f35abd17afead3cf7ece69155c7c",
+      "size_bytes": 55,
+      "status": "PASSED",
+      "details": "ORPHAN_FOREIGN_KEY: constraint=FK_MAT_SLOC_STORAGE_LOCATION, row=2, key=('1000', '9999')"
+    }
+  ]
+}

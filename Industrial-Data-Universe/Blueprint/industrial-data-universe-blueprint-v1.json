@@ -1,4 +1,4 @@
-{
+﻿{
   "blueprint": {
     "id": "INDUSTRIAL_DATA_UNIVERSE_V1",
     "version": "1.0.0",
@@ -20,7 +20,7 @@
     ]
   },
   "foundation_package": {
-    "lab": "LAB_02",
+    "lab": "LAB_A1",
     "target_schema": "LAB_A1",
     "status": "NEXT_TO_IMPLEMENT",
     "volumes": {
