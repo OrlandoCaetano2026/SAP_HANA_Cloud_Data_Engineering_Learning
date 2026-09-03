@@ -344,7 +344,7 @@ New evidence will be stored under `Evidences/LAB_02/`, restarting from `01`.
 
 ## 👤 Autor
 
-### Orlando dos Santos Caetano
+### Orlando Caetano
 
 **SAP MM · PP · QM · WM | MES | SAP Integration | Data Engineering | Generative AI**
 
