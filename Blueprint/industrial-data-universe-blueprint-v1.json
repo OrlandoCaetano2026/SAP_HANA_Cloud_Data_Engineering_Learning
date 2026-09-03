@@ -1,0 +1,742 @@
+{
+  "blueprint": {
+    "id": "INDUSTRIAL_DATA_UNIVERSE_V1",
+    "version": "1.0.0",
+    "status": "APPROVED_FOR_INCREMENTAL_IMPLEMENTATION",
+    "created_on": "2026-09-03",
+    "seed": 20260903,
+    "repository": "SAP_HANA_Cloud_Data_Engineering_Learning",
+    "company": {
+      "id": "FIG",
+      "name": "Fictional Industrial Manufacturing Group",
+      "data_classification": "SYNTHETIC_EDUCATIONAL_ONLY"
+    },
+    "principles": [
+      "Design the complete industrial universe early",
+      "Materialize each domain only after technical and functional validation",
+      "Use stable identifiers and a deterministic seed",
+      "Keep master data, transactions, events and negative-test data separated",
+      "Never use real company data or credentials"
+    ]
+  },
+  "foundation_package": {
+    "lab": "LAB_02",
+    "target_schema": "LAB_A1",
+    "status": "NEXT_TO_IMPLEMENT",
+    "volumes": {
+      "plants": 20,
+      "storage_locations_target_range": [
+        150,
+        180
+      ],
+      "materials": 300,
+      "material_plants_target_range": [
+        900,
+        1200
+      ],
+      "material_storage_locations_target_range": [
+        2000,
+        3000
+      ]
+    }
+  },
+  "plants": [
+    {
+      "werks": "1000",
+      "plant_name": "Manufacturing Plant Alpha",
+      "country": "BRA",
+      "dominant_profile": "Industrial Systems",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1100",
+      "plant_name": "Manufacturing Plant Beta",
+      "country": "BRA",
+      "dominant_profile": "Industrial Systems",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1200",
+      "plant_name": "Electronic Components Plant",
+      "country": "BRA",
+      "dominant_profile": "Electronic Components",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1300",
+      "plant_name": "Mechanical Components Plant",
+      "country": "BRA",
+      "dominant_profile": "Mechanical Components",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1400",
+      "plant_name": "Precision Manufacturing Plant",
+      "country": "BRA",
+      "dominant_profile": "Precision Manufacturing",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1500",
+      "plant_name": "Heavy Equipment Plant",
+      "country": "BRA",
+      "dominant_profile": "Heavy Equipment",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1600",
+      "plant_name": "Custom Manufacturing Plant",
+      "country": "BRA",
+      "dominant_profile": "Engineer-to-Order",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1700",
+      "plant_name": "Industrial Automation Plant",
+      "country": "BRA",
+      "dominant_profile": "Industrial Automation",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1800",
+      "plant_name": "Measurement Systems Plant",
+      "country": "BRA",
+      "dominant_profile": "Measurement Systems",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "1900",
+      "plant_name": "Digital Equipment Plant",
+      "country": "BRA",
+      "dominant_profile": "Digital Equipment",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "2000",
+      "plant_name": "Southeast Logistics Plant",
+      "country": "BRA",
+      "dominant_profile": "Regional Logistics",
+      "profile_code": "LOG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING"
+      ]
+    },
+    {
+      "werks": "2100",
+      "plant_name": "South Logistics Plant",
+      "country": "BRA",
+      "dominant_profile": "Regional Logistics",
+      "profile_code": "LOG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING"
+      ]
+    },
+    {
+      "werks": "2200",
+      "plant_name": "Northeast Logistics Plant",
+      "country": "BRA",
+      "dominant_profile": "Regional Logistics",
+      "profile_code": "LOG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING"
+      ]
+    },
+    {
+      "werks": "2300",
+      "plant_name": "Central Distribution Plant",
+      "country": "BRA",
+      "dominant_profile": "Central Distribution",
+      "profile_code": "LOG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING"
+      ]
+    },
+    {
+      "werks": "2400",
+      "plant_name": "Prototype and Engineering Plant",
+      "country": "BRA",
+      "dominant_profile": "Prototype and Engineering",
+      "profile_code": "ENG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    },
+    {
+      "werks": "2500",
+      "plant_name": "Repair and Refurbishment Plant",
+      "country": "BRA",
+      "dominant_profile": "Repair and Refurbishment",
+      "profile_code": "SRV",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING"
+      ]
+    },
+    {
+      "werks": "2600",
+      "plant_name": "Calibration and Validation Plant",
+      "country": "BRA",
+      "dominant_profile": "Calibration and Validation",
+      "profile_code": "QLT",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING"
+      ]
+    },
+    {
+      "werks": "2700",
+      "plant_name": "Spare Parts Plant",
+      "country": "BRA",
+      "dominant_profile": "Spare Parts",
+      "profile_code": "LOG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING"
+      ]
+    },
+    {
+      "werks": "2800",
+      "plant_name": "Export Operations Plant",
+      "country": "BRA",
+      "dominant_profile": "Export Operations",
+      "profile_code": "LOG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING"
+      ]
+    },
+    {
+      "werks": "2900",
+      "plant_name": "Advanced Manufacturing Plant",
+      "country": "BRA",
+      "dominant_profile": "Advanced Manufacturing",
+      "profile_code": "MFG",
+      "multifunctional_processes": [
+        "PROCUREMENT",
+        "RECEIVING",
+        "QUALITY",
+        "PLANNING",
+        "STORAGE",
+        "INVENTORY",
+        "SHIPPING",
+        "PRODUCTION",
+        "MAINTENANCE"
+      ]
+    }
+  ],
+  "material_families": [
+    {
+      "prefix": "RM",
+      "range": "RM-100001..RM-100080",
+      "count": 80,
+      "category": "Raw Materials",
+      "default_mtart": "ROH"
+    },
+    {
+      "prefix": "EC",
+      "range": "EC-200001..EC-200060",
+      "count": 60,
+      "category": "Electronic Components",
+      "default_mtart": "ROH"
+    },
+    {
+      "prefix": "MC",
+      "range": "MC-300001..MC-300060",
+      "count": 60,
+      "category": "Mechanical Components",
+      "default_mtart": "ROH"
+    },
+    {
+      "prefix": "SA",
+      "range": "SA-400001..SA-400040",
+      "count": 40,
+      "category": "Semifinished Assemblies",
+      "default_mtart": "HALB"
+    },
+    {
+      "prefix": "FG",
+      "range": "FG-500001..FG-500040",
+      "count": 40,
+      "category": "Finished Goods",
+      "default_mtart": "FERT"
+    },
+    {
+      "prefix": "PK",
+      "range": "PK-600001..PK-600020",
+      "count": 20,
+      "category": "Packaging Materials",
+      "default_mtart": "VERP"
+    }
+  ],
+  "storage_location_templates": {
+    "MFG": [
+      [
+        "0001",
+        "Raw Materials"
+      ],
+      [
+        "0002",
+        "Electronic Components"
+      ],
+      [
+        "0003",
+        "Mechanical Components"
+      ],
+      [
+        "0004",
+        "Quality Inspection"
+      ],
+      [
+        "0005",
+        "Production Supply"
+      ],
+      [
+        "0006",
+        "Finished Goods"
+      ],
+      [
+        "0007",
+        "Blocked Materials"
+      ],
+      [
+        "0008",
+        "Shipping Area"
+      ]
+    ],
+    "LOG": [
+      [
+        "0001",
+        "Receiving Area"
+      ],
+      [
+        "0002",
+        "General Warehouse"
+      ],
+      [
+        "0003",
+        "Quality Inspection"
+      ],
+      [
+        "0004",
+        "Picking Area"
+      ],
+      [
+        "0005",
+        "Packing Area"
+      ],
+      [
+        "0006",
+        "Shipping Area"
+      ],
+      [
+        "0007",
+        "Blocked Materials"
+      ]
+    ],
+    "ENG": [
+      [
+        "0001",
+        "Prototype Materials"
+      ],
+      [
+        "0002",
+        "Engineering Samples"
+      ],
+      [
+        "0003",
+        "Quality Inspection"
+      ],
+      [
+        "0004",
+        "Prototype Assembly"
+      ],
+      [
+        "0005",
+        "Work in Process"
+      ],
+      [
+        "0006",
+        "Completed Prototypes"
+      ],
+      [
+        "0007",
+        "Blocked Materials"
+      ]
+    ],
+    "SRV": [
+      [
+        "0001",
+        "Incoming Equipment"
+      ],
+      [
+        "0002",
+        "Quality Inspection"
+      ],
+      [
+        "0003",
+        "Repair Components"
+      ],
+      [
+        "0004",
+        "Work in Process"
+      ],
+      [
+        "0005",
+        "Refurbished Equipment"
+      ],
+      [
+        "0006",
+        "Rejected Equipment"
+      ],
+      [
+        "0007",
+        "Spare Parts"
+      ],
+      [
+        "0008",
+        "Shipping Area"
+      ]
+    ],
+    "QLT": [
+      [
+        "0001",
+        "Incoming Samples"
+      ],
+      [
+        "0002",
+        "Inspection Area"
+      ],
+      [
+        "0003",
+        "Calibration Queue"
+      ],
+      [
+        "0004",
+        "Approved Materials"
+      ],
+      [
+        "0005",
+        "Rejected Materials"
+      ],
+      [
+        "0006",
+        "Reference Standards"
+      ],
+      [
+        "0007",
+        "Shipping Area"
+      ]
+    ]
+  },
+  "domain_roadmap": [
+    {
+      "domain": "Foundation",
+      "block": "A1 / DOC 02",
+      "status": "MATERIALIZE_NOW",
+      "entities": [
+        "PLANT",
+        "MATERIAL",
+        "STORAGE_LOCATION",
+        "MATERIAL_PLANT",
+        "MATERIAL_STORAGE_LOCATION"
+      ]
+    },
+    {
+      "domain": "MM Supplier",
+      "block": "A4-A6",
+      "status": "BLUEPRINT_ONLY",
+      "entities": [
+        "SUPPLIER",
+        "PURCHASING_ORGANIZATION",
+        "PURCHASING_GROUP",
+        "PURCHASING_INFO_RECORD",
+        "QUALITY_INFO_RECORD"
+      ]
+    },
+    {
+      "domain": "PP Master Data",
+      "block": "A7",
+      "status": "BLUEPRINT_ONLY",
+      "entities": [
+        "BOM_HEADER",
+        "BOM_ITEM",
+        "WORK_CENTER",
+        "ROUTING_HEADER",
+        "ROUTING_OPERATION",
+        "PRODUCTION_VERSION"
+      ]
+    },
+    {
+      "domain": "QM Master Data",
+      "block": "A6/A7",
+      "status": "BLUEPRINT_ONLY",
+      "entities": [
+        "INSPECTION_TYPE",
+        "INSPECTION_PLAN",
+        "INSPECTION_OPERATION",
+        "INSPECTION_CHARACTERISTIC"
+      ]
+    },
+    {
+      "domain": "WM Master Data",
+      "block": "A8",
+      "status": "BLUEPRINT_ONLY",
+      "entities": [
+        "WAREHOUSE",
+        "STORAGE_TYPE",
+        "STORAGE_SECTION",
+        "STORAGE_BIN"
+      ]
+    },
+    {
+      "domain": "MES Master Data",
+      "block": "A9",
+      "status": "BLUEPRINT_ONLY",
+      "entities": [
+        "MES_RESOURCE",
+        "MACHINE",
+        "SAP_MES_WORK_CENTER_MAPPING",
+        "SAP_MES_OPERATION_MAPPING"
+      ]
+    },
+    {
+      "domain": "Transactions",
+      "block": "E",
+      "status": "DEFER_UNTIL_MASTER_DATA_VALIDATED",
+      "entities": [
+        "PURCHASE_ORDER",
+        "GOODS_RECEIPT",
+        "MATERIAL_MOVEMENT",
+        "PRODUCTION_ORDER",
+        "PRODUCTION_ORDER_OPERATION",
+        "CONFIRMATION",
+        "INSPECTION_LOT",
+        "INSPECTION_RESULT",
+        "WAREHOUSE_MOVEMENT"
+      ]
+    },
+    {
+      "domain": "Events",
+      "block": "I",
+      "status": "DEFER_UNTIL_TRANSACTION_MODEL_VALIDATED",
+      "entities": [
+        "MES_EVENT",
+        "INTEGRATION_MESSAGE",
+        "RETRY_RECORD",
+        "DEAD_LETTER_RECORD",
+        "IDEMPOTENCY_RECORD"
+      ]
+    }
+  ],
+  "id_conventions": {
+    "material": "<FAMILY>-<6-digit sequence>",
+    "production_order": "PO-<YYYY>-<8-digit sequence>",
+    "inspection_lot": "IL-<ORIGIN>-<YYYY>-<8-digit sequence>",
+    "mes_event": "EVT-<UTC timestamp>-<sequence>",
+    "work_center": "WC-<PLANT>-<AREA>-<NN>",
+    "mes_resource": "RES-<PLANT>-<AREA>-<NNN>"
+  },
+  "temporal_rules": [
+    "Master data valid before dependent transaction date",
+    "Production order refers to a valid production version",
+    "Confirmation timestamp is after operation start",
+    "Goods receipt occurs after or together with permitted confirmation logic",
+    "Inspection lot creation depends on the approved inspection scenario",
+    "MES events preserve causal order and use idempotency keys"
+  ],
+  "quality_gates": [
+    "No duplicate primary keys",
+    "No orphan foreign keys",
+    "No required field is blank",
+    "All values respect HANA target lengths",
+    "All valid files pass validation before import",
+    "Invalid packages fail for the intended reason only",
+    "Record counts and checksums are written to the manifest"
+  ],
+  "future_event_catalog": [
+    "ORDER_RELEASED",
+    "OPERATION_STARTED",
+    "QUANTITY_CONFIRMED",
+    "SCRAP_REPORTED",
+    "DOWNTIME_STARTED",
+    "DOWNTIME_ENDED",
+    "INSPECTION_RESULT_RECORDED",
+    "ORDER_COMPLETED"
+  ],
+  "official_source_notes": [
+    {
+      "topic": "Plant and storage location",
+      "url": "https://learning.sap.com/courses/cross-functional-customizing-in-sap-s-4hana-materials-management/defining-and-assigning-plants"
+    },
+    {
+      "topic": "Production order master data",
+      "url": "https://learning.sap.com/courses/manage-production-orders-in-sap-s-4hana-manufacturing/analyzing-the-master-data-relevant-to-create-production-orders"
+    },
+    {
+      "topic": "Production quality inspection",
+      "url": "https://learning.sap.com/courses/applying-sap-s-4hana-quality-management/analyzing-master-data-for-inspections-in-production_ff603f94-3948-4a1a-9b49-cc613f6288a0"
+    }
+  ]
+}
