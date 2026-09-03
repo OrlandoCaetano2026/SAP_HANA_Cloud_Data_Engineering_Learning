@@ -344,7 +344,7 @@ As novas evidências serão armazenadas em `Evidences/LAB_02/`, com numeração 
 
 ## 👤 Autor
 
-### Orlando dos Santos Caetano
+### Orlando Caetano
 
 **SAP MM · PP · QM · WM | MES | SAP Integration | Data Engineering | Generative AI**
 
