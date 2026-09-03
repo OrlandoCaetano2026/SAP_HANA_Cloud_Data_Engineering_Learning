@@ -1,7 +1,7 @@
 {
   "blueprint": {
-    "id": "INDUSTRIAL_DATA_UNIVERSE_V1",
-    "version": "1.0.0",
+    "id": "INDUSTRIAL_DATA_UNIVERSE",
+    "version": "1.1.0",
     "status": "APPROVED_FOR_INCREMENTAL_IMPLEMENTATION",
     "created_on": "2026-09-03",
     "seed": 20260903,
@@ -17,12 +17,22 @@
       "Use stable identifiers and a deterministic seed",
       "Keep master data, transactions, events and negative-test data separated",
       "Never use real company data or credentials"
-    ]
+    ],
+    "last_updated_on": "2026-09-03",
+    "physical_schema_strategy": {
+      "strategy": "SHARED_EVOLUTIONARY_SCHEMA",
+      "current_schema": "INDUSTRIAL_DATA",
+      "previous_schema": "LAB_A1",
+      "migration_trigger_scenario": "A2",
+      "migration_status": "APPLIED",
+      "reason": "Replace the laboratory-specific namespace with a shared physical schema for multiple project scenarios.",
+      "rule": "Keep LAB identifiers for documentation and evidence folders while the physical SAP HANA Cloud schema evolves independently."
+    }
   },
   "foundation_package": {
     "lab": "LAB_A1",
-    "target_schema": "LAB_A1",
-    "status": "NEXT_TO_IMPLEMENT",
+    "target_schema": "INDUSTRIAL_DATA",
+    "status": "MATERIALIZED_AND_VALIDATED",
     "volumes": {
       "plants": 20,
       "storage_locations_target_range": [
@@ -38,6 +48,24 @@
         2000,
         3000
       ]
+    },
+    "scenario": "A1",
+    "document": "DOC_01",
+    "actual_volumes": {
+      "plants": 20,
+      "storage_locations": 152,
+      "materials": 300,
+      "material_plants": 1080,
+      "material_storage_locations": 2163,
+      "total_records": 3715,
+      "active_assignments": 2066,
+      "inactive_assignments": 97
+    },
+    "validation_result": {
+      "overall_status": "PASSED",
+      "orphan_foreign_keys": 0,
+      "duplicate_primary_keys": 0,
+      "evidence_count": 30
     }
   },
   "plants": [
@@ -57,7 +85,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1100",
@@ -75,7 +105,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1200",
@@ -93,7 +125,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR2",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1300",
@@ -111,7 +145,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR2",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1400",
@@ -129,7 +165,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1500",
@@ -147,7 +185,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1600",
@@ -165,7 +205,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1700",
@@ -183,7 +225,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1800",
@@ -201,7 +245,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "1900",
@@ -219,7 +265,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2000",
@@ -235,7 +283,9 @@
         "STORAGE",
         "INVENTORY",
         "SHIPPING"
-      ]
+      ],
+      "bukrs": "FBR3",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2100",
@@ -251,7 +301,9 @@
         "STORAGE",
         "INVENTORY",
         "SHIPPING"
-      ]
+      ],
+      "bukrs": "FBR3",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2200",
@@ -267,7 +319,9 @@
         "STORAGE",
         "INVENTORY",
         "SHIPPING"
-      ]
+      ],
+      "bukrs": "FBR3",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2300",
@@ -283,7 +337,9 @@
         "STORAGE",
         "INVENTORY",
         "SHIPPING"
-      ]
+      ],
+      "bukrs": "FBR3",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2400",
@@ -301,7 +357,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR4",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2500",
@@ -317,7 +375,9 @@
         "STORAGE",
         "INVENTORY",
         "SHIPPING"
-      ]
+      ],
+      "bukrs": "FBR4",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2600",
@@ -333,7 +393,9 @@
         "STORAGE",
         "INVENTORY",
         "SHIPPING"
-      ]
+      ],
+      "bukrs": "FBR4",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2700",
@@ -349,7 +411,9 @@
         "STORAGE",
         "INVENTORY",
         "SHIPPING"
-      ]
+      ],
+      "bukrs": "FBR3",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2800",
@@ -365,7 +429,9 @@
         "STORAGE",
         "INVENTORY",
         "SHIPPING"
-      ]
+      ],
+      "bukrs": "FBR3",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     },
     {
       "werks": "2900",
@@ -383,7 +449,9 @@
         "SHIPPING",
         "PRODUCTION",
         "MAINTENANCE"
-      ]
+      ],
+      "bukrs": "FBR1",
+      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
     }
   ],
   "material_families": [
@@ -593,8 +661,8 @@
   "domain_roadmap": [
     {
       "domain": "Foundation",
-      "block": "A1 / DOC 02",
-      "status": "MATERIALIZE_NOW",
+      "block": "A1 / DOC 01",
+      "status": "MATERIALIZED_AND_VALIDATED",
       "entities": [
         "PLANT",
         "MATERIAL",
@@ -604,13 +672,24 @@
       ]
     },
     {
+      "domain": "Enterprise Structure",
+      "block": "A2 / DOC 02",
+      "status": "IN_IMPLEMENTATION",
+      "entities": [
+        "COMPANY",
+        "COMPANY_CODE",
+        "PURCHASING_ORGANIZATION",
+        "PURCHASING_GROUP",
+        "PLANT_PURCHASING_ORG",
+        "PLANT.BUKRS"
+      ]
+    },
+    {
       "domain": "MM Supplier",
       "block": "A4-A6",
       "status": "BLUEPRINT_ONLY",
       "entities": [
         "SUPPLIER",
-        "PURCHASING_ORGANIZATION",
-        "PURCHASING_GROUP",
         "PURCHASING_INFO_RECORD",
         "QUALITY_INFO_RECORD"
       ]
@@ -662,16 +741,6 @@
       ]
     },
     {
-      "domain": "Currency and Exchange Rates",
-      "block": "Future procurement / analytics scenario",
-      "status": "BLUEPRINT_ONLY",
-      "entities": [
-        "CURRENCY",
-        "EXCHANGE_RATE_TYPE",
-        "EXCHANGE_RATE"
-      ]
-    },
-    {
       "domain": "Transactions",
       "block": "E",
       "status": "DEFER_UNTIL_MASTER_DATA_VALIDATED",
@@ -697,6 +766,16 @@
         "RETRY_RECORD",
         "DEAD_LETTER_RECORD",
         "IDEMPOTENCY_RECORD"
+      ]
+    },
+    {
+      "domain": "Currency and Exchange Rates",
+      "block": "Future procurement / analytics scenario",
+      "status": "BLUEPRINT_ONLY",
+      "entities": [
+        "CURRENCY",
+        "EXCHANGE_RATE_TYPE",
+        "EXCHANGE_RATE"
       ]
     }
   ],
@@ -749,12 +828,413 @@
       "url": "https://learning.sap.com/courses/applying-sap-s-4hana-quality-management/analyzing-master-data-for-inspections-in-production_ff603f94-3948-4a1a-9b49-cc613f6288a0"
     }
   ],
+  "enterprise_structure_package": {
+    "scenario": "A2",
+    "document": "DOC_02",
+    "lab": "LAB_A2",
+    "target_schema": "INDUSTRIAL_DATA",
+    "status": "IN_IMPLEMENTATION",
+    "objective": "Materialize the SAP-inspired enterprise structure while evolving the existing PLANT table.",
+    "entities": {
+      "COMPANY": {
+        "primary_key": [
+          "COMPANY_ID"
+        ],
+        "planned_records": 1
+      },
+      "COMPANY_CODE": {
+        "primary_key": [
+          "BUKRS"
+        ],
+        "foreign_keys": [
+          {
+            "columns": [
+              "COMPANY_ID"
+            ],
+            "references": "COMPANY(COMPANY_ID)"
+          }
+        ],
+        "planned_records": 4,
+        "records": [
+          {
+            "bukrs": "FBR1",
+            "company_id": "FIG",
+            "company_code_name": "Industrial Manufacturing Brazil",
+            "country": "BRA",
+            "currency": "BRL",
+            "profile": "MANUFACTURING"
+          },
+          {
+            "bukrs": "FBR2",
+            "company_id": "FIG",
+            "company_code_name": "Components Manufacturing Brazil",
+            "country": "BRA",
+            "currency": "BRL",
+            "profile": "COMPONENTS"
+          },
+          {
+            "bukrs": "FBR3",
+            "company_id": "FIG",
+            "company_code_name": "Logistics and Distribution Brazil",
+            "country": "BRA",
+            "currency": "BRL",
+            "profile": "LOGISTICS"
+          },
+          {
+            "bukrs": "FBR4",
+            "company_id": "FIG",
+            "company_code_name": "Engineering and Services Brazil",
+            "country": "BRA",
+            "currency": "BRL",
+            "profile": "ENGINEERING_SERVICES"
+          }
+        ]
+      },
+      "PURCHASING_ORGANIZATION": {
+        "primary_key": [
+          "EKORG"
+        ],
+        "planned_records": 5,
+        "records": [
+          {
+            "ekorg": "P100",
+            "purchasing_org_name": "Corporate Strategic Procurement",
+            "scope": "CROSS_COMPANY_CODE"
+          },
+          {
+            "ekorg": "P110",
+            "purchasing_org_name": "Manufacturing Procurement",
+            "scope": "COMPANY_CODE_GROUP",
+            "primary_bukrs": "FBR1"
+          },
+          {
+            "ekorg": "P120",
+            "purchasing_org_name": "Components Procurement",
+            "scope": "COMPANY_CODE_GROUP",
+            "primary_bukrs": "FBR2"
+          },
+          {
+            "ekorg": "P130",
+            "purchasing_org_name": "Logistics Procurement",
+            "scope": "COMPANY_CODE_GROUP",
+            "primary_bukrs": "FBR3"
+          },
+          {
+            "ekorg": "P140",
+            "purchasing_org_name": "Engineering and Services Procurement",
+            "scope": "COMPANY_CODE_GROUP",
+            "primary_bukrs": "FBR4"
+          }
+        ]
+      },
+      "PURCHASING_GROUP": {
+        "primary_key": [
+          "EKGRP"
+        ],
+        "planned_records": 12,
+        "modeling_note": "Purchasing groups represent buyer responsibility and are not physically constrained to one purchasing organization in A2.",
+        "records": [
+          {
+            "ekgrp": "G01",
+            "purchasing_group_name": "Metals and Raw Materials"
+          },
+          {
+            "ekgrp": "G02",
+            "purchasing_group_name": "Polymers and Chemicals"
+          },
+          {
+            "ekgrp": "G03",
+            "purchasing_group_name": "Electronic Components"
+          },
+          {
+            "ekgrp": "G04",
+            "purchasing_group_name": "Mechanical Components"
+          },
+          {
+            "ekgrp": "G05",
+            "purchasing_group_name": "Automation Components"
+          },
+          {
+            "ekgrp": "G06",
+            "purchasing_group_name": "Maintenance and MRO"
+          },
+          {
+            "ekgrp": "G07",
+            "purchasing_group_name": "Packaging Materials"
+          },
+          {
+            "ekgrp": "G08",
+            "purchasing_group_name": "Logistics Services"
+          },
+          {
+            "ekgrp": "G09",
+            "purchasing_group_name": "Engineering Services"
+          },
+          {
+            "ekgrp": "G10",
+            "purchasing_group_name": "Calibration Services"
+          },
+          {
+            "ekgrp": "G11",
+            "purchasing_group_name": "Capital Equipment"
+          },
+          {
+            "ekgrp": "G12",
+            "purchasing_group_name": "Strategic Sourcing"
+          }
+        ]
+      },
+      "PLANT_PURCHASING_ORG": {
+        "primary_key": [
+          "WERKS",
+          "EKORG"
+        ],
+        "foreign_keys": [
+          {
+            "columns": [
+              "WERKS"
+            ],
+            "references": "PLANT(WERKS)"
+          },
+          {
+            "columns": [
+              "EKORG"
+            ],
+            "references": "PURCHASING_ORGANIZATION(EKORG)"
+          }
+        ],
+        "planned_records": 33,
+        "records": [
+          {
+            "werks": "1000",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1000",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "1100",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1400",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1400",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "1500",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1500",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "1600",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1600",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "1700",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1700",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "1800",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1800",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "1900",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1900",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "2900",
+            "ekorg": "P110",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2900",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "1200",
+            "ekorg": "P120",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1200",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "1300",
+            "ekorg": "P120",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "1300",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "2000",
+            "ekorg": "P130",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2100",
+            "ekorg": "P130",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2200",
+            "ekorg": "P130",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2300",
+            "ekorg": "P130",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2300",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "2700",
+            "ekorg": "P130",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2800",
+            "ekorg": "P130",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2800",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "2400",
+            "ekorg": "P140",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2400",
+            "ekorg": "P100",
+            "assignment_type": "STRATEGIC_SUPPORT"
+          },
+          {
+            "werks": "2500",
+            "ekorg": "P140",
+            "assignment_type": "PRIMARY"
+          },
+          {
+            "werks": "2600",
+            "ekorg": "P140",
+            "assignment_type": "PRIMARY"
+          }
+        ]
+      }
+    },
+    "plant_evolution": {
+      "strategy": "EVOLVE_EXISTING_TABLE",
+      "new_column": {
+        "name": "BUKRS",
+        "type": "NVARCHAR(4)",
+        "final_nullable": false
+      },
+      "foreign_key": {
+        "name": "FK_PLANT_COMPANY_CODE",
+        "columns": [
+          "BUKRS"
+        ],
+        "references": "COMPANY_CODE(BUKRS)"
+      },
+      "migration_sequence": [
+        "Create COMPANY and COMPANY_CODE",
+        "Load one company and four company codes",
+        "Add PLANT.BUKRS as nullable",
+        "Update the 20 PLANT records from the Blueprint mapping",
+        "Validate that PLANT.BUKRS has no null or unknown values",
+        "Change PLANT.BUKRS to NOT NULL",
+        "Create FK_PLANT_COMPANY_CODE",
+        "Validate catalog metadata and the organizational JOIN"
+      ]
+    },
+    "planned_volumes": {
+      "companies": 1,
+      "company_codes": 4,
+      "purchasing_organizations": 5,
+      "purchasing_groups": 12,
+      "plant_purchasing_org_assignments": 33,
+      "plants_to_update": 20
+    }
+  },
+  "schema_migrations": [
+    {
+      "migration_id": "SCHEMA_GENERALIZATION_V1",
+      "source_schema": "LAB_A1",
+      "target_schema": "INDUSTRIAL_DATA",
+      "trigger_scenario": "A2",
+      "status": "APPLIED",
+      "applied_on": "2026-09-03",
+      "reason": "The physical schema supports multiple project scenarios and must not remain named after A1.",
+      "validation_result": {
+        "status": "PASSED",
+        "source_schema_exists": 0,
+        "target_schema_exists": 1,
+        "table_count": 5,
+        "foreign_key_count": 5,
+        "enforced_foreign_key_count": 5,
+        "validated_foreign_key_count": 5,
+        "total_record_count": 3715,
+        "evidence": "03-a2-target-schema-post-migration-validated.png"
+      }
+    }
+  ],
   "currency_conversion_scenarios": [
     {
-      "scenario_id": "MULTI_CURRENCY_PROCUREMENT_AND_ANALYTICS_V1",
+      "scenario_id": "MULTI_CURRENCY_PROCUREMENT_AND_ANALYTICS",
       "status": "BLUEPRINT_ONLY",
       "planned_stage": "Future procurement transaction and Fiori analytics scenario",
-      "business_context": "Brazilian company codes use BRL as local currency, while selected purchasing documents may be issued in USD. Amounts are translated from document currency USD into local currency BRL using a date-effective exchange rate.",
+      "business_context": "Company Codes use BRL as local currency while selected purchasing documents use USD.",
       "primary_demo_plant": "2800",
       "primary_demo_plant_name": "Export Operations Plant",
       "secondary_demo_plant": "1200",
@@ -762,16 +1242,8 @@
       "local_currency": "BRL",
       "document_currency": "USD",
       "exchange_rate_type": "M",
-      "quotation_method": "TO_BE_VALIDATED_BEFORE_IMPLEMENTATION",
+      "quotation_method": "TO_BE_REVALIDATED_BEFORE_IMPLEMENTATION",
       "rate_source": "SYNTHETIC_EDUCATIONAL_EXCHANGE_RATE_DATASET",
-      "rules": [
-        "Currency belongs to the Company Code context, not directly to the Plant.",
-        "The purchasing document stores its original document currency and amount.",
-        "The conversion selects the rate valid for the business or posting date.",
-        "The converted BRL amount is derived and must not replace the original USD amount.",
-        "Missing, duplicate or overlapping exchange rates produce an explicit validation error.",
-        "No live market rate is hardcoded in the Blueprint."
-      ],
       "future_entities": [
         "CURRENCY",
         "EXCHANGE_RATE_TYPE",
@@ -781,15 +1253,7 @@
       ],
       "future_fiori_use_case": {
         "app_name": "Multicurrency Procurement Monitor",
-        "capability": "Display the original USD amount, local BRL amount, applied exchange rate, exchange-rate type, valid-from date and conversion status.",
-        "filters": [
-          "Plant",
-          "Company Code",
-          "Purchasing Organization",
-          "Document Currency",
-          "Posting Date",
-          "Conversion Status"
-        ],
+        "capability": "Display original USD amount, local BRL amount, applied exchange rate, rate type, validity date and conversion status.",
         "error_states": [
           "MISSING_RATE",
           "AMBIGUOUS_RATE",

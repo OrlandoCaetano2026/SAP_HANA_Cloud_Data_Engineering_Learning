@@ -1,7 +1,8 @@
-# Industrial Data Universe Blueprint v1
+# Industrial Data Universe Blueprint
 
-**🌐 Idioma / Language:** 🇧🇷 **Português** | [🇺🇸 English](./industrial-data-universe-blueprint-v1.en.md)
+**🌐 Idioma / Language:** 🇧🇷 **Português** | [🇺🇸 English](../EN/industrial-data-universe-blueprint.en.md)
 
+> **Versão interna:** `1.1.0`  
 > **Status:** ✅ Aprovado para implementação incremental  
 > **Seed determinística:** `20260903`  
 > **Companhia:** `Fictional Industrial Manufacturing Group`  
@@ -9,120 +10,194 @@
 
 ## Propósito
 
-Este blueprint define desde o início o universo industrial completo do projeto, sem antecipar de forma imprudente a criação física de todas as tabelas. A fundação será materializada agora; PP, QM, WM, MES, transações e eventos serão adicionados somente após a validação funcional e técnica de cada cenário.
+O Blueprint governa o universo industrial transversal do projeto. A identidade documental continua associada a cada DOC e LAB, enquanto os dados físicos evoluem em um schema compartilhado no SAP HANA Cloud.
 
-## Estratégia
+## Estado atual do schema
+
+A migration do A2 foi executada e reconciliada:
+
+```text
+Previous physical schema: LAB_A1
+Current physical schema:  INDUSTRIAL_DATA
+Migration status:         APPLIED
+Validation status:        PASSED
+```
+
+```mermaid
+flowchart LR
+    OLD["LAB_A1<br/>A1 source schema"]:::previous
+    MIG{"RENAME SCHEMA<br/>A2 migration"}:::migration
+    NEW[("INDUSTRIAL_DATA<br/>Shared physical schema")]:::current
+    ES["Enterprise Structure<br/>A2 in progress"]:::next
+    FUT["MM · PP · QM · WM · MES<br/>Transactions · Events"]:::future
+    OLD --> MIG --> NEW --> ES --> FUT
+    classDef previous fill:#F3F4F6,stroke:#6B7280,color:#374151,stroke-width:2px;
+    classDef migration fill:#F3E8FF,stroke:#9333EA,color:#581C87,stroke-width:2px;
+    classDef current fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E,stroke-width:3px;
+    classDef next fill:#FFF3D8,stroke:#F59E0B,color:#8A4B00,stroke-width:2px;
+    classDef future fill:#F3F4F6,stroke:#6B7280,color:#374151,stroke-width:2px,stroke-dasharray:5 5;
+```
+
+A identidade histórica permanece:
+
+```text
+DOC 01 ↔ A1 ↔ Evidences/LAB_A1
+DOC 02 ↔ A2 ↔ Evidences/LAB_A2
+Schema físico compartilhado ↔ INDUSTRIAL_DATA
+```
+
+## Fundação validada do A1
+
+| Entidade | Registros |
+|---|---:|
+| `PLANT` | 20 |
+| `MATERIAL` | 300 |
+| `STORAGE_LOCATION` | 152 |
+| `MATERIAL_PLANT` | 1.080 |
+| `MATERIAL_STORAGE_LOCATION` | 2.163 |
+| **Total** | **3.715** |
+
+- Validation Engine: `PASSED`;
+- Primary Keys duplicadas: `0`;
+- Foreign Keys órfãs: `0`;
+- associações ativas: `2.066`;
+- associações inativas: `97`;
+- evidências físicas do A1: `30`.
+
+## Migration SCHEMA_GENERALIZATION
+
+A migration `LAB_A1 → INDUSTRIAL_DATA` foi aplicada em `2026-09-03` e validada pela Evidência 03 do A2.
+
+| Controle | Resultado |
+|---|---:|
+| Schema antigo existente | 0 |
+| Schema atual existente | 1 |
+| Tabelas preservadas | 5 |
+| Foreign Keys preservadas | 5 |
+| Foreign Keys aplicadas | 5 |
+| Foreign Keys validadas | 5 |
+| Registros preservados | 3.715 |
+| Status | `PASSED` |
+
+## A2 · Enterprise Structure Package
+
+O A2 introduz a estrutura organizacional inspirada no SAP e evolui a tabela `PLANT` existente.
 
 ```mermaid
 flowchart TB
-    BP["Industrial Data Universe Blueprint"]:::blueprint
-    F["Foundation Package<br/>LAB_A1"]:::active
-    PP["PP Master Data"]:::future
-    QM["QM Master Data"]:::future
-    WM["WM Master Data"]:::future
-    MES["MES Master Data"]:::future
-    TX["Transactions · Block E"]:::future
-    EV["Events · Block I"]:::future
-    V{"Validation Gate"}:::decision
-    H[("SAP HANA Cloud")]:::hana
-
-    BP --> F --> V -->|"Approved"| H
-    BP -.-> PP -.-> V
-    BP -.-> QM -.-> V
-    BP -.-> WM -.-> V
-    BP -.-> MES -.-> V
-    PP -.-> TX
-    QM -.-> TX
-    WM -.-> TX
-    MES -.-> EV
-
-    classDef blueprint fill:#E8F1FF,stroke:#2563EB,color:#123A70,stroke-width:2px;
-    classDef active fill:#E7F8EC,stroke:#16A34A,color:#14532D,stroke-width:2px;
-    classDef future fill:#F3F4F6,stroke:#6B7280,color:#374151,stroke-width:2px,stroke-dasharray:5 5;
-    classDef decision fill:#F3E8FF,stroke:#9333EA,color:#581C87,stroke-width:2px;
-    classDef hana fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E,stroke-width:3px;
+    C["COMPANY<br/>Corporate Group"]:::corporate
+    CC["COMPANY_CODE<br/>Legal Entity"]:::legal
+    P["PLANT<br/>Operational Unit<br/>+ BUKRS"]:::plant
+    S["STORAGE_LOCATION<br/>Inventory Subdivision"]:::storage
+    PO["PURCHASING_ORGANIZATION<br/>Procurement Authority"]:::purchasing
+    PPO["PLANT_PURCHASING_ORG<br/>Assignment"]:::association
+    PG["PURCHASING_GROUP<br/>Buyer Responsibility"]:::purchasing
+    C -->|"1:N"| CC
+    CC -->|"1:N · BUKRS"| P
+    P -->|"1:N · WERKS"| S
+    P -->|"1:N"| PPO
+    PO -->|"1:N"| PPO
+    PO -. "operational collaboration" .- PG
+    classDef corporate fill:#E8F1FF,stroke:#2563EB,color:#123A70,stroke-width:2px;
+    classDef legal fill:#FFF3D8,stroke:#F59E0B,color:#8A4B00,stroke-width:2px;
+    classDef plant fill:#E7F8EC,stroke:#16A34A,color:#14532D,stroke-width:2px;
+    classDef storage fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E,stroke-width:2px;
+    classDef purchasing fill:#F3E8FF,stroke:#9333EA,color:#581C87,stroke-width:2px;
+    classDef association fill:#FFF1F2,stroke:#E11D48,color:#881337,stroke-width:2px;
 ```
 
-## Pacote que será materializado no LAB_A1
+### Entidades e volumes planejados
 
-| Entidade | Volume |
-|---|---:|
-| Plants | 20 |
-| Storage Locations | 150 a 180 |
-| Materials | 300 |
-| Material × Plant | 900 a 1.200 |
-| Material × Storage Location | 2.000 a 3.000 |
+| Entidade | Primary Key | Volume |
+|---|---|---:|
+| `COMPANY` | `COMPANY_ID` | 1 |
+| `COMPANY_CODE` | `BUKRS` | 4 |
+| `PURCHASING_ORGANIZATION` | `EKORG` | 5 |
+| `PURCHASING_GROUP` | `EKGRP` | 12 |
+| `PLANT_PURCHASING_ORG` | `WERKS + EKORG` | 33 |
+| `PLANT` a atualizar | `WERKS` | 20 |
 
-## Famílias de materiais
+### Company Codes
 
-| Prefixo | Categoria | Quantidade | Tipo inspirado em SAP |
-|---|---|---:|---|
-| `RM` | Matérias-primas | 80 | `ROH` |
-| `EC` | Componentes eletrônicos | 60 | `ROH` |
-| `MC` | Componentes mecânicos | 60 | `ROH` |
-| `SA` | Conjuntos semiacabados | 40 | `HALB` |
-| `FG` | Produtos acabados | 40 | `FERT` |
-| `PK` | Materiais de embalagem | 20 | `VERP` |
+| BUKRS | Nome | País | Moeda | Perfil |
+|---|---|---|---|---|
+| `FBR1` | Industrial Manufacturing Brazil | `BRA` | `BRL` | Manufacturing |
+| `FBR2` | Components Manufacturing Brazil | `BRA` | `BRL` | Components |
+| `FBR3` | Logistics and Distribution Brazil | `BRA` | `BRL` | Logistics |
+| `FBR4` | Engineering and Services Brazil | `BRA` | `BRL` | Engineering/Services |
 
-## Regra para os 20 Plants
+### Evolução controlada de PLANT
 
-Todo Plant é multifuncional. O nome indica apenas o perfil predominante. Procurement, receiving, quality, planning, storage, inventory e shipping podem coexistir no mesmo Plant. Plants produtivos também incluem production e maintenance.
+A tabela existente será preservada e receberá `BUKRS NVARCHAR(4)`:
 
-A definição está alinhada ao conceito SAP de Plant como unidade logística usada por produção, procurement, manutenção e planejamento, com dados de material mantidos em diferentes visões no nível do centro. A Storage Location diferencia estoques dentro de um Plant e forma uma chave composta com o Plant. citeturn90search13turn90search15
+1. criar `COMPANY` e `COMPANY_CODE`;
+2. carregar uma Company e quatro Company Codes;
+3. adicionar `PLANT.BUKRS` aceitando `NULL` temporariamente;
+4. atualizar os 20 Plants conforme o mapping aprovado;
+5. validar ausência de `NULL` ou BUKRS desconhecido;
+6. alterar `BUKRS` para `NOT NULL`;
+7. criar `FK_PLANT_COMPANY_CODE`;
+8. validar catálogo, contagens e JOIN organizacional.
 
-## Materialização incremental por domínio
+### Purchasing Organizations
+
+- `P100`: Corporate Strategic Procurement;
+- `P110`: Manufacturing Procurement;
+- `P120`: Components Procurement;
+- `P130`: Logistics Procurement;
+- `P140`: Engineering and Services Procurement.
+
+Cada Plant possui uma organização primária. Treze Plants também recebem suporte estratégico da `P100`, totalizando **33 associações**.
+
+### Purchasing Groups
+
+Doze grupos representam responsabilidades por categoria. O A2 não restringe `PURCHASING_GROUP` a uma única Purchasing Organization, evitando congelar uma cardinalidade artificial antes dos cenários completos de procurement.
+
+## Cenário futuro de conversão BRL ↔ USD
+
+A moeda local permanece no Company Code, e não diretamente no Plant. Documentos futuros podem usar `USD`, exigindo conversão para `BRL` por taxa válida na data do negócio.
+
+```text
+Primary Plant:          2800 · Export Operations Plant
+Secondary Plant:        1200 · Electronic Components Plant
+Company Code currency:  BRL
+Document currency:      USD
+Planned rate type:      M
+Rate source:            Synthetic and versioned
+```
+
+A futura aplicação Fiori **Multicurrency Procurement Monitor** deverá exibir valor original em USD, valor local em BRL, taxa aplicada, tipo de taxa, validade e status. Taxas ausentes, ambíguas ou fora da validade gerarão erro explícito.
+
+Nenhuma cotação real será congelada no Blueprint. Quotation method, fatores, precisão decimal e regra temporal serão revalidados antes da implementação.
+
+## Materialização incremental
 
 | Domínio | Momento | Situação |
 |---|---|---|
-| Foundation | DOC 02 / LAB_A1 | Materializar agora |
-| Supplier / Procurement | A4-A6 | Blueprint até validação |
+| Foundation | A1 / DOC 01 | ✅ Materializado e validado |
+| Enterprise Structure | A2 / DOC 02 | 🔄 Em implementação |
+| MM Supplier | A4-A6 | Blueprint até validação |
 | PP Master Data | A7 | Blueprint até validação |
 | QM Master Data | A6/A7 | Blueprint até validação |
 | WM Master Data | A8 | Blueprint até validação |
 | MES Master Data | A9 | Blueprint até validação |
 | Transações | Bloco E | Aguardar mestres validados |
+| Currency and Exchange Rates | Futuro procurement/analytics | Blueprint até validação |
 | Eventos | Bloco I | Aguardar modelo transacional validado |
-
-Uma Production Order depende de materiais, BOM, routing, work centers e production version. A production version determina a combinação de BOM e routing utilizada pela ordem. Por esse motivo, ordens não serão geradas antes da validação dos mestres de PP. citeturn90search19turn90search21
-
-Inspeções produtivas também exigem definição prévia do cenário. Origem 03 atende inspeções em processo e origem 04 atende inspeções de goods receipt, com diferenças de stock relevance e momento de criação do inspection lot. O blueprint reserva essas entidades, mas não congela sua cardinalidade antes do laboratório QM. citeturn90search25turn90search26turn90search27
-
-## Cenário futuro de conversão BRL → USD e USD → BRL
-
-Os quatro Company Codes do A2 permanecem com moeda local `BRL`. A conversão não será atribuída diretamente ao Plant, pois a moeda local pertence ao contexto do Company Code. O cenário será provocado por documentos de compra ou análises em moeda estrangeira.
-
-O caso principal utilizará o Plant `2800` (`Export Operations Plant`) e um documento em `USD`. Como caso complementar, o Plant `1200` (`Electronic Components Plant`) poderá simular aquisição internacional de componentes.
-
-```text
-Company Code currency: BRL
-Document currency:     USD
-Exchange-rate type:    M
-Conversion date:       posting date or business date
-```
-
-A futura aplicação Fiori **Multicurrency Procurement Monitor** exibirá valor original em USD, valor local em BRL, taxa aplicada, tipo de taxa, validade e status da conversão. Taxa ausente, ambígua ou fora da validade deverá gerar erro explícito.
-
-A massa de taxas será sintética e versionada. Nenhuma cotação real será congelada no Blueprint. Quotation method, fatores, precisão decimal e regra temporal serão revalidados antes da implementação.
 
 ## Gates de qualidade
 
 1. nenhuma Primary Key duplicada;
-2. nenhuma Foreign Key órfã nos pacotes válidos;
+2. nenhuma Foreign Key órfã;
 3. nenhum campo obrigatório vazio;
-4. comprimentos compatíveis com as tabelas HANA;
-5. arquivos inválidos falham somente pelo motivo planejado;
-6. contagens e checksums registrados no manifest;
-7. seed fixa permite reprodução integral da massa.
-
-## Artefatos
-
-- `industrial-data-universe-blueprint-v1.json`, fonte canônica processável;
-- este documento PT-BR;
-- versão em inglês;
-- futuramente `industrial-universe-config.json`;
-- futuramente `dataset-manifest.json`;
-- futuramente `dataset-validation-report.md`.
+4. comprimentos compatíveis com o target HANA;
+5. migrations sem perda de objeto, constraint ou linha;
+6. todos os 20 Plants associados a um Company Code válido;
+7. arquivos negativos falham somente pelo motivo planejado;
+8. contagens e checksums registrados no manifest;
+9. seed fixa reproduz integralmente a massa;
+10. cenários cambiais preservam moeda e valor originais.
 
 ## Próxima ação
 
-Implementar o **Foundation Generator v1** usando este blueprint, gerar os cinco CSVs válidos do LAB_A1, criar os pacotes negativos e executar a validação local antes de qualquer importação no SAP HANA Cloud.
+Criar `COMPANY` e `COMPANY_CODE` no schema `INDUSTRIAL_DATA`, carregar uma Company e quatro Company Codes, validar PK/FK e somente depois iniciar a evolução de `PLANT.BUKRS`.
