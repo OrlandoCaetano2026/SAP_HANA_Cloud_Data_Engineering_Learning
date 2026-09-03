@@ -1,4 +1,4 @@
-﻿# Industrial Data Universe Blueprint v1
+# Industrial Data Universe Blueprint v1
 
 **🌐 Language / Idioma:** [🇧🇷 Português](./industrial-data-universe-blueprint-v1.md) | 🇺🇸 **English**
 
@@ -86,6 +86,23 @@ This aligns with SAP's Plant concept as a logistics unit used by production, pro
 A Production Order depends on materials, BOM, routing, work centers, and a production version. The production version determines the BOM and routing combination used by the order. Therefore, orders are not generated before PP master data is validated. citeturn90search19turn90search21
 
 Production inspections also require a validated scenario. Origin 03 supports in-process inspections, while origin 04 supports goods-receipt inspections, with differences in stock relevance and inspection-lot creation timing. The blueprint reserves these entities but does not freeze cardinality before the QM laboratory. citeturn90search25turn90search26turn90search27
+
+## Future BRL → USD and USD → BRL conversion scenario
+
+All four A2 Company Codes retain `BRL` as local currency. Conversion is not assigned directly to Plant because local currency belongs to the Company Code context. The scenario is triggered by purchasing documents or analytics in foreign currency.
+
+The primary case uses Plant `2800` (`Export Operations Plant`) and a document in `USD`. A complementary case may use Plant `1200` (`Electronic Components Plant`) for international component procurement.
+
+```text
+Company Code currency: BRL
+Document currency:     USD
+Exchange-rate type:    M
+Conversion date:       posting date or business date
+```
+
+The future Fiori application **Multicurrency Procurement Monitor** displays original USD amount, local BRL amount, applied rate, rate type, validity date, and conversion status. A missing, ambiguous, or expired rate must create an explicit error.
+
+Exchange-rate data will be synthetic and versioned. No live market rate is frozen in the Blueprint. Quotation method, factors, decimal precision, and temporal selection rules must be revalidated before implementation.
 
 ## Quality gates
 

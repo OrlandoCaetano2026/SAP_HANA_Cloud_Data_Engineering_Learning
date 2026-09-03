@@ -1,4 +1,4 @@
-﻿# Industrial Data Universe Blueprint v1
+# Industrial Data Universe Blueprint v1
 
 **🌐 Idioma / Language:** 🇧🇷 **Português** | [🇺🇸 English](./industrial-data-universe-blueprint-v1.en.md)
 
@@ -86,6 +86,23 @@ A definição está alinhada ao conceito SAP de Plant como unidade logística us
 Uma Production Order depende de materiais, BOM, routing, work centers e production version. A production version determina a combinação de BOM e routing utilizada pela ordem. Por esse motivo, ordens não serão geradas antes da validação dos mestres de PP. citeturn90search19turn90search21
 
 Inspeções produtivas também exigem definição prévia do cenário. Origem 03 atende inspeções em processo e origem 04 atende inspeções de goods receipt, com diferenças de stock relevance e momento de criação do inspection lot. O blueprint reserva essas entidades, mas não congela sua cardinalidade antes do laboratório QM. citeturn90search25turn90search26turn90search27
+
+## Cenário futuro de conversão BRL → USD e USD → BRL
+
+Os quatro Company Codes do A2 permanecem com moeda local `BRL`. A conversão não será atribuída diretamente ao Plant, pois a moeda local pertence ao contexto do Company Code. O cenário será provocado por documentos de compra ou análises em moeda estrangeira.
+
+O caso principal utilizará o Plant `2800` (`Export Operations Plant`) e um documento em `USD`. Como caso complementar, o Plant `1200` (`Electronic Components Plant`) poderá simular aquisição internacional de componentes.
+
+```text
+Company Code currency: BRL
+Document currency:     USD
+Exchange-rate type:    M
+Conversion date:       posting date or business date
+```
+
+A futura aplicação Fiori **Multicurrency Procurement Monitor** exibirá valor original em USD, valor local em BRL, taxa aplicada, tipo de taxa, validade e status da conversão. Taxa ausente, ambígua ou fora da validade deverá gerar erro explícito.
+
+A massa de taxas será sintética e versionada. Nenhuma cotação real será congelada no Blueprint. Quotation method, fatores, precisão decimal e regra temporal serão revalidados antes da implementação.
 
 ## Gates de qualidade
 

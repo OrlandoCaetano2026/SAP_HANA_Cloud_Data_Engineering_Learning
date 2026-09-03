@@ -1,4 +1,4 @@
-﻿{
+{
   "blueprint": {
     "id": "INDUSTRIAL_DATA_UNIVERSE_V1",
     "version": "1.0.0",
@@ -662,6 +662,16 @@
       ]
     },
     {
+      "domain": "Currency and Exchange Rates",
+      "block": "Future procurement / analytics scenario",
+      "status": "BLUEPRINT_ONLY",
+      "entities": [
+        "CURRENCY",
+        "EXCHANGE_RATE_TYPE",
+        "EXCHANGE_RATE"
+      ]
+    },
+    {
       "domain": "Transactions",
       "block": "E",
       "status": "DEFER_UNTIL_MASTER_DATA_VALIDATED",
@@ -737,6 +747,56 @@
     {
       "topic": "Production quality inspection",
       "url": "https://learning.sap.com/courses/applying-sap-s-4hana-quality-management/analyzing-master-data-for-inspections-in-production_ff603f94-3948-4a1a-9b49-cc613f6288a0"
+    }
+  ],
+  "currency_conversion_scenarios": [
+    {
+      "scenario_id": "MULTI_CURRENCY_PROCUREMENT_AND_ANALYTICS_V1",
+      "status": "BLUEPRINT_ONLY",
+      "planned_stage": "Future procurement transaction and Fiori analytics scenario",
+      "business_context": "Brazilian company codes use BRL as local currency, while selected purchasing documents may be issued in USD. Amounts are translated from document currency USD into local currency BRL using a date-effective exchange rate.",
+      "primary_demo_plant": "2800",
+      "primary_demo_plant_name": "Export Operations Plant",
+      "secondary_demo_plant": "1200",
+      "secondary_demo_plant_name": "Electronic Components Plant",
+      "local_currency": "BRL",
+      "document_currency": "USD",
+      "exchange_rate_type": "M",
+      "quotation_method": "TO_BE_VALIDATED_BEFORE_IMPLEMENTATION",
+      "rate_source": "SYNTHETIC_EDUCATIONAL_EXCHANGE_RATE_DATASET",
+      "rules": [
+        "Currency belongs to the Company Code context, not directly to the Plant.",
+        "The purchasing document stores its original document currency and amount.",
+        "The conversion selects the rate valid for the business or posting date.",
+        "The converted BRL amount is derived and must not replace the original USD amount.",
+        "Missing, duplicate or overlapping exchange rates produce an explicit validation error.",
+        "No live market rate is hardcoded in the Blueprint."
+      ],
+      "future_entities": [
+        "CURRENCY",
+        "EXCHANGE_RATE_TYPE",
+        "EXCHANGE_RATE",
+        "PURCHASE_ORDER",
+        "PURCHASE_ORDER_ITEM"
+      ],
+      "future_fiori_use_case": {
+        "app_name": "Multicurrency Procurement Monitor",
+        "capability": "Display the original USD amount, local BRL amount, applied exchange rate, exchange-rate type, valid-from date and conversion status.",
+        "filters": [
+          "Plant",
+          "Company Code",
+          "Purchasing Organization",
+          "Document Currency",
+          "Posting Date",
+          "Conversion Status"
+        ],
+        "error_states": [
+          "MISSING_RATE",
+          "AMBIGUOUS_RATE",
+          "INVALID_DATE_RANGE",
+          "UNSUPPORTED_CURRENCY_PAIR"
+        ]
+      }
     }
   ]
 }
