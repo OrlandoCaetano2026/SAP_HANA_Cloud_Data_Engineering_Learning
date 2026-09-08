@@ -1,0 +1,29 @@
+-- Loads one fictional company and four Brazilian Company Codes.
+
+INSERT INTO INDUSTRIAL_DATA.COMPANY (
+    COMPANY_ID,
+    COMPANY_NAME,
+    COUNTRY
+)
+VALUES (
+    'FIG',
+    'Fictional Industrial Manufacturing Group',
+    'BRA'
+);
+
+INSERT INTO INDUSTRIAL_DATA.COMPANY_CODE VALUES
+    ('FBR1', 'FIG', 'Industrial Manufacturing Brazil', 'BRA', 'BRL', 'MANUFACTURING');
+INSERT INTO INDUSTRIAL_DATA.COMPANY_CODE VALUES
+    ('FBR2', 'FIG', 'Components Manufacturing Brazil', 'BRA', 'BRL', 'COMPONENTS');
+INSERT INTO INDUSTRIAL_DATA.COMPANY_CODE VALUES
+    ('FBR3', 'FIG', 'Logistics and Distribution Brazil', 'BRA', 'BRL', 'LOGISTICS');
+INSERT INTO INDUSTRIAL_DATA.COMPANY_CODE VALUES
+    ('FBR4', 'FIG', 'Engineering and Services Brazil', 'BRA', 'BRL', 'ENGINEERING_SERVICES');
+
+COMMIT;
+
+SELECT COUNT(1) AS COMPANY_COUNT
+FROM INDUSTRIAL_DATA.COMPANY;
+
+SELECT COUNT(1) AS COMPANY_CODE_COUNT
+FROM INDUSTRIAL_DATA.COMPANY_CODE;

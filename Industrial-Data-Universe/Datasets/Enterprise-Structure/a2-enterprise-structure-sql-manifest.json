@@ -1,0 +1,31 @@
+﻿{
+    "scenario":  "A2",
+    "document":  "DOC_02",
+    "lab":  "LAB_A2",
+    "target_schema":  "INDUSTRIAL_DATA",
+    "status":  "MATERIALIZED_AND_VALIDATED",
+    "load_scripts":  [
+                         "Industrial-Data-Universe/Datasets/Enterprise-Structure/Load/01-create-enterprise-structure-tables.sql",
+                         "Industrial-Data-Universe/Datasets/Enterprise-Structure/Load/02-load-company-and-company-codes.sql",
+                         "Industrial-Data-Universe/Datasets/Enterprise-Structure/Load/03-evolve-plant-company-code.sql",
+                         "Industrial-Data-Universe/Datasets/Enterprise-Structure/Load/04-load-purchasing-organizations.sql",
+                         "Industrial-Data-Universe/Datasets/Enterprise-Structure/Load/05-load-purchasing-groups.sql",
+                         "Industrial-Data-Universe/Datasets/Enterprise-Structure/Load/06-load-plant-purchasing-organizations.sql"
+                     ],
+    "validation_scripts":  [
+                               "Industrial-Data-Universe/Datasets/Enterprise-Structure/Validation/01-validate-schema-migration.sql",
+                               "Industrial-Data-Universe/Datasets/Enterprise-Structure/Validation/02-validate-enterprise-structure.sql",
+                               "Industrial-Data-Universe/Datasets/Enterprise-Structure/Validation/03-validate-purchasing-assignments.sql",
+                               "Industrial-Data-Universe/Datasets/Enterprise-Structure/Validation/04-enterprise-purchasing-end-to-end-join.sql",
+                               "Industrial-Data-Universe/Datasets/Enterprise-Structure/Validation/05-validate-multicurrency-readiness.sql",
+                               "Industrial-Data-Universe/Datasets/Enterprise-Structure/Validation/06-enterprise-structure-final-reconciliation.sql"
+                           ],
+    "expected_state":  {
+                           "tables":  10,
+                           "logical_foreign_keys":  10,
+                           "foundation_records":  3715,
+                           "a2_new_records":  55,
+                           "total_records":  3770,
+                           "evidence_count":  18
+                       }
+}

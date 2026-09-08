@@ -1,7 +1,7 @@
 {
   "blueprint": {
     "id": "INDUSTRIAL_DATA_UNIVERSE",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "status": "APPROVED_FOR_INCREMENTAL_IMPLEMENTATION",
     "created_on": "2026-09-03",
     "seed": 20260903,
@@ -18,7 +18,7 @@
       "Keep master data, transactions, events and negative-test data separated",
       "Never use real company data or credentials"
     ],
-    "last_updated_on": "2026-09-03",
+    "last_updated_on": "2026-09-08",
     "physical_schema_strategy": {
       "strategy": "SHARED_EVOLUTIONARY_SCHEMA",
       "current_schema": "INDUSTRIAL_DATA",
@@ -87,7 +87,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1100",
@@ -107,7 +107,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1200",
@@ -127,7 +127,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR2",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1300",
@@ -147,7 +147,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR2",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1400",
@@ -167,7 +167,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1500",
@@ -187,7 +187,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1600",
@@ -207,7 +207,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1700",
@@ -227,7 +227,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1800",
@@ -247,7 +247,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "1900",
@@ -267,7 +267,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2000",
@@ -285,7 +285,7 @@
         "SHIPPING"
       ],
       "bukrs": "FBR3",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2100",
@@ -303,7 +303,7 @@
         "SHIPPING"
       ],
       "bukrs": "FBR3",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2200",
@@ -321,7 +321,7 @@
         "SHIPPING"
       ],
       "bukrs": "FBR3",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2300",
@@ -339,7 +339,7 @@
         "SHIPPING"
       ],
       "bukrs": "FBR3",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2400",
@@ -359,7 +359,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR4",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2500",
@@ -377,7 +377,7 @@
         "SHIPPING"
       ],
       "bukrs": "FBR4",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2600",
@@ -395,7 +395,7 @@
         "SHIPPING"
       ],
       "bukrs": "FBR4",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2700",
@@ -413,7 +413,7 @@
         "SHIPPING"
       ],
       "bukrs": "FBR3",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2800",
@@ -431,7 +431,7 @@
         "SHIPPING"
       ],
       "bukrs": "FBR3",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     },
     {
       "werks": "2900",
@@ -451,7 +451,7 @@
         "MAINTENANCE"
       ],
       "bukrs": "FBR1",
-      "bukrs_status": "PLANNED_A2_TABLE_EVOLUTION"
+      "bukrs_status": "MATERIALIZED_AND_VALIDATED"
     }
   ],
   "material_families": [
@@ -674,7 +674,7 @@
     {
       "domain": "Enterprise Structure",
       "block": "A2 / DOC 02",
-      "status": "IN_IMPLEMENTATION",
+      "status": "MATERIALIZED_AND_VALIDATED",
       "entities": [
         "COMPANY",
         "COMPANY_CODE",
@@ -833,7 +833,7 @@
     "document": "DOC_02",
     "lab": "LAB_A2",
     "target_schema": "INDUSTRIAL_DATA",
-    "status": "IN_IMPLEMENTATION",
+    "status": "MATERIALIZED_AND_VALIDATED",
     "objective": "Materialize the SAP-inspired enterprise structure while evolving the existing PLANT table.",
     "entities": {
       "COMPANY": {
@@ -1205,6 +1205,35 @@
       "purchasing_groups": 12,
       "plant_purchasing_org_assignments": 33,
       "plants_to_update": 20
+    },
+    "completed_on": "2026-09-03",
+    "actual_volumes": {
+      "companies": 1,
+      "company_codes": 4,
+      "purchasing_organizations": 5,
+      "purchasing_groups": 12,
+      "plant_purchasing_org_assignments": 33,
+      "plants_updated": 20,
+      "new_records": 55
+    },
+    "validation_result": {
+      "status": "PASSED",
+      "table_count": 10,
+      "logical_foreign_keys": 10,
+      "enforced_foreign_keys": 10,
+      "validated_foreign_keys": 10,
+      "foundation_records": 3715,
+      "a2_new_records": 55,
+      "total_records": 3770,
+      "final_validation_rules": 20,
+      "evidence_count": 18
+    },
+    "artifacts": {
+      "load_scripts": 6,
+      "validation_scripts": 6,
+      "manifest": "Industrial-Data-Universe/Datasets/Enterprise-Structure/a2-enterprise-structure-sql-manifest.json",
+      "load_path": "Industrial-Data-Universe/Datasets/Enterprise-Structure/Load/",
+      "validation_path": "Industrial-Data-Universe/Datasets/Enterprise-Structure/Validation/"
     }
   },
   "schema_migrations": [
