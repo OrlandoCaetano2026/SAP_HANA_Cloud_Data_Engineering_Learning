@@ -92,9 +92,18 @@ Four check tables introduced SAP-style domain integrity. `MATERIAL_TYPE` (T134/T
 
 ## 2.1 Configuration load
 
-The four check tables were loaded with the exact A1 universe: 4 types, 24 groups (15 `ROH`, 3 `HALB`, 3 `FERT`, 3 `VERP`), 4 units and 5 divisions. All five material group segments (`MECHANICAL`, `ELECTRONIC`, `CHEMICAL`, `PACKAGING`, `GENERAL`) are covered and the per-type control defaults were confirmed: `ROH F/V/3000`, `HALB X/S/7900`, `FERT E/S/7920`, `VERP F/V/3030`.
+The four check tables were loaded with the exact A1 universe: 4 material types, 24 groups (15 `ROH`, 3 `HALB`, 3 `FERT`, 3 `VERP`), 4 units and 5 divisions. All five material group segments (`MECHANICAL`, `ELECTRONIC`, `CHEMICAL`, `PACKAGING`, `GENERAL`) are covered.
 
-The number ranges were aligned to the real A1 numbering. Because `ROH` uses three prefixes (`RM` 100001-100080, `EC` 200001-200060, `MC` 300001-300060), the type occupies a wide interval (`100000-399999`); `HALB`, `FERT` and `VERP` take the bands `400000-499999`, `500000-599999` and `600000-699999`. All 300 materials sit inside their type interval — an audited rule, not a constraint, to preserve the historical identity of the `MATNR`.
+Control attributes per material type, with number ranges aligned to the real A1 numbering:
+
+| `MTART` | Procurement | Price control | Valuation class | `MATNR` range | A1 prefixes |
+|---|---|---|---|---|---|
+| `ROH` | F (external) | V (moving avg) | 3000 | 100000-399999 | RM · EC · MC |
+| `HALB` | X (both) | S (standard) | 7900 | 400000-499999 | SA |
+| `FERT` | E (in-house) | S (standard) | 7920 | 500000-599999 | FG |
+| `VERP` | F (external) | V (moving avg) | 3030 | 600000-699999 | PK |
+
+Because `ROH` uses three prefixes, the type occupies a wide interval. All 300 materials sit inside their type interval — an audited rule, not a constraint, to preserve the historical identity of the `MATNR`.
 
 ![Material Master config data loaded](../../../Evidences/LAB_A3/03-a3-material-master-config-data-loaded.png)
 
@@ -102,9 +111,54 @@ The number ranges were aligned to the real A1 numbering. Because `ROH` uses thre
 
 ## 3. Client view (MARA)
 
-The `MATERIAL` table received seven client-level attributes: industry sector (`MBRSH`), division (`SPART`), product hierarchy (`PRDHA`), cross-plant status (`MSTAE`, nullable — blank means not blocked), gross and net weights (`BRGEW`, `NTGEW`), and weight unit (`GEWEI`). The backfill was deterministic: sector and division derive from the material group segment; weight derives from the material number via reproducible modular arithmetic.
+The `MATERIAL` table received seven client-level attributes, with a deterministic backfill — sector and division derive from the material group segment; weight derives from the material number via reproducible modular arithmetic.
 
-The sequence followed the A2 pattern for `PLANT.BUKRS`: add nullable columns → backfill → promote to `NOT NULL` → apply foreign keys. Five foreign keys now protect `MTART`, `MATKL`, `MEINS`, `GEWEI` and `SPART` against the check tables. The distribution closed at 300 materials by division (`10` 119, `20` 116, `30` 32, `40` 20, `00` 13) and by sector (`M` 152, `E` 116, `C` 32).
+| Attribute | Column | Value source | Mandatory |
+|---|---|---|---|
+| Industry sector | `MBRSH` | material group segment | yes |
+| Division | `SPART` | material group segment (FK → `DIVISION`) | yes |
+| Product hierarchy | `PRDHA` | `SPART` + `MTART` + group | yes |
+| Cross-plant status | `MSTAE` | not assigned (blank = not blocked) | no |
+| Gross weight | `BRGEW` | derived from `MATNR` | yes |
+| Net weight | `NTGEW` | derived from `MATNR` | yes |
+| Weight unit | `GEWEI` | `KG` (FK → `UNIT_OF_MEASURE`) | yes |
+
+The evolution followed the same A2 pattern used for `PLANT.BUKRS`:
+
+| Step | Action |
+|---|---|
+| 1 | Add the 7 columns as nullable |
+| 2 | Deterministic backfill |
+| 3 | Promote the 6 mandatory attributes to `NOT NULL` |
+| 4 | Apply the 5 foreign keys to the check tables |
+
+### Foreign keys applied on the client view
+
+| Constraint | Column | Reference |
+|---|---|---|
+| `FK_MATERIAL_MATERIAL_TYPE` | `MTART` | `MATERIAL_TYPE` |
+| `FK_MATERIAL_MATERIAL_GROUP` | `MATKL` | `MATERIAL_GROUP` |
+| `FK_MATERIAL_BASE_UOM` | `MEINS` | `UNIT_OF_MEASURE` |
+| `FK_MATERIAL_WEIGHT_UOM` | `GEWEI` | `UNIT_OF_MEASURE` |
+| `FK_MATERIAL_DIVISION` | `SPART` | `DIVISION` |
+
+### Distribution of the 300 materials after the backfill
+
+| Division | Materials |
+|---|---:|
+| `10` Mechanical | 119 |
+| `20` Electronic | 116 |
+| `30` Chemical | 32 |
+| `40` Packaging | 20 |
+| `00` Cross-division | 13 |
+| **Total** | **300** |
+
+| Industry sector | Materials |
+|---|---:|
+| `M` Mechanical | 152 |
+| `E` Electronic | 116 |
+| `C` Chemical | 32 |
+| **Total** | **300** |
 
 ![Material client view enriched](../../../Evidences/LAB_A3/04-a3-material-client-view-enriched.png)
 
@@ -130,7 +184,26 @@ SAP **field relevance** was honoured in the backfill:
 - `MINBE` only for reorder point planning (`MRP_TYPE = 'VB'`), always above safety stock;
 - `DISPO`, `WEBAZ` and `EISBE` are always relevant and were promoted to `NOT NULL`.
 
-`EKGRP` was assigned by commodity, aligned to the A2 purchasing groups: `G01` metals/fasteners/shafts, `G02` chemicals/polymers, `G03` electronics, `G04` mechanical, `G05` automation, `G07` packaging. This left **753** rows with a purchasing group (ROH + VERP) and **327** without (FERT + HALB, in-house production) — exactly the SAP behaviour. The foreign key `FK_MATERIAL_PLANT_PURCHASING_GROUP` connects the plant view to the A2 purchasing structure.
+`EKGRP` was assigned by commodity, aligned to the A2 purchasing groups:
+
+| Purchasing group (A2) | Material groups |
+|---|---|
+| `G01` Metals and Raw Materials | `METALS` · `FASTENERS` · `SHAFTS` |
+| `G02` Polymers and Chemicals | `CHEMICALS` · `POLYMERS` |
+| `G03` Electronic Components | `CABLES` · `COMM` · `DISPLAYS` · `POWER` |
+| `G04` Mechanical Components | `BEARINGS` · `FRAMES` · `GEARS` · `HOUSINGS` |
+| `G05` Automation Components | `CONTROLS` · `SENSORS` |
+| `G07` Packaging Materials | `LABELS` · `PACKAGING` · `PROTECT` |
+
+The backfill left `EKGRP` distributed as follows:
+
+| Case | `MATERIAL_PLANT` rows |
+|---|---:|
+| With a purchasing group (ROH + VERP, external procurement) | 753 |
+| Without a purchasing group (FERT + HALB, in-house production) | 327 |
+| **Total** | **1,080** |
+
+This is exactly the SAP behaviour. The foreign key `FK_MATERIAL_PLANT_PURCHASING_GROUP` connects the plant view to the A2 purchasing structure.
 
 ![Material plant view evolved](../../../Evidences/LAB_A3/06-a3-material-plant-view-evolved.png)
 

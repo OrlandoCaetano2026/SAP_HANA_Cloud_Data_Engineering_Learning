@@ -92,9 +92,18 @@ Quatro check tables introduziram integridade de domínio no estilo SAP. `MATERIA
 
 ## 2.1 Carga da configuração
 
-As quatro check tables foram carregadas com o universo exato do A1: 4 tipos, 24 grupos (15 `ROH`, 3 `HALB`, 3 `FERT`, 3 `VERP`), 4 unidades e 5 divisões. Os cinco segmentos de grupo de material (`MECHANICAL`, `ELECTRONIC`, `CHEMICAL`, `PACKAGING`, `GENERAL`) ficaram cobertos e os defaults de controle por tipo foram confirmados: `ROH F/V/3000`, `HALB X/S/7900`, `FERT E/S/7920`, `VERP F/V/3030`.
+As quatro check tables foram carregadas com o universo exato do A1: 4 tipos de material, 24 grupos (15 `ROH`, 3 `HALB`, 3 `FERT`, 3 `VERP`), 4 unidades e 5 divisões. Os cinco segmentos de grupo (`MECHANICAL`, `ELECTRONIC`, `CHEMICAL`, `PACKAGING`, `GENERAL`) ficaram cobertos.
 
-As faixas de numeração foram alinhadas ao dado real do A1. Como `ROH` usa três prefixos (`RM` 100001–100080, `EC` 200001–200060, `MC` 300001–300060), o tipo ocupa um intervalo largo (`100000–399999`); `HALB`, `FERT` e `VERP` recebem as bandas `400000–499999`, `500000–599999` e `600000–699999`. Todos os 300 materiais respeitam a faixa do seu tipo — regra auditada, não imposta por constraint, para preservar a identidade histórica dos `MATNR`.
+Atributos de controle por tipo de material, com as faixas de numeração alinhadas ao dado real do A1:
+
+| `MTART` | Aquisição | Controle de preço | Classe de aval. | Faixa de `MATNR` | Prefixos A1 |
+|---|---|---|---|---|---|
+| `ROH` | F (externo) | V (média móvel) | 3000 | 100000–399999 | RM · EC · MC |
+| `HALB` | X (ambos) | S (padrão) | 7900 | 400000–499999 | SA |
+| `FERT` | E (interno) | S (padrão) | 7920 | 500000–599999 | FG |
+| `VERP` | F (externo) | V (média móvel) | 3030 | 600000–699999 | PK |
+
+Como `ROH` usa três prefixos, o tipo ocupa um intervalo largo. Todos os 300 materiais respeitam a faixa do seu tipo — regra auditada, não imposta por constraint, para preservar a identidade histórica dos `MATNR`.
 
 ![Dados de configuração do Material Master carregados](../../../Evidences/LAB_A3/03-a3-material-master-config-data-loaded.png)
 
@@ -102,9 +111,54 @@ As faixas de numeração foram alinhadas ao dado real do A1. Como `ROH` usa trê
 
 ## 3. Visão client (MARA)
 
-A tabela `MATERIAL` recebeu sete atributos client-level: setor industrial (`MBRSH`), divisão (`SPART`), hierarquia de produto (`PRDHA`), status cross-plant (`MSTAE`, nullable — vazio significa não bloqueado), pesos bruto e líquido (`BRGEW`, `NTGEW`) e unidade de peso (`GEWEI`). O backfill foi determinístico: setor e divisão derivam do segmento do grupo de material; peso deriva do número de material via aritmética modular reproduzível.
+A tabela `MATERIAL` recebeu sete atributos client-level, com backfill determinístico — setor e divisão derivam do segmento do grupo de material; o peso deriva do número de material via aritmética modular reproduzível.
 
-A sequência seguiu o padrão do A2 com `PLANT.BUKRS`: adicionar colunas nullable → backfill → promover a `NOT NULL` → aplicar Foreign Keys. Cinco Foreign Keys passaram a proteger `MTART`, `MATKL`, `MEINS`, `GEWEI` e `SPART` contra as check tables. A distribuição fechou em 300 materiais por divisão (`10` 119, `20` 116, `30` 32, `40` 20, `00` 13) e por setor (`M` 152, `E` 116, `C` 32).
+| Atributo | Coluna | Origem do valor | Obrigatório |
+|---|---|---|---|
+| Setor industrial | `MBRSH` | segmento do grupo de material | sim |
+| Divisão | `SPART` | segmento do grupo de material (FK → `DIVISION`) | sim |
+| Hierarquia de produto | `PRDHA` | `SPART` + `MTART` + grupo | sim |
+| Status cross-plant | `MSTAE` | não atribuído (vazio = não bloqueado) | não |
+| Peso bruto | `BRGEW` | derivado do `MATNR` | sim |
+| Peso líquido | `NTGEW` | derivado do `MATNR` | sim |
+| Unidade de peso | `GEWEI` | `KG` (FK → `UNIT_OF_MEASURE`) | sim |
+
+A evolução seguiu o mesmo padrão do A2 com `PLANT.BUKRS`:
+
+| Passo | Ação |
+|---|---|
+| 1 | Adicionar as 7 colunas como nullable |
+| 2 | Backfill determinístico |
+| 3 | Promover a `NOT NULL` os 6 atributos obrigatórios |
+| 4 | Aplicar as 5 Foreign Keys para as check tables |
+
+### Foreign Keys aplicadas na visão client
+
+| Constraint | Coluna | Referência |
+|---|---|---|
+| `FK_MATERIAL_MATERIAL_TYPE` | `MTART` | `MATERIAL_TYPE` |
+| `FK_MATERIAL_MATERIAL_GROUP` | `MATKL` | `MATERIAL_GROUP` |
+| `FK_MATERIAL_BASE_UOM` | `MEINS` | `UNIT_OF_MEASURE` |
+| `FK_MATERIAL_WEIGHT_UOM` | `GEWEI` | `UNIT_OF_MEASURE` |
+| `FK_MATERIAL_DIVISION` | `SPART` | `DIVISION` |
+
+### Distribuição dos 300 materiais após o backfill
+
+| Divisão | Materiais |
+|---|---:|
+| `10` Mecânica | 119 |
+| `20` Eletrônica | 116 |
+| `30` Química | 32 |
+| `40` Embalagem | 20 |
+| `00` Cross-division | 13 |
+| **Total** | **300** |
+
+| Setor industrial | Materiais |
+|---|---:|
+| `M` Mecânico | 152 |
+| `E` Eletrônico | 116 |
+| `C` Químico | 32 |
+| **Total** | **300** |
 
 ![Visão client do material enriquecida](../../../Evidences/LAB_A3/04-a3-material-client-view-enriched.png)
 
@@ -130,7 +184,26 @@ A **relevância de campo** do SAP foi respeitada no backfill:
 - `MINBE` só para planejamento por ponto de reposição (`MRP_TYPE = 'VB'`), sempre acima do estoque de segurança;
 - `DISPO`, `WEBAZ` e `EISBE` são sempre relevantes e passaram a `NOT NULL`.
 
-O `EKGRP` foi atribuído por commodity, alinhado aos grupos de compras do A2: `G01` metais/fixadores/eixos, `G02` químicos/polímeros, `G03` eletrônicos, `G04` mecânicos, `G05` automação, `G07` embalagem. Isso deixou **753** linhas com grupo de compras (ROH + VERP) e **327** sem (FERT + HALB, produção própria) — exatamente o comportamento SAP. A Foreign Key `FK_MATERIAL_PLANT_PURCHASING_GROUP` conecta a visão planta à estrutura de compras do A2.
+O `EKGRP` foi atribuído por commodity, alinhado aos grupos de compras do A2:
+
+| Grupo de compras (A2) | Grupos de material |
+|---|---|
+| `G01` Metals and Raw Materials | `METALS` · `FASTENERS` · `SHAFTS` |
+| `G02` Polymers and Chemicals | `CHEMICALS` · `POLYMERS` |
+| `G03` Electronic Components | `CABLES` · `COMM` · `DISPLAYS` · `POWER` |
+| `G04` Mechanical Components | `BEARINGS` · `FRAMES` · `GEARS` · `HOUSINGS` |
+| `G05` Automation Components | `CONTROLS` · `SENSORS` |
+| `G07` Packaging Materials | `LABELS` · `PACKAGING` · `PROTECT` |
+
+O backfill deixou o `EKGRP` distribuído da seguinte forma:
+
+| Situação | Linhas de `MATERIAL_PLANT` |
+|---|---:|
+| Com grupo de compras (ROH + VERP, aquisição externa) | 753 |
+| Sem grupo de compras (FERT + HALB, produção própria) | 327 |
+| **Total** | **1.080** |
+
+Esse é exatamente o comportamento SAP. A Foreign Key `FK_MATERIAL_PLANT_PURCHASING_GROUP` conecta a visão planta à estrutura de compras do A2.
 
 ![Visão planta do material evoluída](../../../Evidences/LAB_A3/06-a3-material-plant-view-evolved.png)
 
