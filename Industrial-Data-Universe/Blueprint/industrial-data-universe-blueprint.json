@@ -1,7 +1,7 @@
 {
   "blueprint": {
     "id": "INDUSTRIAL_DATA_UNIVERSE",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "status": "APPROVED_FOR_INCREMENTAL_IMPLEMENTATION",
     "created_on": "2026-09-03",
     "seed": 20260903,
@@ -19,6 +19,7 @@
       "Never use real company data or credentials"
     ],
     "last_updated_on": "2026-09-08",
+    "last_completed_scenario": "A3",
     "physical_schema_strategy": {
       "strategy": "SHARED_EVOLUTIONARY_SCHEMA",
       "current_schema": "INDUSTRIAL_DATA",
@@ -685,6 +686,24 @@
       ]
     },
     {
+      "domain": "Material Master",
+      "block": "A3 / DOC 03",
+      "status": "MATERIALIZED_AND_VALIDATED",
+      "entities": [
+        "MATERIAL_TYPE",
+        "MATERIAL_GROUP",
+        "UNIT_OF_MEASURE",
+        "DIVISION",
+        "CURRENCY",
+        "MATERIAL_DESCRIPTION",
+        "MATERIAL_VALUATION",
+        "MATERIAL_UOM",
+        "MATERIAL.client_view_attributes",
+        "MATERIAL_PLANT.marc_attributes",
+        "COMPANY_CODE.CURRENCY_FK"
+      ]
+    },
+    {
       "domain": "MM Supplier",
       "block": "A4-A6",
       "status": "BLUEPRINT_ONLY",
@@ -770,10 +789,10 @@
     },
     {
       "domain": "Currency and Exchange Rates",
-      "block": "Future procurement / analytics scenario",
-      "status": "BLUEPRINT_ONLY",
+      "block": "CURRENCY materialized in A3; exchange rates deferred to a future procurement / analytics scenario",
+      "status": "PARTIALLY_MATERIALIZED",
       "entities": [
-        "CURRENCY",
+        "CURRENCY (materialized in A3)",
         "EXCHANGE_RATE_TYPE",
         "EXCHANGE_RATE"
       ]
@@ -1234,6 +1253,83 @@
       "manifest": "Industrial-Data-Universe/Datasets/Enterprise-Structure/a2-enterprise-structure-sql-manifest.json",
       "load_path": "Industrial-Data-Universe/Datasets/Enterprise-Structure/Load/",
       "validation_path": "Industrial-Data-Universe/Datasets/Enterprise-Structure/Validation/"
+    }
+  },
+  "material_master_package": {
+    "scenario": "A3",
+    "document": "DOC_03",
+    "lab": "LAB_A3",
+    "target_schema": "INDUSTRIAL_DATA",
+    "status": "MATERIALIZED_AND_VALIDATED",
+    "objective": "Layer the flat A1 material tables into SAP-style organizational views (MARA, MAKT, MARC, MBEW, MARM), wire the plant view to the A2 purchasing structure, and derive valuation currency from the plant to company code chain.",
+    "valuation_area": "PLANT",
+    "modeling_decisions": {
+      "check_tables": "MATERIAL_TYPE, MATERIAL_GROUP, UNIT_OF_MEASURE, DIVISION and CURRENCY enforce domain integrity via foreign keys.",
+      "material_type_is_control_key": "MATERIAL_TYPE drives default procurement type, price control, valuation class and quantity/value updating.",
+      "descriptions": "MATERIAL_DESCRIPTION (MAKT) is the authoritative multilingual source; MATERIAL.DESCRIPTION is kept only for A1 lineage.",
+      "plant_view_wiring": "MATERIAL_PLANT.EKGRP is a foreign key to the A2 PURCHASING_GROUP; mandatory only for externally procured materials.",
+      "currency_derivation": "MATERIAL_VALUATION.WAERS is populated from PLANT.BUKRS -> COMPANY_CODE.CURRENCY and is never hard-coded.",
+      "multicurrency_readiness": "Every valuation is BRL today; plants 1200 and 2800 are organizationally ready for the future BRL/USD scenario with no schema change.",
+      "material_numbers": "A1 material numbers are preserved; number range intervals per material type are audited, not enforced by a constraint."
+    },
+    "new_entities": {
+      "MATERIAL_TYPE":        { "sap_reference": "T134/T134M", "primary_key": ["MTART"],           "records": 4 },
+      "MATERIAL_GROUP":       { "sap_reference": "T023/T023T",  "primary_key": ["MATKL"],           "records": 24 },
+      "UNIT_OF_MEASURE":      { "sap_reference": "T006/T006A",  "primary_key": ["MSEHI"],           "records": 6 },
+      "DIVISION":             { "sap_reference": "TSPA/TSPAT",  "primary_key": ["SPART"],           "records": 5 },
+      "CURRENCY":             { "sap_reference": "TCURC",       "primary_key": ["WAERS"],           "records": 3 },
+      "MATERIAL_DESCRIPTION": { "sap_reference": "MAKT",        "primary_key": ["MATNR","SPRAS"],   "records": 600 },
+      "MATERIAL_VALUATION":   { "sap_reference": "MBEW",        "primary_key": ["MATNR","BWKEY","BWTAR"], "records": 1080 },
+      "MATERIAL_UOM":         { "sap_reference": "MARM",        "primary_key": ["MATNR","MEINH"],   "records": 574 }
+    },
+    "evolved_entities": {
+      "MATERIAL": {
+        "sap_reference": "MARA",
+        "added_columns": ["MBRSH","SPART","PRDHA","MSTAE","BRGEW","NTGEW","GEWEI"],
+        "added_foreign_keys": ["FK_MATERIAL_MATERIAL_TYPE","FK_MATERIAL_MATERIAL_GROUP","FK_MATERIAL_BASE_UOM","FK_MATERIAL_WEIGHT_UOM","FK_MATERIAL_DIVISION"]
+      },
+      "MATERIAL_PLANT": {
+        "sap_reference": "MARC",
+        "added_columns": ["DISPO","EKGRP","MMSTA","PLIFZ","WEBAZ","EISBE","MINBE"],
+        "added_foreign_keys": ["FK_MATERIAL_PLANT_PURCHASING_GROUP"]
+      },
+      "COMPANY_CODE": {
+        "added_foreign_keys": ["FK_COMPANY_CODE_CURRENCY"]
+      }
+    },
+    "completed_on": "2026-09-08",
+    "actual_volumes": {
+      "a2_total_records": 3770,
+      "a3_new_records": 2296,
+      "total_records": 6066
+    },
+    "validation_result": {
+      "status": "PASSED",
+      "table_count": 18,
+      "logical_foreign_keys": 22,
+      "final_validation_rules": 19,
+      "integrity_rules_zero_violations": 8,
+      "consolidated_negative_tests": 5,
+      "evidence_count": 9
+    },
+    "multicurrency_readiness": {
+      "status": "READY_FOR_FUTURE_CURRENCY_SCENARIO",
+      "local_currency": "BRL",
+      "future_document_currency": "USD",
+      "demo_plants": {
+        "1200": { "valuated_materials": 59, "currency": "BRL" },
+        "2800": { "valuated_materials": 51, "currency": "BRL" }
+      }
+    },
+    "known_notes": [
+      "SYS.M_TABLES.RECORD_COUNT is a monitoring view and may lag the delta storage; the final reconciliation counts rows with COUNT(*)."
+    ],
+    "artifacts": {
+      "load_scripts": 7,
+      "validation_scripts": 8,
+      "manifest": "Industrial-Data-Universe/Datasets/Material-Master/a3-material-master-sql-manifest.json",
+      "load_path": "Industrial-Data-Universe/Datasets/Material-Master/Load/",
+      "validation_path": "Industrial-Data-Universe/Datasets/Material-Master/Validation/"
     }
   },
   "schema_migrations": [

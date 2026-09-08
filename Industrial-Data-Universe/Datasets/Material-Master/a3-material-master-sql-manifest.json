@@ -1,0 +1,60 @@
+{
+  "scenario": "A3",
+  "document": "DOC_03",
+  "lab": "LAB_A3",
+  "target_schema": "INDUSTRIAL_DATA",
+  "status": "MATERIALIZED_AND_VALIDATED",
+  "load_scripts": [
+    "Industrial-Data-Universe/Datasets/Material-Master/Load/01-create-material-master-config-tables.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Load/02-load-material-master-config-data.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Load/03-evolve-material-client-view.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Load/04-create-and-load-material-descriptions.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Load/05-evolve-material-plant-view.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Load/06-create-and-load-material-valuation.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Load/07-load-material-alternative-uom.sql"
+  ],
+  "validation_scripts": [
+    "Industrial-Data-Universe/Datasets/Material-Master/Validation/01-validate-config-integrity.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Validation/02-validate-material-client-view.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Validation/03-validate-material-descriptions.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Validation/04-validate-material-plant-view.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Validation/05-validate-material-valuation.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Validation/06-validate-multicurrency-readiness.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Validation/07-material-master-end-to-end-join.sql",
+    "Industrial-Data-Universe/Datasets/Material-Master/Validation/08-material-master-final-reconciliation.sql"
+  ],
+  "new_tables": [
+    "MATERIAL_TYPE",
+    "MATERIAL_GROUP",
+    "UNIT_OF_MEASURE",
+    "DIVISION",
+    "CURRENCY",
+    "MATERIAL_DESCRIPTION",
+    "MATERIAL_VALUATION",
+    "MATERIAL_UOM"
+  ],
+  "evolved_tables": [
+    "MATERIAL",
+    "MATERIAL_PLANT",
+    "COMPANY_CODE"
+  ],
+  "expected_state": {
+    "tables": 18,
+    "logical_foreign_keys": 22,
+    "a2_total_records": 3770,
+    "a3_new_records": 2296,
+    "total_records": 6066,
+    "final_validation_rules": 19,
+    "evidence_count": 9
+  },
+  "a3_table_volumes": {
+    "MATERIAL_TYPE": 4,
+    "MATERIAL_GROUP": 24,
+    "UNIT_OF_MEASURE": 6,
+    "DIVISION": 5,
+    "CURRENCY": 3,
+    "MATERIAL_DESCRIPTION": 600,
+    "MATERIAL_VALUATION": 1080,
+    "MATERIAL_UOM": 574
+  }
+}

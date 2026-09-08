@@ -1,0 +1,42 @@
+-- ============================================================================
+-- A3 / DOC 03 - Validation 01/08: configuration / check tables integrity
+-- Confirms the 4 check tables are populated with the expected cardinality,
+-- the 5 material group segments are covered, and every material number sits
+-- inside the interval configured for its material type.
+-- ============================================================================
+SELECT * FROM (
+    SELECT 1 AS SORT_ORDER, 'ROW_COUNT' AS CHECK_ITEM, 'MATERIAL_TYPE' AS OBJECT_NAME,
+           TO_NVARCHAR(COUNT(*)) AS ACTUAL_VALUE, '4' AS EXPECTED_VALUE,
+           CASE WHEN COUNT(*) = 4 THEN 'PASSED' ELSE 'FAILED' END AS VALIDATION_STATUS
+    FROM INDUSTRIAL_DATA.MATERIAL_TYPE
+    UNION ALL
+    SELECT 2, 'ROW_COUNT', 'MATERIAL_GROUP', TO_NVARCHAR(COUNT(*)), '24',
+           CASE WHEN COUNT(*) = 24 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_GROUP
+    UNION ALL
+    SELECT 3, 'ROW_COUNT', 'UNIT_OF_MEASURE', TO_NVARCHAR(COUNT(*)), '6',
+           CASE WHEN COUNT(*) = 6 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.UNIT_OF_MEASURE
+    UNION ALL
+    SELECT 4, 'ROW_COUNT', 'DIVISION', TO_NVARCHAR(COUNT(*)), '5',
+           CASE WHEN COUNT(*) = 5 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.DIVISION
+    UNION ALL
+    SELECT 5, 'ROW_COUNT', 'CURRENCY', TO_NVARCHAR(COUNT(*)), '3',
+           CASE WHEN COUNT(*) = 3 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.CURRENCY
+    UNION ALL
+    SELECT 6, 'GROUP_SEGMENT_COVERAGE', 'Distinct MATERIAL_GROUP segments',
+           TO_NVARCHAR(COUNT(DISTINCT MATERIAL_GROUP_SEGMENT)), '5',
+           CASE WHEN COUNT(DISTINCT MATERIAL_GROUP_SEGMENT) = 5 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_GROUP
+    UNION ALL
+    SELECT 7, 'NUMBER_RANGE_COMPLIANCE', 'Materials outside their material type interval',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL M
+    INNER JOIN INDUSTRIAL_DATA.MATERIAL_TYPE T ON T.MTART = M.MTART
+    WHERE TO_BIGINT(SUBSTRING(M.MATNR, LOCATE(M.MATNR, '-') + 1))
+          NOT BETWEEN TO_BIGINT(T.INT_NUMBER_RANGE_FROM) AND TO_BIGINT(T.INT_NUMBER_RANGE_TO)
+)
+ORDER BY SORT_ORDER, OBJECT_NAME;

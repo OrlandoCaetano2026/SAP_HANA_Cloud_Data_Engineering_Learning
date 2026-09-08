@@ -3,7 +3,7 @@
 **🌐 Idioma / Language:** 🇧🇷 **Português** | [🇺🇸 English](./README.en.md)
 
 > **Status:** 🟢 Em desenvolvimento  
-> **Fase atual:** Phase 0 — Environment Foundation concluída; Bloco A em validação  
+> **Fase atual:** Phase 0 concluída; Bloco A — A1, A2 e A3 concluídos e validados  
 > **Abordagem:** Hands-on, incremental, documentada e orientada a cenários SAP/MES simulados
 
 Repositório prático para aprendizado de **SAP HANA Cloud, Data Engineering, Data Modeling, SQL, HDI, CAP/OData, SAP Fiori, Analytics, integração, arquiteturas event-driven, cloud-native e AI-ready data**, utilizando cenários industriais simulados inspirados em processos de **SAP MM, PP, QM, WM e MES**.
@@ -270,10 +270,10 @@ Novas pastas serão adicionadas apenas quando houver necessidade real de impleme
 
 | # | Cenário | Objetivo | Status |
 |---|---|---|---|
-| A1 | Relational Data Foundation | Database, schema, tables, keys, constraints, cardinalidade e normalização | 🔄 Próximo |
-| A2 | SAP Enterprise Structure | Company Code, Plant, Storage Location, Purchasing Organization e Purchasing Group | ⏳ |
-| A3 | Material Master Data Foundation | Modelar material, níveis organizacionais e principais visões | ⏳ |
-| A4 | Supplier / Business Partner Foundation | Modelar fornecedor e contexto organizacional | ⏳ |
+| A1 | Relational Data Foundation | Database, schema, tables, keys, constraints, cardinalidade e normalização | ✅ [DOC 01](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/BR/01-a1-fundacao-de-dados-relacionais.md) |
+| A2 | SAP Enterprise Structure | Company, Company Code, Purchasing Organization e Purchasing Group | ✅ [DOC 02](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/BR/02-a2-estrutura-organizacional-sap.md) |
+| A3 | Material Master Data Foundation | Visões client, descrições, planta, avaliação e unidades alternativas | ✅ [DOC 03](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/BR/03-a3-dados-mestre-de-material.md) |
+| A4 | Supplier / Business Partner Foundation | Modelar fornecedor e contexto organizacional | 🔄 Próximo |
 | A5 | Purchasing Info Record | Relacionar Material, Supplier, Purchasing Organization e Plant | ⏳ |
 | A6 | Quality Info Record | Conectar fundamentos de MM e QM | ⏳ |
 | A7 | Manufacturing Master Data | BOM, Routing, Work Center e Production Version | ⏳ |

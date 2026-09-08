@@ -3,7 +3,7 @@
 **🌐 Language / Idioma:** [🇧🇷 Português](./README.md) | 🇺🇸 **English**
 
 > **Status:** 🟢 In development  
-> **Current phase:** Phase 0 — Environment Foundation completed; Block A under validation  
+> **Current phase:** Phase 0 completed; Block A — A1, A2 and A3 completed and validated  
 > **Approach:** Hands-on, incremental, documented, and driven by simulated SAP/MES scenarios
 
 Hands-on repository for learning **SAP HANA Cloud, Data Engineering, Data Modeling, SQL, HDI, CAP/OData, SAP Fiori, Analytics, integration, event-driven architectures, cloud-native development, and AI-ready data**, using simulated industrial scenarios inspired by **SAP MM, PP, QM, WM, and MES** processes.
@@ -270,10 +270,10 @@ New directories will be introduced only when implementation creates a real need.
 
 | # | Scenario | Objective | Status |
 |---|---|---|---|
-| A1 | Relational Data Foundation | Database, schema, tables, keys, constraints, cardinality, and normalization | 🔄 Next |
-| A2 | SAP Enterprise Structure | Company Code, Plant, Storage Location, Purchasing Organization, and Purchasing Group | ⏳ |
-| A3 | Material Master Data Foundation | Model material, organizational levels, and relevant views | ⏳ |
-| A4 | Supplier / Business Partner Foundation | Model suppliers and organizational context | ⏳ |
+| A1 | Relational Data Foundation | Database, schema, tables, keys, constraints, cardinality, and normalization | ✅ [DOC 01](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/01-a1-relational-data-foundation.en.md) |
+| A2 | SAP Enterprise Structure | Company, Company Code, Purchasing Organization, and Purchasing Group | ✅ [DOC 02](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/02-a2-sap-enterprise-structure.en.md) |
+| A3 | Material Master Data Foundation | Client, description, plant, valuation, and alternative-unit views | ✅ [DOC 03](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/03-a3-material-master-data.en.md) |
+| A4 | Supplier / Business Partner Foundation | Model suppliers and organizational context | 🔄 Next |
 | A5 | Purchasing Info Record | Relate Material, Supplier, Purchasing Organization, and Plant | ⏳ |
 | A6 | Quality Info Record | Connect MM and QM foundations | ⏳ |
 | A7 | Manufacturing Master Data | BOM, Routing, Work Center, and Production Version | ⏳ |

@@ -1,0 +1,42 @@
+-- ============================================================================
+-- A3 / DOC 03 - Validation 02/08: MATERIAL client view (SAP MARA)
+-- Confirms the 7 new attributes exist, mandatory attributes carry no NULL,
+-- the 5 foreign keys to the check tables are enforced, and reports the
+-- distribution by division and industry sector.
+-- ============================================================================
+SELECT * FROM (
+    SELECT 1 AS SORT_ORDER, 'NEW_COLUMN' AS CHECK_ITEM, COLUMN_NAME AS OBJECT_NAME,
+           DATA_TYPE_NAME || '(' || TO_NVARCHAR(LENGTH) || ')' AS ACTUAL_VALUE,
+           IS_NULLABLE AS EXPECTED_VALUE, 'INFO' AS VALIDATION_STATUS
+    FROM SYS.TABLE_COLUMNS
+    WHERE SCHEMA_NAME = 'INDUSTRIAL_DATA' AND TABLE_NAME = 'MATERIAL'
+      AND COLUMN_NAME IN ('MBRSH','SPART','PRDHA','MSTAE','BRGEW','NTGEW','GEWEI')
+    UNION ALL
+    SELECT 2, 'NOT_NULL_CHECK', 'MATERIAL mandatory client attributes',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL
+    WHERE MBRSH IS NULL OR SPART IS NULL OR PRDHA IS NULL
+       OR BRGEW IS NULL OR NTGEW IS NULL OR GEWEI IS NULL
+    UNION ALL
+    SELECT 3, 'FK_COUNT', 'MATERIAL logical foreign keys',
+           TO_NVARCHAR(COUNT(DISTINCT CONSTRAINT_NAME)), '5',
+           CASE WHEN COUNT(DISTINCT CONSTRAINT_NAME) = 5 THEN 'PASSED' ELSE 'FAILED' END
+    FROM SYS.REFERENTIAL_CONSTRAINTS
+    WHERE SCHEMA_NAME = 'INDUSTRIAL_DATA' AND TABLE_NAME = 'MATERIAL'
+    UNION ALL
+    SELECT 4, 'FOREIGN_KEY', CONSTRAINT_NAME,
+           'REFERENCES ' || REFERENCED_TABLE_NAME, 'enforced', 'INFO'
+    FROM SYS.REFERENTIAL_CONSTRAINTS
+    WHERE SCHEMA_NAME = 'INDUSTRIAL_DATA' AND TABLE_NAME = 'MATERIAL'
+    GROUP BY CONSTRAINT_NAME, REFERENCED_TABLE_NAME
+    UNION ALL
+    SELECT 5, 'SPART_DISTRIBUTION', 'Division ' || SPART,
+           TO_NVARCHAR(COUNT(*)), 'materials', 'INFO'
+    FROM INDUSTRIAL_DATA.MATERIAL GROUP BY SPART
+    UNION ALL
+    SELECT 6, 'MBRSH_DISTRIBUTION', 'Industry sector ' || MBRSH,
+           TO_NVARCHAR(COUNT(*)), 'materials', 'INFO'
+    FROM INDUSTRIAL_DATA.MATERIAL GROUP BY MBRSH
+)
+ORDER BY SORT_ORDER, OBJECT_NAME;

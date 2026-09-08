@@ -1,0 +1,72 @@
+-- ============================================================================
+-- A3 / DOC 03 - Validation 04/08: MATERIAL_PLANT plant view (SAP MARC)
+-- Confirms the backfill volumes, the EKGRP foreign key to the A2 purchasing
+-- structure, and the SAP field-relevance rules for EKGRP, PLIFZ, MINBE plus
+-- procurement type vs material type and reorder point above safety stock.
+-- ============================================================================
+SELECT * FROM (
+    SELECT 1 AS SORT_ORDER, 'BACKFILL' AS CHECK_ITEM,
+           'Rows with purchasing group (external)' AS OBJECT_NAME,
+           TO_NVARCHAR(COUNT(*)) AS ACTUAL_VALUE, '753' AS EXPECTED_VALUE,
+           CASE WHEN COUNT(*) = 753 THEN 'PASSED' ELSE 'FAILED' END AS VALIDATION_STATUS
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT WHERE EKGRP IS NOT NULL
+    UNION ALL
+    SELECT 1, 'BACKFILL', 'Rows without purchasing group (in-house)',
+           TO_NVARCHAR(COUNT(*)), '327',
+           CASE WHEN COUNT(*) = 327 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT WHERE EKGRP IS NULL
+    UNION ALL
+    SELECT 1, 'BACKFILL', 'Distinct MRP controllers',
+           TO_NVARCHAR(COUNT(DISTINCT DISPO)), '20',
+           CASE WHEN COUNT(DISTINCT DISPO) = 20 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT
+    UNION ALL
+    SELECT 1, 'BACKFILL', 'MATERIAL_PLANT logical foreign keys',
+           TO_NVARCHAR(COUNT(DISTINCT CONSTRAINT_NAME)), '3',
+           CASE WHEN COUNT(DISTINCT CONSTRAINT_NAME) = 3 THEN 'PASSED' ELSE 'FAILED' END
+    FROM SYS.REFERENTIAL_CONSTRAINTS
+    WHERE SCHEMA_NAME = 'INDUSTRIAL_DATA' AND TABLE_NAME = 'MATERIAL_PLANT'
+    UNION ALL
+    SELECT 2, 'RULE_BESKZ_MTART', 'Procurement type incompatible with material type',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT MP
+    INNER JOIN INDUSTRIAL_DATA.MATERIAL M ON M.MATNR = MP.MATNR
+    WHERE NOT ( (M.MTART IN ('ROH','VERP') AND MP.PROCUREMENT_TYPE = 'F')
+             OR (M.MTART = 'FERT' AND MP.PROCUREMENT_TYPE = 'E')
+             OR (M.MTART = 'HALB' AND MP.PROCUREMENT_TYPE IN ('E','X')) )
+    UNION ALL
+    SELECT 2, 'RULE_EKGRP_RELEVANCE', 'Purchasing group not matching field relevance',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT
+    WHERE (PROCUREMENT_TYPE = 'F' AND EKGRP IS NULL)
+       OR (PROCUREMENT_TYPE <> 'F' AND EKGRP IS NOT NULL)
+    UNION ALL
+    SELECT 2, 'RULE_PLIFZ_RELEVANCE', 'Planned delivery time not matching field relevance',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT
+    WHERE (PROCUREMENT_TYPE = 'F' AND PLIFZ IS NULL)
+       OR (PROCUREMENT_TYPE <> 'F' AND PLIFZ IS NOT NULL)
+    UNION ALL
+    SELECT 2, 'RULE_MINBE_RELEVANCE', 'Reorder point not matching MRP type relevance',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT
+    WHERE (MRP_TYPE = 'VB' AND MINBE IS NULL)
+       OR (MRP_TYPE <> 'VB' AND MINBE IS NOT NULL)
+    UNION ALL
+    SELECT 2, 'RULE_MINBE_ABOVE_EISBE', 'Reorder point not above safety stock',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT
+    WHERE MINBE IS NOT NULL AND MINBE <= EISBE
+    UNION ALL
+    SELECT 3, 'EKGRP_DISTRIBUTION', MP.EKGRP || ' ' || PG.PURCHASING_GROUP_NAME,
+           TO_NVARCHAR(COUNT(*)), 'material-plant rows', 'INFO'
+    FROM INDUSTRIAL_DATA.MATERIAL_PLANT MP
+    INNER JOIN INDUSTRIAL_DATA.PURCHASING_GROUP PG ON PG.EKGRP = MP.EKGRP
+    GROUP BY MP.EKGRP, PG.PURCHASING_GROUP_NAME
+)
+ORDER BY SORT_ORDER, OBJECT_NAME;
