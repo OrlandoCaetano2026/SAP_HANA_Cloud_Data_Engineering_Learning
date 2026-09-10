@@ -270,20 +270,21 @@ New directories will be introduced only when implementation creates a real need.
 
 ## 🅰️ Block A — Data & SAP/MES Master Data Foundation
 
-| # | Scenario | Objective | Status |
-|---|---|---|---|
-| A1 | Relational Data Foundation | Database, schema, tables, keys, constraints, cardinality, and normalization | ✅ [DOC 01](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/01-a1-relational-data-foundation.en.md) |
-| A2 | SAP Enterprise Structure | Company, Company Code, Purchasing Organization, and Purchasing Group | ✅ [DOC 02](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/02-a2-sap-enterprise-structure.en.md) |
-| A3 | Material Master Data Foundation | Client, description, plant, valuation, and alternative-unit views | ✅ [DOC 03](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/03-a3-material-master-data.en.md) |
-| A4 | Supplier / Business Partner Foundation | Model suppliers and organizational context | ✅ [DOC 04](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md) |
-| A5 | Purchase Order Foundation | Purchasing Info Record + Purchase Order (Material, Supplier, Purchasing Org, Plant) | ✅ DOC 04 |
-| A6 | Goods Receipt & Inventory | Goods receipt and stock balance | ✅ DOC 04 |
-| A7 | Accounts Payable | Supplier invoice (3-way match PO + GR + Invoice) | ✅ DOC 04 |
-| A8 | Sales Order Foundation | Customer + Sales Order on finished goods | ✅ DOC 04 |
-| A9 | Production Order / MRP | BOM, production order, and component consumption | ✅ DOC 04 |
-| A10 | Quality Management | Inspection lot and Usage Decision (UD) | ✅ DOC 04 |
-| A11 | MES — Shop Floor | Work center, shifts, and operation confirmation | ✅ DOC 04 |
-| A12 | EWM — Warehouse | Storage bin, Handling Unit (SSCC-17), and warehouse task | ✅ DOC 04 |
+<table>
+<tr><th>#</th><th>Scenario</th><th>Objective</th><th>Status</th><th>Doc</th></tr>
+<tr><td>A1</td><td>Relational Data Foundation</td><td>Database, schema, tables, keys, constraints, cardinality, and normalization</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/01-a1-relational-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A2</td><td>SAP Enterprise Structure</td><td>Company, Company Code, Purchasing Organization, and Purchasing Group</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/02-a2-sap-enterprise-structure.en.md">📄</a></td></tr>
+<tr><td>A3</td><td>Material Master Data Foundation</td><td>Client, description, plant, valuation, and alternative-unit views</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/03-a3-material-master-data.en.md">📄</a></td></tr>
+<tr><td>A4</td><td>Supplier / Business Partner Foundation</td><td>Model suppliers and organizational context</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A5</td><td>Purchase Order Foundation</td><td>Purchasing Info Record + Purchase Order (Material, Supplier, Purchasing Org, Plant)</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A6</td><td>Goods Receipt & Inventory</td><td>Goods receipt and stock balance</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A7</td><td>Accounts Payable</td><td>Supplier invoice (3-way match PO + GR + Invoice)</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A8</td><td>Sales Order Foundation</td><td>Customer + Sales Order on finished goods</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A9</td><td>Production Order / MRP</td><td>BOM, production order, and component consumption</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A10</td><td>Quality Management</td><td>Inspection lot and Usage Decision (UD)</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A11</td><td>MES — Shop Floor</td><td>Work center, shifts, and operation confirmation</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+<tr><td>A12</td><td>EWM — Warehouse</td><td>Storage bin, Handling Unit (SSCC-17), and warehouse task</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md">📄</a></td></tr>
+</table>
 
 ## 🅱️ Block B — SQL for SAP Data
 
