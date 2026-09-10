@@ -1,0 +1,95 @@
+-- ============================================================================
+-- A4 / DOC 04 - Supplier / Business Partner Foundation
+-- Script 08/08 (Load): create and populate SUPPLIER_RATING historical records
+-- Target schema : INDUSTRIAL_DATA
+-- Purpose       : maintain supplier performance rating history (quality, delivery,
+--                 cost). Each supplier has 2–3 rating periods (months), scored 1–5.
+-- ============================================================================
+
+DROP TABLE INDUSTRIAL_DATA.SUPPLIER_RATING;
+
+CREATE COLUMN TABLE INDUSTRIAL_DATA.SUPPLIER_RATING (
+    LIFNR                   NVARCHAR(10) NOT NULL,
+    RATING_DATE             DATE         NOT NULL,
+    RATING_PERIOD           NVARCHAR(7)  NOT NULL,
+    QUALITY_SCORE           INTEGER      NOT NULL,
+    DELIVERY_SCORE          INTEGER      NOT NULL,
+    COST_SCORE              INTEGER      NOT NULL,
+    OVERALL_RATING          INTEGER      NOT NULL,
+    COMMENTS                NVARCHAR(200),
+    PRIMARY KEY (LIFNR, RATING_DATE, RATING_PERIOD),
+    CONSTRAINT FK_SUPPLIER_RATING_SUPPLIER
+        FOREIGN KEY (LIFNR) REFERENCES INDUSTRIAL_DATA.SUPPLIER (LIFNR),
+    CONSTRAINT CHK_SUPPLIER_RATING_QUALITY CHECK (QUALITY_SCORE BETWEEN 1 AND 5),
+    CONSTRAINT CHK_SUPPLIER_RATING_DELIVERY CHECK (DELIVERY_SCORE BETWEEN 1 AND 5),
+    CONSTRAINT CHK_SUPPLIER_RATING_COST CHECK (COST_SCORE BETWEEN 1 AND 5),
+    CONSTRAINT CHK_SUPPLIER_RATING_OVERALL CHECK (OVERALL_RATING BETWEEN 1 AND 5)
+);
+
+-- Populate SUPPLIER_RATING: 2–3 periods (months) per supplier ----------------
+-- Period 1: June 2026 (2026-06)
+INSERT INTO INDUSTRIAL_DATA.SUPPLIER_RATING
+    (LIFNR, RATING_DATE, RATING_PERIOD, QUALITY_SCORE, DELIVERY_SCORE, COST_SCORE, OVERALL_RATING, COMMENTS)
+SELECT
+    LIFNR,
+    CAST('2026-06-30' AS DATE) AS RATING_DATE,
+    '2026-06' AS RATING_PERIOD,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 7, 5) AS QUALITY_SCORE,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 11, 5) AS DELIVERY_SCORE,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 13, 5) AS COST_SCORE,
+    ROUND((1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 7, 5) + 1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 11, 5) + 1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 13, 5)) / 3.0, 0) AS OVERALL_RATING,
+    CASE MOD(CAST(SUBSTRING(LIFNR, 5) AS INT), 7)
+        WHEN 0 THEN 'On-time delivery, quality issues flagged'
+        WHEN 1 THEN 'Standard performance, no issues'
+        WHEN 2 THEN 'Price negotiation in progress'
+        WHEN 3 THEN 'Delivery delays observed'
+        WHEN 4 THEN 'Quality certification renewed'
+        WHEN 5 THEN 'Cost reduction opportunity identified'
+        ELSE NULL
+    END AS COMMENTS
+FROM INDUSTRIAL_DATA.SUPPLIER;
+
+-- Period 2: July 2026 (2026-07)
+INSERT INTO INDUSTRIAL_DATA.SUPPLIER_RATING
+    (LIFNR, RATING_DATE, RATING_PERIOD, QUALITY_SCORE, DELIVERY_SCORE, COST_SCORE, OVERALL_RATING, COMMENTS)
+SELECT
+    LIFNR,
+    CAST('2026-07-31' AS DATE) AS RATING_DATE,
+    '2026-07' AS RATING_PERIOD,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 13, 5) AS QUALITY_SCORE,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 7, 5) AS DELIVERY_SCORE,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 11, 5) AS COST_SCORE,
+    ROUND((1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 13, 5) + 1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 7, 5) + 1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 11, 5)) / 3.0, 0) AS OVERALL_RATING,
+    CASE MOD(CAST(SUBSTRING(LIFNR, 5) AS INT), 6)
+        WHEN 0 THEN 'Performance improved, on track'
+        WHEN 1 THEN 'Minor delivery issues, remedial action taken'
+        WHEN 2 THEN 'Quality audit completed successfully'
+        WHEN 3 THEN 'Price adjustment approved'
+        WHEN 4 THEN 'New product samples submitted'
+        ELSE NULL
+    END AS COMMENTS
+FROM INDUSTRIAL_DATA.SUPPLIER
+WHERE MOD(CAST(SUBSTRING(LIFNR, 5) AS INT), 2) = 0;
+
+-- Period 3: August 2026 (2026-08) — only for 50% of suppliers
+INSERT INTO INDUSTRIAL_DATA.SUPPLIER_RATING
+    (LIFNR, RATING_DATE, RATING_PERIOD, QUALITY_SCORE, DELIVERY_SCORE, COST_SCORE, OVERALL_RATING, COMMENTS)
+SELECT
+    LIFNR,
+    CAST('2026-08-31' AS DATE) AS RATING_DATE,
+    '2026-08' AS RATING_PERIOD,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 11, 5) AS QUALITY_SCORE,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 13, 5) AS DELIVERY_SCORE,
+    1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 7, 5) AS COST_SCORE,
+    ROUND((1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 11, 5) + 1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 13, 5) + 1 + MOD(CAST(SUBSTRING(LIFNR, 5) AS INT) * 7, 5)) / 3.0, 0) AS OVERALL_RATING,
+    CASE MOD(CAST(SUBSTRING(LIFNR, 5) AS INT), 5)
+        WHEN 0 THEN 'Trend: improving quality metrics'
+        WHEN 1 THEN 'Stable performance across all KPIs'
+        WHEN 2 THEN 'Cost leadership position maintained'
+        WHEN 3 THEN 'Delivery performance: on time 98%'
+        ELSE NULL
+    END AS COMMENTS
+FROM INDUSTRIAL_DATA.SUPPLIER
+WHERE MOD(CAST(SUBSTRING(LIFNR, 5) AS INT), 3) = 0;
+
+COMMIT;

@@ -1,0 +1,34 @@
+-- ============================================================================
+-- A4 / DOC 04 - Supplier / Business Partner Foundation
+-- Script 03/08 (Load): create SUPPLIER master table (LFA1-like, client view)
+-- Target schema : INDUSTRIAL_DATA
+-- Purpose       : materialize the supplier master with organizational attributes
+--                 and links to A4 check tables and A3 CURRENCY table.
+-- ============================================================================
+
+CREATE COLUMN TABLE INDUSTRIAL_DATA.SUPPLIER (
+    LIFNR                   NVARCHAR(10) NOT NULL,
+    LIFNR_TEXT              NVARCHAR(80) NOT NULL,
+    LIFNR_TYPE              NVARCHAR(10) NOT NULL,
+    LIFNR_STATUS            NVARCHAR(10) NOT NULL,
+    COUNTRY                 NVARCHAR(3)  NOT NULL,
+    CURRENCY                NVARCHAR(3)  NOT NULL,
+    PAYMENT_TERMS           NVARCHAR(10) NOT NULL,
+    INCOTERM                NVARCHAR(3),
+    QUALITY_CERTIFIED       NVARCHAR(1)  NOT NULL,
+    LEAD_TIME_DAYS          INTEGER      NOT NULL,
+    MIN_ORDER_QTY           DECIMAL(13,3) NOT NULL,
+    PRIMARY KEY (LIFNR),
+    CONSTRAINT FK_SUPPLIER_TYPE
+        FOREIGN KEY (LIFNR_TYPE) REFERENCES INDUSTRIAL_DATA.SUPPLIER_TYPE (SUPPLIER_TYPE_CODE),
+    CONSTRAINT FK_SUPPLIER_STATUS
+        FOREIGN KEY (LIFNR_STATUS) REFERENCES INDUSTRIAL_DATA.SUPPLIER_STATUS (STATUS_CODE),
+    CONSTRAINT FK_SUPPLIER_PAYMENT_TERMS
+        FOREIGN KEY (PAYMENT_TERMS) REFERENCES INDUSTRIAL_DATA.PAYMENT_TERMS (ZTERM),
+    CONSTRAINT FK_SUPPLIER_CURRENCY
+        FOREIGN KEY (CURRENCY) REFERENCES INDUSTRIAL_DATA.CURRENCY (WAERS),
+    CONSTRAINT CHK_SUPPLIER_COUNTRY CHECK (COUNTRY IN ('BRA','ARG','CHL')),
+    CONSTRAINT CHK_SUPPLIER_QUALITY CHECK (QUALITY_CERTIFIED IN ('Y','N')),
+    CONSTRAINT CHK_SUPPLIER_LEAD_TIME CHECK (LEAD_TIME_DAYS BETWEEN 1 AND 180),
+    CONSTRAINT CHK_SUPPLIER_MIN_ORDER CHECK (MIN_ORDER_QTY > 0)
+);

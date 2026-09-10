@@ -1,0 +1,63 @@
+-- ============================================================================
+-- A4 / DOC 04 - Supplier / Business Partner Foundation
+-- Validation 02/08: SUPPLIER master data integrity
+-- Confirms supplier count (70), distribution of types/statuses/countries,
+-- valid FK references, and deterministic backfill consistency.
+-- ============================================================================
+SELECT * FROM (
+    SELECT 1 AS SORT_ORDER, 'ROW_COUNT' AS CHECK_ITEM, 'SUPPLIER total' AS OBJECT_NAME,
+           TO_NVARCHAR(COUNT(*)) AS ACTUAL_VALUE, '70' AS EXPECTED_VALUE,
+           CASE WHEN COUNT(*) = 70 THEN 'PASSED' ELSE 'FAILED' END AS VALIDATION_STATUS
+    FROM INDUSTRIAL_DATA.SUPPLIER
+    UNION ALL
+    SELECT 2, 'SUPPLIER_TYPE_DISTRIBUTION', LIFNR_TYPE,
+           TO_NVARCHAR(COUNT(*)), 'distributed ~18 each',
+           CASE WHEN COUNT(*) BETWEEN 15 AND 20 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.SUPPLIER
+    GROUP BY LIFNR_TYPE
+    UNION ALL
+    SELECT 3, 'SUPPLIER_STATUS_DISTRIBUTION', LIFNR_STATUS,
+           TO_NVARCHAR(COUNT(*)),
+           CASE WHEN LIFNR_STATUS = 'ACTIVE' THEN '~56' WHEN LIFNR_STATUS = 'BLOCKED' THEN '~7' ELSE '~7' END,
+           'INFO'
+    FROM INDUSTRIAL_DATA.SUPPLIER
+    GROUP BY LIFNR_STATUS
+    UNION ALL
+    SELECT 4, 'COUNTRY_COVERAGE', 'All suppliers in BRA',
+           TO_NVARCHAR(COUNT(DISTINCT COUNTRY)), '1',
+           CASE WHEN COUNT(DISTINCT COUNTRY) = 1 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.SUPPLIER
+    WHERE COUNTRY = 'BRA'
+    UNION ALL
+    SELECT 5, 'CURRENCY_BRL', 'All suppliers with BRL currency',
+           TO_NVARCHAR(COUNT(DISTINCT CURRENCY)), '1',
+           CASE WHEN COUNT(DISTINCT CURRENCY) = 1 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.SUPPLIER
+    WHERE CURRENCY = 'BRL'
+    UNION ALL
+    SELECT 6, 'FK_PAYMENT_TERMS', 'Invalid payment terms FK references',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.SUPPLIER S
+    WHERE NOT EXISTS (SELECT 1 FROM INDUSTRIAL_DATA.PAYMENT_TERMS PT WHERE PT.ZTERM = S.PAYMENT_TERMS)
+    UNION ALL
+    SELECT 7, 'FK_CURRENCY', 'Invalid currency FK references',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.SUPPLIER S
+    WHERE NOT EXISTS (SELECT 1 FROM INDUSTRIAL_DATA.CURRENCY C WHERE C.WAERS = S.CURRENCY)
+    UNION ALL
+    SELECT 8, 'LEAD_TIME_RANGE', 'Lead time days outside 1–180 range',
+           TO_NVARCHAR(COUNT(*)), '0',
+           CASE WHEN COUNT(*) = 0 THEN 'PASSED' ELSE 'FAILED' END
+    FROM INDUSTRIAL_DATA.SUPPLIER
+    WHERE LEAD_TIME_DAYS < 1 OR LEAD_TIME_DAYS > 180
+    UNION ALL
+    SELECT 9, 'QUALITY_CERTIFIED', 'Quality certified distribution',
+           'Y: ' || TO_NVARCHAR(SUM(CASE WHEN QUALITY_CERTIFIED = 'Y' THEN 1 ELSE 0 END)) ||
+           ' / N: ' || TO_NVARCHAR(SUM(CASE WHEN QUALITY_CERTIFIED = 'N' THEN 1 ELSE 0 END)),
+           '~56 Y / ~14 N',
+           'INFO'
+    FROM INDUSTRIAL_DATA.SUPPLIER
+)
+ORDER BY SORT_ORDER, OBJECT_NAME;

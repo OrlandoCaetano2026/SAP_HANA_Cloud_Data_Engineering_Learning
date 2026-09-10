@@ -3,10 +3,10 @@
 **🌐 Language / Idioma:** [🇧🇷 Português](./README.md) | 🇺🇸 **English**
 
 > **Status:** 🟢 In development  
-> **Current phase:** Phase 0 completed; Block A — A1, A2 and A3 completed and validated  
+> **Current phase:** Phase 0 completed; Block A — A1 through A12 completed and validated (A4–A12 consolidated in [DOC 04](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md))  
 > **Approach:** Hands-on, incremental, documented, and driven by simulated SAP/MES scenarios
 
-Hands-on repository for learning **SAP HANA Cloud, Data Engineering, Data Modeling, SQL, HDI, CAP/OData, SAP Fiori, Analytics, integration, event-driven architectures, cloud-native development, and AI-ready data**, using simulated industrial scenarios inspired by **SAP MM, PP, QM, WM, and MES** processes.
+Hands-on repository for learning **SAP HANA Cloud, Data Engineering, Data Modeling, SQL, HDI, CAP/OData, SAP Fiori, Analytics, integration, event-driven architectures, cloud-native development, and AI-ready data**, using simulated industrial scenarios inspired by **SAP MM, PP, QM, EWM, and MES** processes.
 
 The goal is not to learn isolated tools. The repository follows the complete data journey, from functional and industrial origins to persistence, transformation, modeling, exposure, analytics, and trusted consumption by applications and artificial intelligence.
 
@@ -64,26 +64,33 @@ Analytics and artificial intelligence are only as reliable as the data they cons
 
 This project studies the entire chain:
 
-```text
-Business Process
-      ↓
-Master / Transactional Data
-      ↓
-Ingestion
-      ↓
-Quality & Transformation
-      ↓
-Persistence
-      ↓
-Modeling
-      ↓
-Semantics
-      ↓
-APIs / Applications / Analytics
-      ↓
-AI-ready Data
-      ↓
-Generative AI
+```mermaid
+flowchart TD
+    A["Business Process"] --> B["Master / Transactional Data"]
+    B --> C["Ingestion"]
+    C --> D["Quality & Transformation"]
+    D --> E["Persistence"]
+    E --> F["Modeling"]
+    F --> G["Semantics"]
+    G --> H["APIs / Applications / Analytics"]
+    H --> I["AI-ready Data"]
+    I --> J["Generative AI"]
+
+    classDef business fill:#FEF3C7,stroke:#D97706,color:#78350F,stroke-width:2px;
+    classDef ingest fill:#EEF2FF,stroke:#6366F1,color:#312E81,stroke-width:2px;
+    classDef quality fill:#FFF3D8,stroke:#F59E0B,color:#8A4B00,stroke-width:2px;
+    classDef persist fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E,stroke-width:2px;
+    classDef model fill:#E7F8EC,stroke:#16A34A,color:#14532D,stroke-width:2px;
+    classDef expose fill:#F3E8FF,stroke:#9333EA,color:#581C87,stroke-width:2px;
+    classDef ai fill:#FCE7F3,stroke:#DB2777,color:#831843,stroke-width:2px;
+
+    class A business;
+    class B ingest;
+    class C,D quality;
+    class E persist;
+    class F,G model;
+    class H expose;
+    class I,J ai;
 ```
 
 The project's differentiator is combining **SAP functional and manufacturing knowledge** with data engineering, integration, applications, and AI.
@@ -99,7 +106,7 @@ Datasets are fictional, while scenarios are inspired by concepts commonly found 
 | **SAP MM** | Material Master, Supplier, Purchasing Info Record, Purchase Orders, Goods Receipt, Material Movements, Inventory |
 | **SAP PP** | BOM, Routing, Work Center, Production Version, Production Orders, Confirmations |
 | **SAP QM** | Quality Info Record, Inspection Lots, Results, Quality Status |
-| **SAP WM** | Warehouse, Storage Type, Storage Bin, Stock and Warehouse Movements |
+| **SAP EWM** | Warehouse Number, Storage Type, Storage Bin, Handling Unit (SSCC), Warehouse Task |
 | **MES** | Resources, Machines, Operations, Work Orders, Production Events, Confirmations, Scrap and Downtime |
 
 > Educational models may use field names inspired by SAP terminology, such as `MATNR`, `WERKS`, `LGORT`, `MTART`, `MATKL`, `MEINS`, `LIFNR`, `EKORG`, and `BWART`. This does not mean that the repository reproduces the complete physical internal structures of SAP ERP/S/4HANA.
@@ -108,43 +115,38 @@ Datasets are fictional, while scenarios are inspired by concepts commonly found 
 
 ## 🧭 Technical journey
 
-```text
-SAP MM / PP / QM / WM / MES
-              │
-              ▼
-      Data Foundation
-              │
-              ▼
-       SQL & Modeling
-              │
-              ▼
-       SAP HANA Cloud
-              │
-              ▼
-      HDI / Data Models
-              │
-              ▼
-       Data Engineering
-              │
-      ┌───────┴────────┐
-      ▼                ▼
- CAP / OData      Integration / Events
-      │                │
-      ▼                ▼
-    Fiori           Event Mesh
-      │                │
-      └───────┬────────┘
-              ▼
-       Analytics / KPIs
-              │
-              ▼
- Cloud Foundry / Kyma
-              │
-              ▼
-       AI-ready Data
-              │
-              ▼
-      Generative AI
+```mermaid
+flowchart TD
+    A["SAP MM / PP / QM / EWM / MES"] --> B["Data Foundation"]
+    B --> C["SQL & Modeling"]
+    C --> D["SAP HANA Cloud"]
+    D --> E["HDI / Data Models"]
+    E --> F["Data Engineering"]
+    F --> G["CAP / OData"]
+    F --> H["Integration / Events"]
+    G --> I["Fiori"]
+    H --> J["Event Mesh"]
+    I --> K["Analytics / KPIs"]
+    J --> K
+    K --> L["Cloud Foundry / Kyma"]
+    L --> M["AI-ready Data"]
+    M --> N["Generative AI"]
+
+    classDef source fill:#FEF3C7,stroke:#D97706,color:#78350F,stroke-width:2px;
+    classDef foundation fill:#EEF2FF,stroke:#6366F1,color:#312E81,stroke-width:2px;
+    classDef platform fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E,stroke-width:2px;
+    classDef engineering fill:#E7F8EC,stroke:#16A34A,color:#14532D,stroke-width:2px;
+    classDef expose fill:#F3E8FF,stroke:#9333EA,color:#581C87,stroke-width:2px;
+    classDef analytics fill:#FFF3D8,stroke:#F59E0B,color:#8A4B00,stroke-width:2px;
+    classDef ai fill:#FCE7F3,stroke:#DB2777,color:#831843,stroke-width:2px;
+
+    class A source;
+    class B,C foundation;
+    class D,E platform;
+    class F engineering;
+    class G,H,I,J expose;
+    class K analytics;
+    class L,M,N ai;
 ```
 
 ---
@@ -273,12 +275,15 @@ New directories will be introduced only when implementation creates a real need.
 | A1 | Relational Data Foundation | Database, schema, tables, keys, constraints, cardinality, and normalization | ✅ [DOC 01](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/01-a1-relational-data-foundation.en.md) |
 | A2 | SAP Enterprise Structure | Company, Company Code, Purchasing Organization, and Purchasing Group | ✅ [DOC 02](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/02-a2-sap-enterprise-structure.en.md) |
 | A3 | Material Master Data Foundation | Client, description, plant, valuation, and alternative-unit views | ✅ [DOC 03](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/03-a3-material-master-data.en.md) |
-| A4 | Supplier / Business Partner Foundation | Model suppliers and organizational context | 🔄 Next |
-| A5 | Purchasing Info Record | Relate Material, Supplier, Purchasing Organization, and Plant | ⏳ |
-| A6 | Quality Info Record | Connect MM and QM foundations | ⏳ |
-| A7 | Manufacturing Master Data | BOM, Routing, Work Center, and Production Version | ⏳ |
-| A8 | Warehouse Master Data | Warehouse, Storage Type, Storage Bin, and stock | ⏳ |
-| A9 | MES Master Data Foundation | Resources, Machines, Operations, and SAP ↔ MES mappings | ⏳ |
+| A4 | Supplier / Business Partner Foundation | Model suppliers and organizational context | ✅ [DOC 04](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/EN/04-a4-a12-transactional-data-foundation.en.md) |
+| A5 | Purchase Order Foundation | Purchasing Info Record + Purchase Order (Material, Supplier, Purchasing Org, Plant) | ✅ DOC 04 |
+| A6 | Goods Receipt & Inventory | Goods receipt and stock balance | ✅ DOC 04 |
+| A7 | Accounts Payable | Supplier invoice (3-way match PO + GR + Invoice) | ✅ DOC 04 |
+| A8 | Sales Order Foundation | Customer + Sales Order on finished goods | ✅ DOC 04 |
+| A9 | Production Order / MRP | BOM, production order, and component consumption | ✅ DOC 04 |
+| A10 | Quality Management | Inspection lot and Usage Decision (UD) | ✅ DOC 04 |
+| A11 | MES — Shop Floor | Work center, shifts, and operation confirmation | ✅ DOC 04 |
+| A12 | EWM — Warehouse | Storage bin, Handling Unit (SSCC-17), and warehouse task | ✅ DOC 04 |
 
 ## 🅱️ Block B — SQL for SAP Data
 
@@ -331,15 +336,15 @@ New directories will be introduced only when implementation creates a real need.
 
 | # | Scenario | Objective | Status |
 |---|---|---|---|
-| E1 | Purchase Orders | Model fictional purchase order transactional data | ⏳ |
-| E2 | Goods Receipt | Relate goods receipts to purchasing documents | ⏳ |
-| E3 | Material Movements | Model inventory movements and movement types | ⏳ |
-| E4 | Inventory Snapshot | Build a consolidated view of inventory positions | ⏳ |
-| E5 | Production Orders | Model production orders and their main relationships | ⏳ |
-| E6 | Production Confirmations | Record and analyze production confirmations | ⏳ |
-| E7 | Inspection Lots | Model inspection lots within the SAP QM context | ⏳ |
-| E8 | Quality Results | Structure quality results and indicators | ⏳ |
-| E9 | Warehouse Movements | Model movements and structures related to
+| E1 | Purchase Orders | Model fictional purchase order transactional data | ✅ Delivered via A5 (DOC 04) |
+| E2 | Goods Receipt | Relate goods receipts to purchasing documents | ✅ Delivered via A6 (DOC 04) |
+| E3 | Material Movements | Model inventory movements and movement types | ✅ Delivered via A6/A12 (DOC 04) |
+| E4 | Inventory Snapshot | Build a consolidated view of inventory positions | ✅ Delivered via A6 `STOCK_BALANCE` (DOC 04) |
+| E5 | Production Orders | Model production orders and their main relationships | ✅ Delivered via A9 (DOC 04) |
+| E6 | Production Confirmations | Record and analyze production confirmations | ✅ Delivered via A11 (DOC 04) |
+| E7 | Inspection Lots | Model inspection lots within the SAP QM context | ✅ Delivered via A10 (DOC 04) |
+| E8 | Quality Results | Structure quality results and indicators | ✅ Delivered via A10 `UD_CODE` (DOC 04) |
+| E9 | Warehouse Movements | Model movements and structures related to the EWM context | ✅ Delivered via A12 `WAREHOUSE_TASK` (DOC 04) |
 
 ---
 
@@ -448,7 +453,7 @@ The current goal is **hands-on Data Engineering learning**, without an immediate
 
 ### Orlando dos Santos Caetano
 
-**SAP MM · PP · QM · WM | MES | SAP Integration | Data Engineering | Generative AI**
+**SAP MM · PP · QM · EWM | MES | SAP Integration | Data Engineering | Generative AI**
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Orlando%20Caetano-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/orlando-caetano/)
 [![GitHub](https://img.shields.io/badge/GitHub-OrlandoCaetano2026-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/OrlandoCaetano2026)
@@ -458,7 +463,7 @@ The current goal is **hands-on Data Engineering learning**, without an immediate
 ![SAP MM](https://img.shields.io/badge/SAP-MM-0FAAFF?style=flat-square&logo=sap&logoColor=white)
 ![SAP PP](https://img.shields.io/badge/SAP-PP-0FAAFF?style=flat-square&logo=sap&logoColor=white)
 ![SAP QM](https://img.shields.io/badge/SAP-QM-0FAAFF?style=flat-square&logo=sap&logoColor=white)
-![SAP WM](https://img.shields.io/badge/SAP-WM-0FAAFF?style=flat-square&logo=sap&logoColor=white)
+![SAP EWM](https://img.shields.io/badge/SAP-EWM-0FAAFF?style=flat-square&logo=sap&logoColor=white)
 ![MES](https://img.shields.io/badge/MES-Manufacturing%20Execution-3B82F6?style=flat-square)
 
 ### Technologies and learning
