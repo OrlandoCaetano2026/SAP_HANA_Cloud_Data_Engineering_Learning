@@ -26,6 +26,7 @@ Unlike Block A (deterministic data, no surprises) and Block B (pure SQL, always-
 | C8 | Synonyms & Cross-Schema Access | ✅ `CREATE SYNONYM` tested and validated with real data (300 rows) |
 | C9 | Calculation Views | ⚠️ Partial — concept modeled, real data proven via SQL equivalent; graphical editor blocked by network |
 | C10 | Security & Privileges | ✅ Consolidated — lived in practice throughout the whole block |
+| C11 | CAP & Modern CDS (`@sap/cds-dk`) | ⏳ Pending — successor to the classic CDS discontinued in C5, to be practiced in a future session |
 
 > [!IMPORTANT]
 > No real credential remains active after this document. The service key created for testing (`my-dev-key`, `my-dev-key-2`) was removed with `cf delete-service-key`. Passwords that appeared in working logs were never persisted to any file in the repository.

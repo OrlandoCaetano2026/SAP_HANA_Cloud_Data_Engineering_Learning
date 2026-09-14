@@ -26,6 +26,7 @@ Diferente do Bloco A (dados determinísticos, sem surpresas) e do Bloco B (SQL p
 | C8 | Synonyms & Cross-Schema Access | ✅ `CREATE SYNONYM` testado e validado com dados reais (300 linhas) |
 | C9 | Calculation Views | ⚠️ Parcial — conceito modelado, dado real provado via SQL equivalente; editor gráfico bloqueado por rede |
 | C10 | Security & Privileges | ✅ Consolidado — vivido na prática ao longo de todo o bloco |
+| C11 | CAP & Modern CDS (`@sap/cds-dk`) | ⏳ Pendente — sucessor do CDS clássico descontinuado no C5, a praticar em sessão futura |
 
 > [!IMPORTANT]
 > Nenhuma credencial real permanece ativa após este documento. A service key criada para testes (`my-dev-key`, `my-dev-key-2`) foi removida com `cf delete-service-key`. Senhas que apareceram nos logs de trabalho nunca foram persistidas em nenhum arquivo do repositório.

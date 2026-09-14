@@ -288,18 +288,19 @@ New directories will be introduced only when implementation creates a real need.
 
 ## 🅱️ Block B — SQL for SAP Data
 
-| # | Scenario | Objective | Status |
-|---|---|---|---|
-| B1 | DDL Fundamentals | Create and manage database structures using Data Definition Language | ⏳ |
-| B2 | DML Fundamentals | Insert, update, and delete data using Data Manipulation Language | ⏳ |
-| B3 | Filtering & Sorting | Query data using filters, sorting, and conditions | ⏳ |
-| B4 | Joins | Relate SAP/MES entities using different JOIN strategies | ⏳ |
-| B5 | Aggregations | Consolidate data using aggregation functions and grouping | ⏳ |
-| B6 | Subqueries & CTEs | Build complex queries using subqueries and Common Table Expressions | ⏳ |
-| B7 | Window Functions | Apply analytical calculations, rankings, and aggregations over data windows | ⏳ |
-| B8 | Views | Create reusable query and data abstraction layers | ⏳ |
-| B9 | SQLScript | Introduce procedural logic and advanced processing in SAP HANA | ⏳ |
-| B10 | Performance Fundamentals | Understand query performance and optimization fundamentals | ⏳ |
+<table>
+<tr><th>#</th><th>Scenario</th><th>Objective</th><th>Status</th><th>Doc</th></tr>
+<tr><td>B1</td><td>DDL Fundamentals</td><td>Create and manage database structures using Data Definition Language</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B2</td><td>DML Fundamentals</td><td>Insert, update, and delete data using Data Manipulation Language</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B3</td><td>Filtering & Sorting</td><td>Query data using filters, sorting, and conditions</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B4</td><td>Joins</td><td>Relate SAP/MES entities using different JOIN strategies</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B5</td><td>Aggregations</td><td>Consolidate data using aggregation functions and grouping</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B6</td><td>Subqueries & CTEs</td><td>Build complex queries using subqueries and Common Table Expressions</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B7</td><td>Window Functions</td><td>Apply analytical calculations, rankings, and aggregations over data windows</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B8</td><td>Views</td><td>Create reusable query and data abstraction layers</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B9</td><td>SQLScript</td><td>Introduce procedural logic and advanced processing in SAP HANA</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+<tr><td>B10</td><td>Performance Fundamentals</td><td>Understand query performance and optimization fundamentals</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/EN/01-b1-b10-sql-fundamentals-on-sap-data.en.md">📄</a></td></tr>
+</table>
 
 ## 🅲 Block C — Professional SAP HANA Development
 

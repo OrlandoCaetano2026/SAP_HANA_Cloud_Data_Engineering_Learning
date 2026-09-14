@@ -3,7 +3,7 @@
 **🌐 Idioma / Language:** 🇧🇷 **Português** | [🇺🇸 English](./README.en.md)
 
 > **Status:** 🟢 Em desenvolvimento  
-> **Fase atual:** Phase 0 concluída; Bloco A — A1 a A12 concluídos e validados (A4–A12 consolidados em [DOC 04](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/BR/04-a4-a12-fundacao-transacional-completa.md)); Bloco B — B1 a B10 concluídos (SQL fundamentals, prática direta); Bloco C — C1, C2, C3, C4, C6, C7, C8 concluídos e C10 consolidado por prática (documentado em [DOC C-01](./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md)); C5 e C9 parcialmente bloqueados por limitação de plataforma (documentado)  
+> **Fase atual:** Phase 0 concluída; Bloco A — A1 a A12 concluídos e validados (A4–A12 consolidados em [DOC 04](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/BR/04-a4-a12-fundacao-transacional-completa.md)); Bloco B — B1 a B10 concluídos (SQL fundamentals, documentado em [DOC B-01](./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md)); Bloco C — C1, C2, C3, C4, C6, C7, C8 concluídos e C10 consolidado por prática (documentado em [DOC C-01](./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md)); C5 e C9 parcialmente bloqueados por limitação de plataforma (documentado)  
 > **Abordagem:** Hands-on, incremental, documentada e orientada a cenários SAP/MES simulados
 
 Repositório prático para aprendizado de **SAP HANA Cloud, Data Engineering, Data Modeling, SQL, HDI, CAP/OData, SAP Fiori, Analytics, integração, arquiteturas event-driven, cloud-native e AI-ready data**, utilizando cenários industriais simulados inspirados em processos de **SAP MM, PP, QM, EWM e MES**.
@@ -288,18 +288,19 @@ Novas pastas serão adicionadas apenas quando houver necessidade real de impleme
 
 ## 🅱️ Bloco B — SQL for SAP Data
 
-| # | Cenário | Objetivo | Status |
-|---|---|---|---|
-| B1 | DDL Fundamentals | Criar e gerenciar estruturas de banco de dados com Data Definition Language | ⏳ |
-| B2 | DML Fundamentals | Inserir, atualizar e excluir dados utilizando Data Manipulation Language | ⏳ |
-| B3 | Filtering & Sorting | Consultar dados utilizando filtros, ordenação e condições | ⏳ |
-| B4 | Joins | Relacionar entidades SAP/MES utilizando diferentes estratégias de JOIN | ⏳ |
-| B5 | Aggregations | Consolidar dados utilizando funções de agregação e agrupamentos | ⏳ |
-| B6 | Subqueries & CTEs | Construir consultas complexas utilizando subqueries e Common Table Expressions | ⏳ |
-| B7 | Window Functions | Aplicar cálculos analíticos, rankings e agregações sobre janelas de dados | ⏳ |
-| B8 | Views | Criar camadas reutilizáveis de consulta e abstração de dados | ⏳ |
-| B9 | SQLScript | Introduzir lógica procedural e processamento avançado no SAP HANA | ⏳ |
-| B10 | Performance Fundamentals | Compreender fundamentos de performance e otimização de consultas | ⏳ |
+<table>
+<tr><th>#</th><th>Cenário</th><th>Objetivo</th><th>Status</th><th>Doc</th></tr>
+<tr><td>B1</td><td>DDL Fundamentals</td><td>Criar e gerenciar estruturas de banco de dados com Data Definition Language</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B2</td><td>DML Fundamentals</td><td>Inserir, atualizar e excluir dados utilizando Data Manipulation Language</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B3</td><td>Filtering & Sorting</td><td>Consultar dados utilizando filtros, ordenação e condições</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B4</td><td>Joins</td><td>Relacionar entidades SAP/MES utilizando diferentes estratégias de JOIN</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B5</td><td>Aggregations</td><td>Consolidar dados utilizando funções de agregação e agrupamentos</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B6</td><td>Subqueries & CTEs</td><td>Construir consultas complexas utilizando subqueries e Common Table Expressions</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B7</td><td>Window Functions</td><td>Aplicar cálculos analíticos, rankings e agregações sobre janelas de dados</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B8</td><td>Views</td><td>Criar camadas reutilizáveis de consulta e abstração de dados</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B9</td><td>SQLScript</td><td>Introduzir lógica procedural e processamento avançado no SAP HANA</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+<tr><td>B10</td><td>Performance Fundamentals</td><td>Compreender fundamentos de performance e otimização de consultas</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/B%20—%20SQL%20for%20SAP%20Data/BR/01-b1-b10-fundamentos-sql-sobre-dados-sap.md">📄</a></td></tr>
+</table>
 
 ## 🅲 Bloco C — Professional SAP HANA Development
 
