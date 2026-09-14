@@ -3,7 +3,7 @@
 **🌐 Idioma / Language:** 🇧🇷 **Português** | [🇺🇸 English](./README.en.md)
 
 > **Status:** 🟢 Em desenvolvimento  
-> **Fase atual:** Phase 0 concluída; Bloco A — A1 a A12 concluídos e validados (A4–A12 consolidados em [DOC 04](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/BR/04-a4-a12-fundacao-transacional-completa.md))  
+> **Fase atual:** Phase 0 concluída; Bloco A — A1 a A12 concluídos e validados (A4–A12 consolidados em [DOC 04](./Docs/A%20—%20Data%20%26%20SAP-MES%20Master%20Data%20Foundation/BR/04-a4-a12-fundacao-transacional-completa.md)); Bloco B — B1 a B10 concluídos (SQL fundamentals, prática direta); Bloco C — C1, C2, C3, C4, C6, C7, C8 concluídos e C10 consolidado por prática (documentado em [DOC C-01](./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md)); C5 e C9 parcialmente bloqueados por limitação de plataforma (documentado)  
 > **Abordagem:** Hands-on, incremental, documentada e orientada a cenários SAP/MES simulados
 
 Repositório prático para aprendizado de **SAP HANA Cloud, Data Engineering, Data Modeling, SQL, HDI, CAP/OData, SAP Fiori, Analytics, integração, arquiteturas event-driven, cloud-native e AI-ready data**, utilizando cenários industriais simulados inspirados em processos de **SAP MM, PP, QM, EWM e MES**.
@@ -303,18 +303,20 @@ Novas pastas serão adicionadas apenas quando houver necessidade real de impleme
 
 ## 🅲 Bloco C — Professional SAP HANA Development
 
-| # | Cenário | Objetivo | Status |
-|---|---|---|---|
-| C1 | Business Application Studio | Preparar o ambiente profissional de desenvolvimento SAP HANA | ⏳ |
-| C2 | HANA Database Project | Criar e estruturar um projeto de banco SAP HANA | ⏳ |
-| C3 | HDI Container | Compreender isolamento, deployment e gerenciamento com HDI | ⏳ |
-| C4 | Design-Time Artifacts | Desenvolver artefatos versionáveis para geração de objetos runtime | ⏳ |
-| C5 | CDS Database Artifacts | Modelar entidades e relacionamentos utilizando Core Data Services | ⏳ |
-| C6 | Deployment | Implantar artefatos de banco de dados no SAP HANA Cloud | ⏳ |
-| C7 | Runtime Objects | Analisar os objetos gerados pelo processo de deployment | ⏳ |
-| C8 | Synonyms & Cross-Schema Access | Acessar objetos externos ao container de maneira controlada | ⏳ |
-| C9 | Calculation Views | Construir modelos analíticos utilizando Calculation Views | ⏳ |
-| C10 | Security & Privileges | Aplicar conceitos de usuários, roles, grants e menor privilégio | ⏳ |
+<table>
+<tr><th>#</th><th>Cenário</th><th>Objetivo</th><th>Status</th><th>Doc</th></tr>
+<tr><td>C1</td><td>Business Application Studio</td><td>Preparar o ambiente profissional de desenvolvimento SAP HANA</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C2</td><td>HANA Database Project</td><td>Criar e estruturar um projeto de banco SAP HANA</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C3</td><td>HDI Container</td><td>Compreender isolamento, deployment e gerenciamento com HDI</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C4</td><td>Design-Time Artifacts</td><td>Desenvolver artefatos versionáveis para geração de objetos runtime</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C5</td><td>CDS Database Artifacts</td><td>Modelar entidades e relacionamentos utilizando Core Data Services</td><td><img src="https://img.shields.io/badge/status-bloqueado%20(plataforma)-critical?style=flat-square" alt="bloqueado"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C6</td><td>Deployment</td><td>Implantar artefatos de banco de dados no SAP HANA Cloud</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C7</td><td>Runtime Objects</td><td>Analisar os objetos gerados pelo processo de deployment</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C8</td><td>Synonyms & Cross-Schema Access</td><td>Acessar objetos externos ao container de maneira controlada</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C9</td><td>Calculation Views</td><td>Construir modelos analíticos utilizando Calculation Views</td><td><img src="https://img.shields.io/badge/status-parcial%20(rede)-yellow?style=flat-square" alt="parcial"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C10</td><td>Security & Privileges</td><td>Aplicar conceitos de usuários, roles, grants e menor privilégio</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/C%20—%20Professional%20SAP%20HANA%20Development/BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md">📄</a></td></tr>
+<tr><td>C11</td><td>CAP & Modern CDS (<code>@sap/cds-dk</code>)</td><td>Modelar e implantar artefatos CDS modernos via CAP, sucessor do CDS clássico descontinuado em HDI puro</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+</table>
 
 ## 🅳 Bloco D — Data Engineering
 
