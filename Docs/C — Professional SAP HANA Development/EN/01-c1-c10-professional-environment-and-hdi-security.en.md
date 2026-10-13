@@ -146,6 +146,12 @@ CREATE SYNONYM DBADMIN.MAT FOR INDUSTRIAL_DATA.MATERIAL;
 SELECT * FROM DBADMIN.MAT;  -- 300 rows, identical to a direct SELECT
 ```
 
+![C8-EV01 — SELECT through the Synonym](../../../Evidences/LAB_C/C8-EV01-synonym-select-300-rows.png)
+*C8-EV01 — `SELECT * FROM DBADMIN.MAT` returning the 300 rows of `INDUSTRIAL_DATA.MATERIAL`.*
+
+![C8-EV02 — Synonym in SYS.SYNONYMS](../../../Evidences/LAB_C/C8-EV02-synonym-in-sys-synonyms.png)
+*C8-EV02 — The `MAT` synonym registered in `SYS.SYNONYMS`, pointing to `INDUSTRIAL_DATA.MATERIAL`.*
+
 **Key lesson:** a Synonym is a naming transparency layer, not a security bypass mechanism. It only works when the underlying privilege already exists — confirming, through an independent path, the diagnosis from C6/C7.
 
 ### C9 — Calculation View, concept proven without the graphical editor
@@ -160,6 +166,9 @@ GROUP BY MTART, MATKL
 ORDER BY MATERIAL_COUNT DESC;
 -- 24 rows of real aggregation
 ```
+
+![C9-EV01 — aggregation through the Synonym](../../../Evidences/LAB_C/C9-EV01-aggregation-via-synonym.png)
+*C9-EV01 — Aggregation by material type and material group: 24 rows, over the `DBADMIN.MAT` Synonym.*
 
 ### C10 — Security & Privileges, consolidated through practice
 
@@ -201,10 +210,9 @@ industrial_data_db/
 | `C6-EV01` | C6 | `mbt build` completed successfully |
 | `C6-EV02` | C6 | `cf deploy` completed successfully (`Process finished`) |
 | `C6-EV03` | C6/C7 | 4-column metadata confirmed via `SYS.TABLE_COLUMNS` |
+| `C8-EV01`, `C8-EV02` | C8 | `SELECT` through the Synonym (300 rows) and the synonym in `SYS.SYNONYMS` |
+| `C9-EV01` | C9 | Real aggregation (24 rows) proving the Calculation View concept via SQL |
 | `C11-EV01` to `C11-EV04` | C11 | See [DOC C-02](./02-c11-cap-and-modern-cds.en.md) |
-
-> [!NOTE]
-> The C8 (Synonym, 300 rows) and C9 (aggregation, 24 rows) proofs were validated in the SQL Console, but the screenshots were not saved to the repository. The results and queries are reproduced in the sections above and can be re-run.
 
 Full files in [`Evidences/LAB_C/`](../../../Evidences/LAB_C/).
 

@@ -146,6 +146,12 @@ CREATE SYNONYM DBADMIN.MAT FOR INDUSTRIAL_DATA.MATERIAL;
 SELECT * FROM DBADMIN.MAT;  -- 300 linhas, idêntico ao SELECT direto
 ```
 
+![C8-EV01 — SELECT pelo Synonym](../../../Evidences/LAB_C/C8-EV01-synonym-select-300-rows.png)
+*C8-EV01 — `SELECT * FROM DBADMIN.MAT` devolvendo as 300 linhas de `INDUSTRIAL_DATA.MATERIAL`.*
+
+![C8-EV02 — Synonym em SYS.SYNONYMS](../../../Evidences/LAB_C/C8-EV02-synonym-in-sys-synonyms.png)
+*C8-EV02 — O synonym `MAT` registrado em `SYS.SYNONYMS`, apontando para `INDUSTRIAL_DATA.MATERIAL`.*
+
 **Lição chave:** Synonym é transparência de nomeação, não é mecanismo de bypass de segurança. Ele só funciona quando o privilégio subjacente já existe — confirmando, por caminho independente, o diagnóstico do C6/C7.
 
 ### C9 — Calculation View, conceito provado sem o editor gráfico
@@ -160,6 +166,9 @@ GROUP BY MTART, MATKL
 ORDER BY QTD_MATERIAIS DESC;
 -- 24 linhas de agregação real
 ```
+
+![C9-EV01 — agregação via Synonym](../../../Evidences/LAB_C/C9-EV01-aggregation-via-synonym.png)
+*C9-EV01 — Agregação por tipo de material e grupo de mercadoria: 24 linhas, sobre o Synonym `DBADMIN.MAT`.*
 
 ### C10 — Security & Privileges, consolidado pela prática
 
@@ -201,10 +210,9 @@ industrial_data_db/
 | `C6-EV01` | C6 | `mbt build` concluído com sucesso |
 | `C6-EV02` | C6 | `cf deploy` concluído com sucesso (`Process finished`) |
 | `C6-EV03` | C6/C7 | Metadados das 4 colunas confirmados via `SYS.TABLE_COLUMNS` |
+| `C8-EV01`, `C8-EV02` | C8 | `SELECT` pelo Synonym (300 linhas) e o synonym em `SYS.SYNONYMS` |
+| `C9-EV01` | C9 | Agregação real (24 linhas) provando o conceito de Calculation View via SQL |
 | `C11-EV01` a `C11-EV04` | C11 | Ver [DOC C-02](./02-c11-cap-e-cds-moderno.md) |
-
-> [!NOTE]
-> As provas de C8 (Synonym, 300 linhas) e C9 (agregação, 24 linhas) foram validadas no SQL Console, mas as capturas de tela não foram salvas no repositório. Os resultados e as queries estão reproduzidos nas seções acima e podem ser reexecutados.
 
 Arquivos completos em [`Evidences/LAB_C/`](../../../Evidences/LAB_C/).
 
