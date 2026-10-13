@@ -2,9 +2,9 @@
 
 **🌐 Language / Idioma:** 🇺🇸 **English** | [🇧🇷 Português](../BR/01-c1-c10-ambiente-profissional-e-seguranca-hdi.md)
 
-[⬆️ Back to README](../../../README.md)
+[⬆️ Back to README](../../../README.md) | [➡️ Next: C11 — CAP & Modern CDS](./02-c11-cap-and-modern-cds.en.md)
 
-> **Status:** ✅ Completed (C1, C2, C3, C4, C6, C7, C8) · ⚠️ Blocked by platform limitation, documented (C5, C9) · 🔜 Consolidated through lived experience (C10) · Deferred to a future session: **C11 — CAP & Modern CDS**
+> **Status:** ✅ Completed (C1, C2, C3, C4, C6, C7, C8) · ⚠️ Blocked by platform limitation, documented (C5, C9) · 🔜 Consolidated through lived experience (C10) · C11 documented separately in [DOC C-02](./02-c11-cap-and-modern-cds.en.md)
 > **Environment:** SAP Business Application Studio (BAS) · SAP HANA Cloud Trial · Cloud Foundry (`hdi-shared` plan)
 > **Classification:** educational development environment, no production data
 
@@ -26,7 +26,7 @@ Unlike Block A (deterministic data, no surprises) and Block B (pure SQL, always-
 | C8 | Synonyms & Cross-Schema Access | ✅ `CREATE SYNONYM` tested and validated with real data (300 rows) |
 | C9 | Calculation Views | ⚠️ Partial — concept modeled, real data proven via SQL equivalent; graphical editor blocked by network |
 | C10 | Security & Privileges | ✅ Consolidated — lived in practice throughout the whole block |
-| C11 | CAP & Modern CDS (`@sap/cds-dk`) | ⏳ Pending — successor to the classic CDS discontinued in C5, to be practiced in a future session |
+| C11 | CAP & Modern CDS (`@sap/cds-dk`) | ✅ Completed locally (SQLite + OData) — see [DOC C-02](./02-c11-cap-and-modern-cds.en.md) |
 
 > [!IMPORTANT]
 > No real credential remains active after this document. The service key created for testing (`my-dev-key`, `my-dev-key-2`) was removed with `cf delete-service-key`. Passwords that appeared in working logs were never persisted to any file in the repository.
@@ -40,6 +40,18 @@ Unlike Block A (deterministic data, no surprises) and Block B (pure SQL, always-
 The first obstacle appeared right at Dev Space creation: the SAP BTP Trial has **two different landscapes** inside the same US10 region — the Cloud Foundry endpoint used by the graphical wizard (`api.cf.us10.hana.ondemand.com`) was not the same as the account's real Org (`api.cf.us10-001.hana.ondemand.com`, visible under **BTP Cockpit → Cloud Foundry Environment**). This mismatch produced the `There is no Org defined for this landscape` error until the endpoint was corrected manually during sign-in.
 
 The Dev Space was created as `SAP HANA Native Application`, whose predefined extensions (SAP HANA Tools, Database Explorer, Calculation View Editor, MTA Tools) already covered the essentials of the roadmap without needing anything extra — only `CDS Graphical Modeler` was added manually.
+
+![C1-EV01 — Dev Space configuration](../../../Evidences/LAB_C/C1-EV01-dev-space-config-hana-native.png)
+*C1-EV01 — Dev Space creation screen with the `SAP HANA Native Application` type.*
+
+![C1-EV02 — Dev Space STARTING](../../../Evidences/LAB_C/C1-EV02-dev-space-starting.png)
+*C1-EV02 — `industrial_data_hana` created, status `STARTING`.*
+
+![C1-EV03 — Dev Space RUNNING](../../../Evidences/LAB_C/C1-EV03-dev-space-running-ide-loaded.png)
+*C1-EV03 — Status `RUNNING`, with active disk usage.*
+
+![C1-EV04 — IDE loaded](../../../Evidences/LAB_C/C1-EV04-dev-space-ide-loaded.png)
+*C1-EV04 — IDE loaded, identifying `industrial_data_hana` · `SAP HANA Native Application`.*
 
 ### C2 + C3 — Project and HDI Container
 
@@ -60,6 +72,9 @@ resources:
     hdi-container-name: ${service-name}
 ```
 
+![C2-EV01 — mta.yaml with HDI Container binding](../../../Evidences/LAB_C/C2-EV01-mta-yaml-hdi-binding.png)
+*C2-EV01 — `mta.yaml` with the `hdi_db` resource and the `INDUSTRIAL_DATA_HDI` schema.*
+
 ### C4 + C6 — First artifact, first deployment
 
 `material.hdbtable` was written and failed the first deploy with a **namespace** error:
@@ -69,6 +84,15 @@ Error: com.sap.hana.di.table: "material" has to be prefixed with the namespace "
 ```
 
 Fix: any object inside a project with a declared namespace needs the full prefix in its name, using `::` as separator — `"industrial.data.db::material"`, not `"material"`. After this fix, `mbt build` + `cf deploy` completed successfully, creating the real table in the `INDUSTRIAL_DATA_HDI` schema.
+
+![C4-EV01 — material.hdbtable](../../../Evidences/LAB_C/C4-EV01-material-hdbtable-created.png)
+*C4-EV01 — `material.hdbtable` artifact created in `db/src/`.*
+
+![C6-EV01 — mbt build](../../../Evidences/LAB_C/C6-EV01-mbt-build-success.png)
+*C6-EV01 — `mbt build` generating the `.mtar`.*
+
+![C6-EV02 — cf deploy](../../../Evidences/LAB_C/C6-EV02-cf-deploy-success.png)
+*C6-EV02 — `cf deploy` completed (`Process finished`).*
 
 ### C5 — Discovering that classic CDS is discontinued
 
@@ -109,6 +133,9 @@ FROM SYS.TABLE_COLUMNS
 WHERE SCHEMA_NAME = 'INDUSTRIAL_DATA_HDI' AND TABLE_NAME = 'industrial.data.db::material';
 -- returns the 4 columns exactly as defined in the .hdbtable
 ```
+
+![C6-EV03 — column metadata](../../../Evidences/LAB_C/C6-EV03-metadata-columns-confirmed.png)
+*C6-EV03 — The 4 columns (`MATNR`, `MATNR_TEXT`, `MTART`, `CREATED_DATE`) confirmed in `SYS.TABLE_COLUMNS`.*
 
 ### C8 — Synonyms, proof that the concept works when access already exists
 
@@ -174,7 +201,10 @@ industrial_data_db/
 | `C6-EV01` | C6 | `mbt build` completed successfully |
 | `C6-EV02` | C6 | `cf deploy` completed successfully (`Process finished`) |
 | `C6-EV03` | C6/C7 | 4-column metadata confirmed via `SYS.TABLE_COLUMNS` |
-| `C9-EV01` | C9 | Real aggregation (24 rows) proving the Calculation View concept via SQL |
+| `C11-EV01` to `C11-EV04` | C11 | See [DOC C-02](./02-c11-cap-and-modern-cds.en.md) |
+
+> [!NOTE]
+> The C8 (Synonym, 300 rows) and C9 (aggregation, 24 rows) proofs were validated in the SQL Console, but the screenshots were not saved to the repository. The results and queries are reproduced in the sections above and can be re-run.
 
 Full files in [`Evidences/LAB_C/`](../../../Evidences/LAB_C/).
 
@@ -182,7 +212,6 @@ Full files in [`Evidences/LAB_C/`](../../../Evidences/LAB_C/).
 
 ## 🔜 Next steps
 
-- **C11 — CAP & Modern CDS (`@sap/cds-dk`)**: a new, dedicated block for the official successor to classic CDS — CAP project structure, `srv/` + `db/`, deployment via `cds deploy`/`cds build`.
 - **Re-validate C9 (graphical Calculation View) and data access (C6/C7)** on a home network, to isolate whether the root cause was the corporate VPN used during this session.
 
 ---
