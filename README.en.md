@@ -321,20 +321,21 @@ New directories will be introduced only when implementation creates a real need.
 
 ## 🅳 Block D — Data Engineering
 
-| # | Scenario | Objective | Status |
-|---|---|---|---|
-| D1 | Data Ingestion | Ingest fictional data from different sources into SAP HANA Cloud | ⏳ |
-| D2 | Data Cleansing | Identify and handle inconsistencies, NULL values, and invalid formats | ⏳ |
-| D3 | Transformation Pipelines | Transform RAW data into curated and business-ready structures | ⏳ |
-| D4 | Data Quality | Define and validate technical and functional data quality rules | ⏳ |
-| D5 | Incremental Loading | Process only new or modified records | ⏳ |
-| D6 | Delta Processing | Implement strategies for identifying and processing data deltas | ⏳ |
-| D7 | Deduplication | Detect and handle duplicate records | ⏳ |
-| D8 | Data Lineage | Document data origin, processing, transformations, and destination | ⏳ |
-| D9 | Remote Sources | Explore access to remote data sources | ⏳ |
-| D10 | Virtual Tables | Consume remote data without mandatory physical replication | ⏳ |
-| D11 | Replication | Explore data replication and persistence strategies | ⏳ |
-| D12 | Performance & Optimization | Evaluate and optimize data pipelines and models | ⏳ |
+<table>
+<tr><th>#</th><th>Scenario</th><th>Objective</th><th>Status</th><th>Doc</th></tr>
+<tr><td>D1</td><td>Data Ingestion</td><td>Ingest synthetic data from different sources into SAP HANA Cloud</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D2</td><td>Data Cleansing</td><td>Identify and handle inconsistencies, NULLs and invalid formats</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D3</td><td>Transformation Pipelines</td><td>Transform RAW data into curated, business-ready structures</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D4</td><td>Data Quality</td><td>Define and validate technical and functional quality rules</td><td><img src="https://img.shields.io/badge/status-partial%20(lab)-yellow?style=flat-square" alt="partial"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D5</td><td>Incremental Loading</td><td>Process only new or modified records</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D6</td><td>Delta Processing</td><td>Implement strategies to identify and process deltas</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D7</td><td>Deduplication</td><td>Detect and handle duplicate records</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D8</td><td>Data Lineage</td><td>Document the origin, processing and destination of information</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D9</td><td>Remote Sources</td><td>Explore access to remote data sources</td><td><img src="https://img.shields.io/badge/status-partial%20(lab)-yellow?style=flat-square" alt="partial"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D10</td><td>Virtual Tables</td><td>Consume data remotely without mandatory replication</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D11</td><td>Replication</td><td>Explore replication and persistence strategies</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+<tr><td>D12</td><td>Performance & Optimization</td><td>Evaluate and optimize pipelines and data models</td><td><img src="https://img.shields.io/badge/status-partial%20(lab)-yellow?style=flat-square" alt="partial"/></td><td><a href="./Docs/D%20—%20Data%20Engineering/EN/01-d1-d12-data-engineering.en.md">📄</a></td></tr>
+</table>
 
 ## 🅴 Block E — Transactional SAP Data
 
