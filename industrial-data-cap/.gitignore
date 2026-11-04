@@ -1,0 +1,11 @@
+# dependências
+node_modules/
+
+# credenciais e ligações locais (NUNCA subir)
+default-env.json
+.cdsrc-private.json
+.env
+
+# bancos locais de teste
+*.sqlite
+*.db

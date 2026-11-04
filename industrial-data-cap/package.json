@@ -1,0 +1,25 @@
+{
+  "name": "industrial-data-cap",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cds-serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@cap-js/hana": "^3.1.2",
+    "@cap-js/sqlite": "^3.1.2",
+    "@sap/cds": "^10.2.1",
+    "@sap/cds-dk": "^10.2.0",
+    "@sap/xssec": "^4.16.0"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3"
+  },
+  "private": true
+}

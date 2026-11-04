@@ -1,0 +1,16 @@
+{
+  "requires": {
+    "auth": {
+      "kind": "mocked",
+      "users": {
+        "alice": { "password": "alice", "roles": ["Buyer"] },
+        "bob":   { "password": "bob",   "roles": ["Viewer"] }
+      }
+    }
+  },
+  "[hybrid]": {
+    "requires": {
+      "auth": { "kind": "xsuaa" }
+    }
+  }
+}

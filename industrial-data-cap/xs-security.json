@@ -1,0 +1,12 @@
+{
+  "xsappname": "industrial-data-cap",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.Viewer", "description": "Leitura dos dados de compras" },
+    { "name": "$XSAPPNAME.Buyer",  "description": "Leitura e alteração dos dados de compras" }
+  ],
+  "role-templates": [
+    { "name": "Viewer", "description": "Somente leitura", "scope-references": ["$XSAPPNAME.Viewer"] },
+    { "name": "Buyer",  "description": "Leitura e escrita", "scope-references": ["$XSAPPNAME.Viewer", "$XSAPPNAME.Buyer"] }
+  ]
+}
