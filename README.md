@@ -192,8 +192,8 @@ A arquitetura será construída progressivamente. A presença de um componente n
 | SAP HANA Database Explorer / SQL Console | ✅ Validado |
 | SAP Business Application Studio | ✅ Subscribed |
 | GitHub Repository | ✅ Criado |
-| HDI Container | ⏳ Futuro laboratório |
-| CAP / OData | ⏳ Roadmap |
+| HDI Container | ✅ Concluído (Blocos C e F) |
+| CAP / OData | ✅ Concluído (Bloco F) |
 | SAP Fiori | ⏳ Roadmap |
 | Kyma / Kubernetes | ⏳ Roadmap |
 
@@ -245,6 +245,7 @@ A consulta confirmou conexão funcional com a instância SAP HANA Cloud.
 | `Docs/` | Documentação detalhada dos laboratórios |
 | `Evidences/` | Evidências técnicas de execução e validação |
 | `Fiori-Applications/` | Aplicações SAP Fiori / Fiori Elements |
+| `industrial-data-cap/` | Projeto CAP do Bloco F (serviço OData/REST, regras de negócio, XSUAA) |
 | `HANA-Data-Models/` | Artefatos e projetos de modelagem SAP HANA |
 | `Integration-Suite/` | Cenários de ingestão e integração com SAP Integration Suite |
 | `MES-Manufacturing-Execution/` | Cenários simulados de Manufacturing Execution Systems |
@@ -353,17 +354,18 @@ Novas pastas serão adicionadas apenas quando houver necessidade real de impleme
 
 ## 🅵 Bloco F — CAP & Data APIs
 
-| # | Cenário | Objetivo | Status |
-|---|---|---|---|
-| F1 | CAP Foundation | Introduzir os fundamentos do SAP Cloud Application Programming Model | ⏳ |
-| F2 | Domain Modeling | Modelar entidades e serviços utilizando CDS | ⏳ |
-| F3 | HANA Persistence | Persistir entidades CAP no SAP HANA Cloud | ⏳ |
-| F4 | OData Service | Expor dados do projeto através de serviços OData | ⏳ |
-| F5 | REST APIs | Criar serviços REST para consumo de dados | ⏳ |
-| F6 | Filtering & Paging | Implementar filtros, seleção, ordenação e paginação | ⏳ |
-| F7 | Business Logic | Adicionar validações e lógica de negócio aos serviços | ⏳ |
-| F8 | Authentication | Proteger aplicações e serviços por autenticação | ⏳ |
-| F9 | Authorization | Controlar acesso aos dados e operações por autorização | ⏳ |
+<table>
+<tr><th>#</th><th>Cenário</th><th>Objetivo</th><th>Status</th><th>Doc</th></tr>
+<tr><td>F1</td><td>CAP Foundation</td><td>Introduzir os fundamentos do SAP Cloud Application Programming Model</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+<tr><td>F2</td><td>Domain Modeling</td><td>Modelar entidades e serviços utilizando CDS</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+<tr><td>F3</td><td>HANA Persistence</td><td>Persistir entidades CAP no SAP HANA Cloud</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+<tr><td>F4</td><td>OData Service</td><td>Expor dados do projeto através de serviços OData</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+<tr><td>F5</td><td>REST APIs</td><td>Criar serviços REST para consumo de dados</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+<tr><td>F6</td><td>Filtering & Paging</td><td>Implementar filtros, seleção, ordenação e paginação</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+<tr><td>F7</td><td>Business Logic</td><td>Adicionar validações e lógica de negócio aos serviços</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+<tr><td>F8</td><td>Authentication</td><td>Proteger aplicações e serviços por autenticação</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+<tr><td>F9</td><td>Authorization</td><td>Controlar acesso aos dados e operações por autorização</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/BR/01-f1-f9-cap-e-apis-de-dados.md">📄</a></td></tr>
+</table>
 
 ## 🅶 Bloco G — SAP Fiori Data Applications
 

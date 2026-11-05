@@ -192,8 +192,8 @@ The architecture will be built progressively. A component shown in the diagram i
 | SAP HANA Database Explorer / SQL Console | ✅ Validated |
 | SAP Business Application Studio | ✅ Subscribed |
 | GitHub Repository | ✅ Created |
-| HDI Container | ⏳ Future lab |
-| CAP / OData | ⏳ Roadmap |
+| HDI Container | ✅ Completed (Blocks C and F) |
+| CAP / OData | ✅ Completed (Block F) |
 | SAP Fiori | ⏳ Roadmap |
 | Kyma / Kubernetes | ⏳ Roadmap |
 
@@ -245,6 +245,7 @@ The query confirmed a functional connection to the SAP HANA Cloud instance.
 | `Docs/` | Detailed laboratory documentation |
 | `Evidences/` | Technical execution and validation evidence |
 | `Fiori-Applications/` | SAP Fiori / Fiori Elements applications |
+| `industrial-data-cap/` | Block F CAP project (OData/REST service, business rules, XSUAA) |
 | `HANA-Data-Models/` | SAP HANA modeling artifacts and projects |
 | `Integration-Suite/` | Data ingestion and SAP Integration Suite scenarios |
 | `MES-Manufacturing-Execution/` | Simulated Manufacturing Execution Systems scenarios |
@@ -350,6 +351,21 @@ New directories will be introduced only when implementation creates a real need.
 | E7 | Inspection Lots | Model inspection lots within the SAP QM context | ✅ Delivered via A10 (DOC 04) |
 | E8 | Quality Results | Structure quality results and indicators | ✅ Delivered via A10 `UD_CODE` (DOC 04) |
 | E9 | Warehouse Movements | Model movements and structures related to the EWM context | ✅ Delivered via A12 `WAREHOUSE_TASK` (DOC 04) |
+
+## 🅵 Block F — CAP & Data APIs
+
+<table>
+<tr><th>#</th><th>Scenario</th><th>Objective</th><th>Status</th><th>Doc</th></tr>
+<tr><td>F1</td><td>CAP Foundation</td><td>Introduce the fundamentals of the SAP Cloud Application Programming Model</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+<tr><td>F2</td><td>Domain Modeling</td><td>Model entities and services using CDS</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+<tr><td>F3</td><td>HANA Persistence</td><td>Persist CAP entities in SAP HANA Cloud</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+<tr><td>F4</td><td>OData Service</td><td>Expose project data through OData services</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+<tr><td>F5</td><td>REST APIs</td><td>Create REST services for data consumption</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+<tr><td>F6</td><td>Filtering & Paging</td><td>Implement filtering, selection, sorting and paging</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+<tr><td>F7</td><td>Business Logic</td><td>Add validation and business logic to services</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+<tr><td>F8</td><td>Authentication</td><td>Protect applications and services with authentication</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+<tr><td>F9</td><td>Authorization</td><td>Control access to data and operations through authorization</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+</table>
 
 ---
 
