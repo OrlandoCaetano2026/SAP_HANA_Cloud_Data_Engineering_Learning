@@ -4,8 +4,8 @@
 
 [⬆️ Back to README](../../../README.en.md)
 
-> **Status:** ✅ G1 completed locally (VS Code + in-memory SQLite) · ⚠️ Caveats: the app is not yet deployed to BTP; the views using `$now`, `days_between` and `$user.locale` were tested on SQLite only; the app opens through `index.html`, without the Launchpad; the `cds watch` terminal and the `curl.exe` output were not captured as images (documented as text)
-> **Environment:** SAP CAP (`@sap/cds` 10.2.x, `cds-serve` 10.2.2) · SAP Fiori tools (Application Generator `@sap/generator-fiori`, `lrop` template 1.34.0, `@sap/ux-ui5-tooling` 1.34.0) · SAPUI5 1.154.0 (SAP Horizon theme) · Node.js 24 · PowerShell · VS Code
+> **Status:** ✅ G1 completed and deployed to SAP BTP (Cloud Foundry + HANA Cloud), with a Launchpad tile (Work Zone) and phone access · ⚠️ Caveats: the app was registered manually in Work Zone (automatic HTML5 Apps discovery did not work); the tile opened blank once on desktop (cause not diagnosed); on the phone only the most important columns show; the licensing hypothesis was not validated; the `cds watch` terminal and the `curl.exe` output were not captured as images (documented as text)
+> **Environment:** SAP CAP (`@sap/cds` 10.2.x, `cds-serve` 10.2.2) · SAP Fiori tools (Application Generator `@sap/generator-fiori`, `lrop` template 1.34.0, `@sap/ux-ui5-tooling` 1.34.0) · SAPUI5 1.154.0 (SAP Horizon theme) · Node.js 24 · PowerShell · VS Code · SAP BTP trial (Cloud Foundry, SAP HANA Cloud `hana-free`, XSUAA, HTML5 Application Repository, SAP Build Work Zone standard, SAP Cloud Identity Services) · MBT 1.2.53 · multiapps plugin 3.12.0
 > **Project:** [`procurement-p2p-cap/`](../../../procurement-p2p-cap) (repository root) · **Service:** `ProcurementService` at `/odata/v4/p2p` · **App:** `p2p.materials` (List Report + Object Page)
 > **Data:** fictitious CSV — 12 materials, 10 suppliers, 30 purchasing info records (PIR), 26 quality info records (QIR), 30 purchase orders with 59 items
 > **Classification:** educational environment, fictitious data, no production data
@@ -18,7 +18,7 @@ Block G is designed as a **Purchase-to-Pay (P2P) extension built on SAP BTP, wit
 
 The answer combines four sources, all visible on one screen of the material: the material master, the **PIR** (purchasing info record: price, lead time, validity), the **QIR** (quality info record: release and certificate) and the supplier status.
 
-This document walks through G1 end to end, including the stumbles. The app was generated with the official tools (SAP Fiori tools), configured in the Page Editor, given its own visual identity through CSS and prepared for two languages (English as default, Portuguese as translation).
+This document walks through G1 end to end, including the stumbles. The app was generated with the official tools (SAP Fiori tools), configured in the Page Editor, given its own visual identity through CSS and prepared for two languages (English as default, Portuguese as translation). Finally, it was deployed to SAP BTP (Cloud Foundry and HANA Cloud), got a tile in the Launchpad and was opened on a phone.
 
 | Step | Goal | Result |
 |---|---|---|
@@ -32,6 +32,7 @@ This document walks through G1 end to end, including the stumbles. The app was g
 | G1.7 | Object Page | ✅ Title, description and "Material data" section |
 | G1.8 | Eligible suppliers | ✅ Table on the Object Page with colored status (PIR + QIR + supplier status) |
 | G1.9 | Internationalization | ✅ Screen and database texts in English (default) and Portuguese |
+| G1.10 | Deployment to BTP | ✅ MTA on Cloud Foundry + HANA Cloud, Launchpad tile (Work Zone) and phone access; eligibility validated on HANA |
 
 > [!IMPORTANT]
 > No credentials were written to any repository file. `node_modules/`, `gen/`, `default-env.json`, `.cdsrc-private.json` and `.env` are in `.gitignore`.
@@ -185,9 +186,6 @@ The generator has four steps, and each one is a decision.
 
 **1. Template Selection.** The generator offers several templates. The chosen one was **List Report Page**, which creates two linked pages: a list with filters and, when a row is clicked, a detail page (Object Page). It is the standard for browsing and opening business objects.
 
-![G1-EV02 — Template selection](../../../Evidences/LAB_G/G1-EV02-fiori-generator-template-selection.png)
-*G1-EV02 — The template selection screen, with nothing selected yet (the field is mandatory).*
-
 ![G1-EV03 — List Report Page selected](../../../Evidences/LAB_G/G1-EV03-template-list-report-selecionado.png)
 *G1-EV03 — List Report Page template selected.*
 
@@ -197,9 +195,6 @@ The generator has four steps, and each one is a decision.
 *G1-EV04 — CAP project `procurement-p2p-cap` and service `ProcurementService (Node.js)`.*
 
 **3. Entity Selection.** Here you choose the list's **main entity**. The generator shows every entity the service exposes, and the entity selected by default was `PurchaseOrders`.
-
-![G1-EV05 — Entities exposed by the service](../../../Evidences/LAB_G/G1-EV05-entity-selection-lista-de-entidades.png)
-*G1-EV05 — The `ProcurementService` entity list.*
 
 The choice was **`Materials`**. **Navigation Entity** stayed `None`, because the suppliers table would be built later in the Page Editor. The option to **add columns and a section automatically** stayed Yes, and the **table type** Responsive (suitable while the list has fewer than 200 items).
 
@@ -289,9 +284,6 @@ The **Page Map** shows the app as a map of pages. `MaterialsList` (List Report) 
 
 The pencil on the `MaterialsList` card opens the **Page Editor**, which shows the page tree: **Header**, **Filter Bar** (with Filter Fields, empty) and **Table** (with the generated Columns).
 
-![G1-EV13 — List Report Page Editor](../../../Evidences/LAB_G/G1-EV13-page-editor-list-report.png)
-*G1-EV13 — The List Report Page Editor. The tree on the left is what the app has; the panel on the right edits the selected item.*
-
 Three adjustments were made:
 
 1. **Filters.** `MATNR`, `MTART`, `MATKL` and `QM_ACTIVE` were added to Filter Fields. The editor offered `type/MTART`, the key of the associated entity `MaterialTypes`; it works, but forces an unnecessary join, since `Materials` has its own `MTART`. It was replaced by `MTART`.
@@ -302,9 +294,6 @@ Three adjustments were made:
 *G1-EV14 — Four filters and the `QM_ACTIVE` column in the tree; the panel shows the Label of the selected item.*
 
 The properties panel revealed how labels work. The editor's own note says a field's **Label** applies to **every occurrence of the property** (filter, column, Object Page section), unless another label is defined locally. This distinction came back on the Object Page (G1.7).
-
-![G1-EV15 — Properties of the MTART filter](../../../Evidences/LAB_G/G1-EV15-page-editor-propriedades-do-filtro-mtart.png)
-*G1-EV15 — Properties of the `MTART` filter: Label, External ID, Text, Text Arrangement and Display Type.*
 
 | Panel field | What it does |
 |---|---|
@@ -357,9 +346,6 @@ The second was **the app's own CSS customization**. The app loads a style file d
 
 A first version painted the band light blue (`#d1e7fa`), keeping the text.
 
-![G1-EV20 — Light blue header](../../../Evidences/LAB_G/G1-EV20-list-report-cabecalho-azul-claro.png)
-*G1-EV20 — The first version: light blue header, text as it was.*
-
 The final version uses dark blue and white text. **The point of the exercise was learning to find the right selector**: in the browser, right-click the element, **Inspect**, and read the classes in the panel (`sapFDynamicPageTitle`, `sapFDynamicPageHeader`, `sapMLabel`). The file is `app/materials/webapp/css/style.css`:
 
 ```css
@@ -404,9 +390,6 @@ Clicking a material opens the Object Page with what the generator built: the tit
 *G1-EV18 — The Object Page "before": title with the code only, "General Information" section and technical labels.*
 
 These labels appear because the generator wrote `Label : 'MATNR'` **inside** the field group, and the local label overrides the property label defined in the List Report. The fix is in the **`MaterialsObjectPage` Page Editor**.
-
-![G1-EV23 — Object Page Page Editor](../../../Evidences/LAB_G/G1-EV23-page-editor-object-page-rotulos.png)
-*G1-EV23 — The Object Page tree: Header, Sections (General Information, with Form and Fields) and Footer. Each field gets a readable Label.*
 
 The field labels were changed (Material, Description, Material type, Material group, Unit of measure, QM active) and the section became **"Material data"**.
 
@@ -462,9 +445,6 @@ The qualifier (`#ByMaterial`) is a name that tells this list apart from other li
 
 **Piece 2: the section, created in the Page Editor.** Under **Sections**, the **+** button opened **Add Table Section**:
 
-![G1-EV26 — Add Table Section](../../../Evidences/LAB_G/G1-EV26-add-table-section-fornecedores-elegiveis.png)
-*G1-EV26 — The Add Table Section dialog, with the existing table, `eligibility` as the source and `LineItem#ByMaterial`.*
-
 | Field | Value | Meaning |
 |---|---|---|
 | Label | `Eligible suppliers` | Section title |
@@ -474,9 +454,6 @@ The qualifier (`#ByMaterial`) is a name that tells this list apart from other li
 | Table Type | `ResponsiveTable` | Adaptive table; few suppliers per material |
 
 The editor recognized the `eligibility` link and the qualifier, which confirms that model and screen are aligned. It registered the section as a new facet (`UI.ReferenceFacet` with target `eligibility/@UI.LineItem#ByMaterial`), and the Object Page gained two sections in the navigation bar.
-
-![G1-EV27 — Object Page with eligible suppliers](../../../Evidences/LAB_G/G1-EV27-object-page-fornecedores-elegiveis.png)
-*G1-EV27 — The "Eligible suppliers (3)" section of `EC-200002`. The table is cut off on the right in this capture.*
 
 ![G1-EV28 — Suppliers with the certificate column](../../../Evidences/LAB_G/G1-EV28-object-page-fornecedores-com-certificado.png)
 *G1-EV28 — The same section with the "Certificate valid until" column visible. This is the main evidence of G1.*
@@ -556,6 +533,212 @@ Labels, section title and supplier status changed together. Numbers and dates al
 
 **What about the material description and the supplier name?** The material description **can also be translated**, and that is the SAP standard: it is language-dependent (table `MAKT`, one row per language). It would be enough to apply the same mechanism, with the description in a texts table and a fallback to the default text when there is no translation. This only works if the master data is up to date, that is, if the material has a description in each language. The current seed has English only (`Electronic Component 001`), so it does not change on screen. The **supplier name**, on the other hand, normally **does not** depend on language: the legal name (`NAME1` in `LFA1`) is a single one. Only supporting texts, such as payment terms, are translated. This improvement is left for when the application reads the real `INDUSTRIAL_DATA` master data.
 
+### G1.10 — Deploying to SAP BTP: Cloud Foundry, HANA Cloud, Launchpad and mobile
+
+Up to G1.9 the app ran only on the local machine, on in-memory SQLite. To **keep the work** and prove the "extension on BTP" story, the app was deployed to SAP BTP (trial, subaccount `trial`, space `dev`) as **a single MTA**: CAP service, HANA Cloud database (HDI), XSUAA authentication, approuter, and the Fiori app in the HTML5 Application Repository. It then got a **tile in the Launchpad** (SAP Build Work Zone) and was opened on a phone.
+
+#### G1.10.1 — Preparing the project for BTP
+
+One command added the deployment artifacts:
+
+```powershell
+cds add hana,xsuaa,mta,approuter,html5-repo
+```
+
+What it created or changed:
+
+| Artifact | Role |
+|---|---|
+| `mta.yaml` | Deployment descriptor: modules (`srv`, `db-deployer`, approuter, `app-deployer`, the `materials` app and the destinations content) and resources (HANA HDI, XSUAA, HTML5 repo host and runtime, Destination) |
+| `xs-security.json` | Scopes and roles: `Viewer`, `Buyer`, `Approver`, `ApproverSenior` |
+| Approuter (generated folder `.deploy/app-router`) | Login entry point that forwards `/odata/...` to the service and everything else to the HTML5 repo |
+| `package.json` | `@sap/xssec` and `cds.requires.[production].auth = xsuaa` (on BTP the login is no longer `alice:alice`) |
+
+Four manual adjustments were needed:
+
+1. **Duplicated `xs-security.json`.** `cds add xsuaa` repeated scopes that already existed. The original file (4 scopes, 4 role templates) was restored.
+2. **Launchpad navigation.** The app's `manifest.json` gained an entry in `sap.app.crossNavigation`, which lets a tile point to the app (semantic object `Materials`, action `display`, icon `sap-icon://product`). The `sap.cloud` block (`service: procurementp2pcap.service`) was already there.
+3. **Memory for `srv` and the database deployer.** `srv` with 512 MB and `db-deployer` with 256 MB, enough for the trial.
+4. **`.gitignore`.** Added `.deploy/`, `mta_archives/`, `*.mtar`, `mta-op-*/`, `.procurement-p2p-cap_mta_build_tmp/` and `Makefile_*.mta`. The `xs-security.backup.json` file also stays out of GitHub.
+
+#### G1.10.2 — Build and deploy
+
+Tools needed on the machine (once):
+
+```powershell
+npm.cmd install -g mbt --allow-scripts=mbt
+```
+
+```powershell
+winget install ezwinports.make
+```
+
+```powershell
+cf install-plugin multiapps -f
+```
+
+After installing `make`, the PowerShell session's PATH had to be refreshed (or a new terminal opened). Then:
+
+```powershell
+npm.cmd install
+```
+
+```powershell
+mbt.cmd build
+```
+
+The expected result is `mbt` producing `mta_archives/procurement-p2p-cap_1.0.0.mtar`. Login and deploy:
+
+```powershell
+cf login -a https://api.cf.us10-001.hana.ondemand.com
+```
+
+```powershell
+cf deploy mta_archives\procurement-p2p-cap_1.0.0.mtar
+```
+
+The expected result is `Process finished.` at the end. The deployment creates the HANA (HDI) instance, runs the `db-deployer` (which creates tables and views and loads the CSV files), starts `srv` and the approuter, and publishes the app to the HTML5 repo.
+
+> [!NOTE]
+> `cf deploy` warned about the stack migration (`cflinuxfs5`). It is only a warning; the deployment finished. Recorded under Limitations.
+
+After the deployment, XSUAA generates the **role collections** `Viewer`, `Buyer`, `Approver` and `ApproverSenior`, named like `Viewer (procurement-p2p-cap <org>-<space>)`. They are not assigned automatically: without them, OData returns 403. The assignment was done in the cockpit (Security → Users → the user → Assign Role Collection).
+
+#### G1.10.3 — The app on BTP, with data on SAP HANA Cloud
+
+![G1-BTP-06 — Applications in the dev space](../../../Evidences/LAB_G/G1-BTP-06-cockpit-aplicacoes-space-dev.png)
+*G1-BTP-06 — Cockpit, space `dev`: `procurement-p2p-cap` (approuter) and `procurement-p2p-cap-srv` (CAP service) started. `procurement-p2p-cap-db-deployer` stays stopped because it only runs during the deployment and exits; the stopped `db` is left over from Block C. The yellow banner is the `cflinuxfs5` migration notice.*
+
+![G1-BTP-07 — Service instances](../../../Evidences/LAB_G/G1-BTP-07-cockpit-instancias-de-servico.png)
+*G1-BTP-07 — The instances created by the MTA: XSUAA (`procurement-p2p-cap-auth`), HDI (`procurement-p2p-cap-db`) and HTML5 repo (host and runtime). The others belong to other blocks. The Destination instance was created in a second deployment, after this capture.*
+
+![G1-BTP-02 — User with the Viewer role collection](../../../Evidences/LAB_G/G1-BTP-02-usuario-com-role-collection-viewer.png)
+*G1-BTP-02 — The user with the `Viewer` role collection: it is what allows reading OData.*
+
+![G1-BTP-03 — List Report on BTP](../../../Evidences/LAB_G/G1-BTP-03-list-report-no-btp-approuter.png)
+*G1-BTP-03 — The List Report opened through the approuter URL, with BTP login.*
+
+![G1-BTP-09 — Object Page with eligibility on HANA](../../../Evidences/LAB_G/G1-BTP-09-object-page-elegibilidade-no-hana.png)
+*G1-BTP-09 — The Object Page with eligible suppliers, now reading from SAP HANA Cloud.*
+
+![G1-BTP-11 — Object Page in Portuguese on HANA](../../../Evidences/LAB_G/G1-BTP-11-object-page-pt-hana-situacao-traduzida.png)
+*G1-BTP-11 — In Portuguese, with the status translated through the texts table on HANA.*
+
+This closes a G1.9 pending item: the views using `$now`, `days_between` and `$user.locale`, previously validated only on SQLite, **work on SAP HANA Cloud** (eligibility computed and status translated according to the language).
+
+The service URL (`...-srv.cfapps...`) opens with `Cannot GET /`. That is expected: CAP in production has no landing page, and users enter through the approuter.
+
+#### G1.10.4 — The tile in the Launchpad (SAP Build Work Zone)
+
+For the app to appear as an icon, the choice was the **SAP Build Work Zone, standard edition Launchpad**. The Work Zone subscription did not work on the first try, and the path to it was long:
+
+1. **Error 422 `OIDC trust missing`.** Work Zone requires the subaccount to have a trusted identity provider.
+
+![G1-BTP-18 — Error 422 on subscription](../../../Evidences/LAB_G/G1-BTP-18-work-zone-erro-422-oidc-trust-missing.png)
+*G1-BTP-18 — The refused subscription: `422 OIDC trust missing`.*
+
+2. **`No tenants available`.** When trying to establish trust (Security → Trust Configuration → Establish Trust), there was no IAS (SAP Cloud Identity Services) tenant to choose.
+
+![G1-BTP-19 — No tenants available](../../../Evidences/LAB_G/G1-BTP-19-establish-trust-no-tenants-available.png)
+*G1-BTP-19 — Without an IAS tenant, there is nothing to establish trust with.*
+
+3. **Subscribe to Cloud Identity Services** (plan `default`, service type `TEST`) and activate the account through the e-mail received.
+
+![G1-BTP-23 — Cloud Identity Services subscribed](../../../Evidences/LAB_G/G1-BTP-23-cloud-identity-services-subscribed.png)
+*G1-BTP-23 — Cloud Identity Services with status Subscribed.*
+
+4. **Establish trust** with the IAS tenant (origin `sap.custom`).
+
+![G1-BTP-29 — IAS trust active](../../../Evidences/LAB_G/G1-BTP-29-trust-ias-ativa-main-information.png)
+*G1-BTP-29 — The IAS trust configuration active in the subaccount.*
+
+5. **Subscribe to Work Zone** again, this time successfully.
+
+![G1-BTP-31 — Work Zone subscribed](../../../Evidences/LAB_G/G1-BTP-31-work-zone-subscribed.png)
+*G1-BTP-31 — SAP Build Work Zone, standard edition, Subscribed.*
+
+> [!NOTE]
+> Two pitfalls along the way. Creating Work Zone with **Runtime Environment = Other** made BTP ask for an instance name: that creates an instance outside Cloud Foundry, not the subscription the Launchpad needs. The correct subscription dialog only has **Service** and **Plan**. The other was the cockpit not listing the new identity provider on the role collections screen: it was cache, fixed with **Ctrl + F5**.
+
+**IAS user and roles.** Login now goes through IAS, and BTP creates a "shadow" user on first access, **with no role collection at all**. With it, Work Zone opened with the error "Sorry, we couldn't find the site". The fix was to assign the role collections directly to that user (Security → Users → the IAS user):
+
+| Role collection | Purpose |
+|---|---|
+| `Launchpad_Admin` | Administer Work Zone (Site Directory, Content Manager) |
+| `Work_Zone_STD_Channel_Update_Admin` | Update provider content (Channel Manager) |
+| `Viewer`, `Buyer`, `Approver`, `ApproverSenior` (`procurement-p2p-cap ...`) | App roles, for the next blocks |
+
+![G1-BTP-37 — Launchpad_Admin on the IAS user](../../../Evidences/LAB_G/G1-BTP-37-launchpad-admin-usuario-idp-ias.png)
+*G1-BTP-37 — The `Launchpad_Admin` role collection assigned to the IAS provider user.*
+
+After assigning, it was necessary to log out and back in (in an incognito window) so the token carried the roles. Work Zone then opened on the **Site Directory**.
+
+**The app was not discovered automatically.** The Channel Manager's **HTML5 Apps** provider refreshed successfully, but the Content Explorer stayed at `HTML5 Apps (0)`, even though the app was published (`cf html5-list` listed `p2pmaterials`, version `0.0.1`, visibility `public`). The cause was not identified.
+
+![G1-BTP-38 — Empty Content Explorer](../../../Evidences/LAB_G/G1-BTP-38-content-explorer-html5-apps-vazio.png)
+*G1-BTP-38 — `HTML5 Apps (0)` in the Content Explorer, even though the app is in the HTML5 repo.*
+
+The workaround was to **create the app manually** in the Content Manager, pointing to the approuter:
+
+| Field | Value |
+|---|---|
+| Title / Description | `Material Master Explorer` / `Materiais e fornecedores elegíveis (PIR + QIR)` |
+| Open App | In a new tab (the approuter should not run inside an iframe) |
+| App UI Technology / URL | `URL` / `https://<approuter-route>/p2pmaterials/index.html` |
+| Navigation | Semantic Object `Materials`, Action `display` |
+| Visualization | Static Tile, subtitle `Procurement P2P`, icon `sap-icon://product` |
+
+![G1-BTP-39 — App created in Content Manager](../../../Evidences/LAB_G/G1-BTP-39-content-manager-app-criado.png)
+*G1-BTP-39 — The saved app, with the tile preview.*
+
+Next: a **Group** `Compras` with the app, the app assigned to the **Everyone** role, and a **site** `Compras P2P` (the Everyone role is already assigned to the site).
+
+![G1-BTP-40 — Compras group](../../../Evidences/LAB_G/G1-BTP-40-content-manager-group-compras.png)
+*G1-BTP-40 — The `Compras` group with the app assigned.*
+
+![G1-BTP-41 — Tile in the Launchpad](../../../Evidences/LAB_G/G1-BTP-41-launchpad-tile-material-master-explorer.png)
+*G1-BTP-41 — The `Compras P2P` site Launchpad: the **Material Master Explorer** tile, in the `Compras` group. This is the main evidence of G1.10.*
+
+![G1-BTP-42 — App opened on desktop](../../../Evidences/LAB_G/G1-BTP-42-app-aberto-via-approuter-desktop.png)
+*G1-BTP-42 — The app opened through the approuter URL on desktop: 12 materials, all columns.*
+
+> [!WARNING]
+> On desktop, the first click on the tile opened a **blank** tab, with the `#Materials-display?...` hash in the URL. Opening the approuter URL directly worked, and on the phone the whole path (Launchpad, tile, app) worked. The desktop cause was not diagnosed (hypotheses: the navigation hash the tile appends, which the app's router does not recognize, or cache and cookies of the incognito window). It stays as a pending item, under Limitations.
+
+#### G1.10.5 — Access from a phone
+
+The app opened on the phone **without installing anything**: the device's browser was enough, with the same IAS login.
+
+![G1-BTP-43 — List Report on the phone](../../../Evidences/LAB_G/G1-BTP-43-mobile-list-report.jpg)
+*G1-BTP-43 — The List Report on the phone: stacked filters and the materials list.*
+
+![G1-BTP-44 — Object Page on the phone](../../../Evidences/LAB_G/G1-BTP-44-mobile-object-page-elegiveis.jpg)
+*G1-BTP-44 — The `EC-200001` Object Page with its three eligible suppliers (SUP-001, SUP-002 and SUP-005).*
+
+On the phone only **Material** (list) and **Supplier** (eligible suppliers) appear. This is not an error: on small screens Fiori Elements shows only the most important columns. The fix is to mark the relevant columns with `@UI.Importance: #High` in the annotations (`LineItem` and `LineItem#ByMaterial`) and redeploy. It stays as an improvement.
+
+The three ways to bring the app to a phone:
+
+| # | Option | Status |
+|---|---|---|
+| 1 | **Tile in the Launchpad** (Work Zone) | ✅ Done (G1.10.4) |
+| 2 | **Responsive web**: open the Launchpad URL in the phone browser, with a home screen shortcut (Chrome menu, "Add to Home screen") | ✅ Worked in the browser; the shortcut was not captured |
+| 3 | **Native app** with SAP Mobile Services (SAP Mobile Start or an MDK app) | ⏳ Not done. Requires configuring Mobile Services; feasibility on the trial was not verified |
+
+#### G1.10.6 — Licensing: a hypothesis to validate
+
+An idea that came up during the work: **a user who accesses the application through BTP, instead of through S/4HANA, could reduce ERP license consumption**. This is a **hypothesis**, not a conclusion, and it **has not been validated with SAP**. In G1 it does not even apply: the app only reads fictitious data from BTP itself, with no ERP user involved. It starts to matter from G5, when the order is integrated into the ERP.
+
+| Point | Note |
+|---|---|
+| What could work in favor | Business users who only look up and approve in the BTP app (login through IAS) might not need a named S/4HANA user for those tasks |
+| What could weigh against | The order written to the ERP by a technical integration user may be treated as **digital/indirect access** under SAP licensing rules |
+| New cost | BTP itself has consumption (HANA Cloud, Cloud Foundry, Work Zone, IAS and the integration) |
+| How to validate | With the company's SAP contract and the license manager or account executive, before assuming any saving |
+
+> [!IMPORTANT]
+> This block is not licensing advice. How SAP counts users and access depends on each customer's contract.
+
 ---
 
 ## 🛠️ Troubleshooting
@@ -574,6 +757,20 @@ Labels, section title and supplier status changed together. Numbers and dates al
 | 10 | The change is in the file, but the screen is unchanged | Fiori reads annotations from `$metadata` | Check the file, restart `cds watch` if needed and press **Ctrl + F5** |
 | 11 | `QIR_MISSING` never appeared (20 eligible instead of 19) | CSV booleans written as `True/False` | Write lowercase `true/false` |
 | 12 | The manual apps interfered with the generator | Duplicate annotations in `app/` | Move them to `_referencia/` before generating |
+| 13 | `mbt` not recognized; later, `mbt.ps1` blocked | The package install script did not run; and the PowerShell policy (as in item 1) | `npm.cmd install -g mbt --allow-scripts=mbt` and use `mbt.cmd` (G1.10.2) |
+| 14 | `make` not found by `mbt.cmd build` | The MTA Build Tool needs `make` | `winget install ezwinports.make` and refresh the session PATH (or open another terminal) |
+| 15 | `cf deploy` does not exist; `cf plugins` empty | The multiapps plugin is missing | `cf install-plugin multiapps -f` |
+| 16 | `cf services` failed with an expired token | The Cloud Foundry session expired | `cf login -a https://api.cf.us10-001.hana.ondemand.com` |
+| 17 | `cds add xsuaa` duplicated scopes in `xs-security.json` | The file already existed | Restore the original (4 scopes, 4 templates) (G1.10.1) |
+| 18 | `Cannot GET /` on the `srv` URL | Expected: CAP in production has no landing page | Use the approuter URL |
+| 19 | Work Zone subscription: `422 OIDC trust missing` | The subaccount has no trusted identity provider | Subscribe to Cloud Identity Services and establish trust (G1.10.4) |
+| 20 | Establish Trust: `No tenants available` | There is no IAS tenant in the subaccount | Subscribe to Cloud Identity Services (plan `default`) and activate the account |
+| 21 | Work Zone created with Runtime Environment = Other asked for an instance name | That creates an instance outside Cloud Foundry, not the subscription | Use the Work Zone **subscription** (only Service and Plan) |
+| 22 | Create User lists only the Default identity provider; the IAS IdP is missing on role collections | Cockpit cache; the IAS user only exists after the first login | **Ctrl + F5** in the cockpit; after the first login, assign the role collections to the IAS user |
+| 23 | Work Zone: "Sorry, we couldn't find the site" | The IAS shadow user had no role collections | Assign `Launchpad_Admin` and the others; log out and back in with an incognito window |
+| 24 | Content Explorer shows `HTML5 Apps (0)` although the app is in the HTML5 repo | The provider's automatic discovery did not find the app (cause not identified) | Create the app manually in Content Manager, with the approuter URL (G1.10.4) |
+| 25 | `cf dmol` created an `mta-op-*` folder inside the project | Deployment operation log | Add `mta-op-*/` to `.gitignore` |
+| 26 | The tile opened a blank tab on desktop | Not diagnosed (navigation hash, cache or incognito window) | Open the approuter URL directly; check the Console (F12). Pending |
 
 ---
 
@@ -593,7 +790,16 @@ app/services.cds ──► app/materials/annotations.cds              (List Repo
 
 Served by:  cds watch (+ cds-plugin-ui5)  →  http://localhost:4004/p2p.materials/index.html
 Default profile → in-memory SQLite + test users (alice, bob, carol, dave)
-Hybrid profile  → SAP HANA Cloud (HDI) + XSUAA (deployment step, not done yet)
+Hybrid profile  → SAP HANA Cloud (HDI) + XSUAA (see G1.10 for the full deployment)
+```
+
+On BTP (G1.10), `mta.yaml` publishes:
+
+```
+procurement-p2p-cap-srv          (CAP, Node.js)          ─► procurement-p2p-cap-db (HANA HDI)
+procurement-p2p-cap-db-deployer  (hdb)                   ─► creates tables and views, loads the CSV files
+procurement-p2p-cap              (approuter)             ─► XSUAA login; /odata → srv; the rest → HTML5 repo
+app-deployer + p2pmaterials      (HTML5 repo)            ─► Work Zone: tile and "Compras P2P" site
 ```
 
 ---
@@ -603,61 +809,76 @@ Hybrid profile  → SAP HANA Cloud (HDI) + XSUAA (deployment step, not done yet)
 | # | Evidence | Step | File |
 |---|---|---|---|
 | 1 | SAP Fiori tools extensions | G1.2 | [G1-EV01](../../../Evidences/LAB_G/G1-EV01-extensoes-sap-fiori-tools.png) |
-| 2 | Template selection | G1.3 | [G1-EV02](../../../Evidences/LAB_G/G1-EV02-fiori-generator-template-selection.png) |
-| 3 | List Report Page selected | G1.3 | [G1-EV03](../../../Evidences/LAB_G/G1-EV03-template-list-report-selecionado.png) |
-| 4 | CAP data source | G1.3 | [G1-EV04](../../../Evidences/LAB_G/G1-EV04-data-source-cap-procurement-p2p.png) |
-| 5 | Service entities | G1.3 | [G1-EV05](../../../Evidences/LAB_G/G1-EV05-entity-selection-lista-de-entidades.png) |
-| 6 | `Materials` entity (final configuration) | G1.3 | [G1-EV06](../../../Evidences/LAB_G/G1-EV06-entity-selection-materials-configuracao-final.png) |
-| 7 | Project attributes | G1.3 | [G1-EV07](../../../Evidences/LAB_G/G1-EV07-project-attributes-materials.png) |
-| 8 | Application Info of the generated app | G1.3 | [G1-EV08](../../../Evidences/LAB_G/G1-EV08-application-info-app-gerado.png) |
-| 9 | 401 error on `$metadata` | G1.4 | [G1-EV09](../../../Evidences/LAB_G/G1-EV09-erro-401-metadata-sem-login.png) |
-| 10 | Authenticated OData (JSON) | G1.4 | [G1-EV10](../../../Evidences/LAB_G/G1-EV10-odata-materials-json-autenticado.png) |
-| 11 | List Report as generated | G1.4 | [G1-EV11](../../../Evidences/LAB_G/G1-EV11-list-report-gerado-padrao.png) |
-| 12 | Page Map | G1.5 | [G1-EV12](../../../Evidences/LAB_G/G1-EV12-page-map-materials.png) |
-| 13 | List Report Page Editor | G1.5 | [G1-EV13](../../../Evidences/LAB_G/G1-EV13-page-editor-list-report.png) |
-| 14 | Filters and `QM_ACTIVE` column | G1.5 | [G1-EV14](../../../Evidences/LAB_G/G1-EV14-page-editor-filtros-e-coluna-qm-active.png) |
-| 15 | `MTART` filter properties | G1.5 | [G1-EV15](../../../Evidences/LAB_G/G1-EV15-page-editor-propriedades-do-filtro-mtart.png) |
-| 16 | Labels applied | G1.5 | [G1-EV16](../../../Evidences/LAB_G/G1-EV16-page-editor-rotulos-aplicados.png) |
-| 17 | List Report with filters and labels | G1.5 | [G1-EV17](../../../Evidences/LAB_G/G1-EV17-list-report-filtros-e-rotulos.png) |
-| 18 | Object Page with technical labels | G1.7 | [G1-EV18](../../../Evidences/LAB_G/G1-EV18-object-page-rotulos-tecnicos.png) |
-| 19 | `sap_fiori_3` theme | G1.6 | [G1-EV19](../../../Evidences/LAB_G/G1-EV19-list-report-tema-sap-fiori-3.png) |
-| 20 | Light blue header | G1.6 | [G1-EV20](../../../Evidences/LAB_G/G1-EV20-list-report-cabecalho-azul-claro.png) |
-| 21 | Final `style.css` | G1.6 | [G1-EV21](../../../Evidences/LAB_G/G1-EV21-style-css-cabecalho-azul-escuro.png) |
-| 22 | Dark blue header | G1.6 | [G1-EV22](../../../Evidences/LAB_G/G1-EV22-list-report-cabecalho-azul-escuro.png) |
-| 23 | Object Page Page Editor | G1.7 | [G1-EV23](../../../Evidences/LAB_G/G1-EV23-page-editor-object-page-rotulos.png) |
-| 24 | Object Page with readable labels | G1.7 | [G1-EV24](../../../Evidences/LAB_G/G1-EV24-object-page-rotulos-legiveis.png) |
-| 25 | Title, description and section | G1.7 | [G1-EV25](../../../Evidences/LAB_G/G1-EV25-object-page-titulo-e-secao.png) |
-| 26 | Add Table Section | G1.8 | [G1-EV26](../../../Evidences/LAB_G/G1-EV26-add-table-section-fornecedores-elegiveis.png) |
-| 27 | Eligible suppliers (table cut off) | G1.8 | [G1-EV27](../../../Evidences/LAB_G/G1-EV27-object-page-fornecedores-elegiveis.png) |
-| 28 | Eligible suppliers with certificate | G1.8 | [G1-EV28](../../../Evidences/LAB_G/G1-EV28-object-page-fornecedores-com-certificado.png) |
-| 29 | i18n: UI5 standard texts in Portuguese | G1.9 | [G1-I18N-01](../../../Evidences/LAB_G/G1-I18N-01-sap-language-pt-textos-padrao-traduzidos.png) |
-| 30 | i18n: List Report in English | G1.9 | [G1-I18N-02](../../../Evidences/LAB_G/G1-I18N-02-list-report-en.png) |
-| 31 | i18n: List Report in Portuguese | G1.9 | [G1-I18N-03](../../../Evidences/LAB_G/G1-I18N-03-list-report-pt.png) |
-| 32 | i18n: Object Page in English | G1.9 | [G1-I18N-04](../../../Evidences/LAB_G/G1-I18N-04-object-page-en.png) |
-| 33 | i18n: Object Page in Portuguese | G1.9 | [G1-I18N-05](../../../Evidences/LAB_G/G1-I18N-05-object-page-pt.png) |
+| 2 | List Report Page selected | G1.3 | [G1-EV03](../../../Evidences/LAB_G/G1-EV03-template-list-report-selecionado.png) |
+| 3 | CAP data source | G1.3 | [G1-EV04](../../../Evidences/LAB_G/G1-EV04-data-source-cap-procurement-p2p.png) |
+| 4 | `Materials` entity (final configuration) | G1.3 | [G1-EV06](../../../Evidences/LAB_G/G1-EV06-entity-selection-materials-configuracao-final.png) |
+| 5 | Project attributes | G1.3 | [G1-EV07](../../../Evidences/LAB_G/G1-EV07-project-attributes-materials.png) |
+| 6 | Application Info of the generated app | G1.3 | [G1-EV08](../../../Evidences/LAB_G/G1-EV08-application-info-app-gerado.png) |
+| 7 | 401 error on `$metadata` | G1.4 | [G1-EV09](../../../Evidences/LAB_G/G1-EV09-erro-401-metadata-sem-login.png) |
+| 8 | Authenticated OData (JSON) | G1.4 | [G1-EV10](../../../Evidences/LAB_G/G1-EV10-odata-materials-json-autenticado.png) |
+| 9 | List Report as generated | G1.4 | [G1-EV11](../../../Evidences/LAB_G/G1-EV11-list-report-gerado-padrao.png) |
+| 10 | Page Map | G1.5 | [G1-EV12](../../../Evidences/LAB_G/G1-EV12-page-map-materials.png) |
+| 11 | Filters and `QM_ACTIVE` column | G1.5 | [G1-EV14](../../../Evidences/LAB_G/G1-EV14-page-editor-filtros-e-coluna-qm-active.png) |
+| 12 | Labels applied | G1.5 | [G1-EV16](../../../Evidences/LAB_G/G1-EV16-page-editor-rotulos-aplicados.png) |
+| 13 | List Report with filters and labels | G1.5 | [G1-EV17](../../../Evidences/LAB_G/G1-EV17-list-report-filtros-e-rotulos.png) |
+| 14 | Object Page with technical labels | G1.7 | [G1-EV18](../../../Evidences/LAB_G/G1-EV18-object-page-rotulos-tecnicos.png) |
+| 15 | `sap_fiori_3` theme | G1.6 | [G1-EV19](../../../Evidences/LAB_G/G1-EV19-list-report-tema-sap-fiori-3.png) |
+| 16 | Final `style.css` | G1.6 | [G1-EV21](../../../Evidences/LAB_G/G1-EV21-style-css-cabecalho-azul-escuro.png) |
+| 17 | Dark blue header | G1.6 | [G1-EV22](../../../Evidences/LAB_G/G1-EV22-list-report-cabecalho-azul-escuro.png) |
+| 18 | Object Page with readable labels | G1.7 | [G1-EV24](../../../Evidences/LAB_G/G1-EV24-object-page-rotulos-legiveis.png) |
+| 19 | Title, description and section | G1.7 | [G1-EV25](../../../Evidences/LAB_G/G1-EV25-object-page-titulo-e-secao.png) |
+| 20 | Eligible suppliers with certificate | G1.8 | [G1-EV28](../../../Evidences/LAB_G/G1-EV28-object-page-fornecedores-com-certificado.png) |
+| 21 | i18n: UI5 standard texts in Portuguese | G1.9 | [G1-I18N-01](../../../Evidences/LAB_G/G1-I18N-01-sap-language-pt-textos-padrao-traduzidos.png) |
+| 22 | i18n: List Report in English | G1.9 | [G1-I18N-02](../../../Evidences/LAB_G/G1-I18N-02-list-report-en.png) |
+| 23 | i18n: List Report in Portuguese | G1.9 | [G1-I18N-03](../../../Evidences/LAB_G/G1-I18N-03-list-report-pt.png) |
+| 24 | i18n: Object Page in English | G1.9 | [G1-I18N-04](../../../Evidences/LAB_G/G1-I18N-04-object-page-en.png) |
+| 25 | i18n: Object Page in Portuguese | G1.9 | [G1-I18N-05](../../../Evidences/LAB_G/G1-I18N-05-object-page-pt.png) |
+| 26 | Cockpit: applications in the `dev` space | G1.10 | [G1-BTP-06](../../../Evidences/LAB_G/G1-BTP-06-cockpit-aplicacoes-space-dev.png) |
+| 27 | Cockpit: service instances | G1.10 | [G1-BTP-07](../../../Evidences/LAB_G/G1-BTP-07-cockpit-instancias-de-servico.png) |
+| 28 | User with the `Viewer` role collection | G1.10 | [G1-BTP-02](../../../Evidences/LAB_G/G1-BTP-02-usuario-com-role-collection-viewer.png) |
+| 29 | List Report on BTP (approuter) | G1.10 | [G1-BTP-03](../../../Evidences/LAB_G/G1-BTP-03-list-report-no-btp-approuter.png) |
+| 30 | Object Page with eligibility on HANA | G1.10 | [G1-BTP-09](../../../Evidences/LAB_G/G1-BTP-09-object-page-elegibilidade-no-hana.png) |
+| 31 | Object Page in Portuguese on HANA | G1.10 | [G1-BTP-11](../../../Evidences/LAB_G/G1-BTP-11-object-page-pt-hana-situacao-traduzida.png) |
+| 32 | Work Zone: error 422 `OIDC trust missing` | G1.10 | [G1-BTP-18](../../../Evidences/LAB_G/G1-BTP-18-work-zone-erro-422-oidc-trust-missing.png) |
+| 33 | Establish Trust: no tenants available | G1.10 | [G1-BTP-19](../../../Evidences/LAB_G/G1-BTP-19-establish-trust-no-tenants-available.png) |
+| 34 | Cloud Identity Services subscribed | G1.10 | [G1-BTP-23](../../../Evidences/LAB_G/G1-BTP-23-cloud-identity-services-subscribed.png) |
+| 35 | IAS trust active | G1.10 | [G1-BTP-29](../../../Evidences/LAB_G/G1-BTP-29-trust-ias-ativa-main-information.png) |
+| 36 | Work Zone subscribed | G1.10 | [G1-BTP-31](../../../Evidences/LAB_G/G1-BTP-31-work-zone-subscribed.png) |
+| 37 | `Launchpad_Admin` on the IAS user | G1.10 | [G1-BTP-37](../../../Evidences/LAB_G/G1-BTP-37-launchpad-admin-usuario-idp-ias.png) |
+| 38 | Content Explorer with `HTML5 Apps (0)` | G1.10 | [G1-BTP-38](../../../Evidences/LAB_G/G1-BTP-38-content-explorer-html5-apps-vazio.png) |
+| 39 | App created in Content Manager | G1.10 | [G1-BTP-39](../../../Evidences/LAB_G/G1-BTP-39-content-manager-app-criado.png) |
+| 40 | `Compras` group | G1.10 | [G1-BTP-40](../../../Evidences/LAB_G/G1-BTP-40-content-manager-group-compras.png) |
+| 41 | Tile in the Launchpad (main G1.10 evidence) | G1.10 | [G1-BTP-41](../../../Evidences/LAB_G/G1-BTP-41-launchpad-tile-material-master-explorer.png) |
+| 42 | App opened on desktop | G1.10 | [G1-BTP-42](../../../Evidences/LAB_G/G1-BTP-42-app-aberto-via-approuter-desktop.png) |
+| 43 | List Report on the phone | G1.10 | [G1-BTP-43](../../../Evidences/LAB_G/G1-BTP-43-mobile-list-report.jpg) |
+| 44 | Object Page on the phone | G1.10 | [G1-BTP-44](../../../Evidences/LAB_G/G1-BTP-44-mobile-object-page-elegiveis.jpg) |
 
 ---
 
 ## ⚠️ Limitations and pending items
 
-- **No deployment.** The app runs locally only (in-memory SQLite). Publishing to BTP (MTA, Cloud Foundry, HDI, XSUAA, approuter, role collections) is a separate step.
-- **HANA not tested.** The views use `$now`, `days_between` and `$user.locale`, validated on SQLite only. Behavior on SAP HANA Cloud must be confirmed at deployment.
-- **No Launchpad.** The app opens through `index.html`, without the shell bar. The blue band was done with custom CSS; the standard path is publishing to the Launchpad (Work Zone).
-- **Missing captures.** G1.1 and the `cds watch` output have no image, and the troubleshooting `curl.exe` was recorded as text. The creation of `UI.HeaderInfo` was not captured.
+- **Blank tile on desktop.** The first click on the tile opened a blank tab; opening the approuter URL directly worked, and on the phone the whole flow worked. The cause was not diagnosed and the tile must be revalidated on desktop (G1.10.4).
+- **Manually registered app.** Work Zone's HTML5 Apps provider did not discover the app (`HTML5 Apps (0)`), so it was created in Content Manager with the approuter URL. If the org or space changes, the URL must be updated.
+- **Phone columns.** Only the most important columns show. The improvement is to mark the relevant columns with `@UI.Importance: #High` and redeploy.
+- **Native app.** SAP Mobile Start and MDK with SAP Mobile Services were not tested; feasibility on the trial was not verified.
+- **Licensing.** The idea that accessing through BTP reduces ERP license consumption is a hypothesis, not validated with SAP (G1.10.6).
+- **Trial environment.** Trial instances (HANA Cloud, for example) may be stopped by SAP. If the app stops responding, first check that the HANA instance is running.
+- **`cflinuxfs5`.** The cockpit warns that `db`, `procurement-p2p-cap`, `procurement-p2p-cap-db-deployer` and `procurement-p2p-cap-srv` must migrate stacks. It is only a warning for now.
+- **Leftovers in the space.** The `db` app and the `hdi_db` instance belong to Block C. Also still to clean up: the allowed IP on HANA Cloud, old service keys and the `npm audit` vulnerabilities (34).
+- **Captures.** Only the captures that add value are in the repository. G1.1 and the `cds watch` output have no image, the troubleshooting `curl.exe` was recorded as text, and intermediate wizard steps (such as the Cloud Identity Services screens) were described in text.
 - **Small data.** 12 materials and 10 suppliers, assembled to exercise each rule. The real `INDUSTRIAL_DATA` has far more.
 - **English-only descriptions.** The material description and supplier name are not translated (see G1.9).
-- **Local login.** `alice:alice` and the other `.cdsrc.json` users are for local development only. The browser keeps the credential for `localhost:4004`.
+- **Local login.** `alice:alice` and the other `.cdsrc.json` users are for local development only. On BTP, login goes through XSUAA and IAS.
 - **`_referencia/`.** The folder holds the hand-made apps from the first attempt, only as a didactic comparison.
 - **Page Editor and files.** The editor writes where the referenced annotation lives, which can scatter duplicate annotations. Re-read `annotations.cds` after using the editor.
-- **npm.** The `npm audit` vulnerability warnings from Block F are still untreated.
 
 ## ➡️ Next steps
 
-1. **G2:** turn eligibility into its own app (Supplier Eligibility Explorer), with filters by supplier and reason.
-2. **G3:** purchase order with items and draft, with price from the PIR and eligible supplier.
-3. **G4:** Approval Cockpit, with mass approval respecting each user's approval limit.
-4. **G5:** synchronous ERP integration (CPI and S/4HANA simulated by a CAP service).
-5. Deploy to BTP and validate the views on SAP HANA Cloud.
+1. **G1 improvements:** mark columns with `@UI.Importance` for the phone, diagnose the tile on desktop and validate the licensing hypothesis with SAP.
+2. **G2:** turn eligibility into its own app (Supplier Eligibility Explorer), with filters by supplier and reason.
+3. **G3:** purchase order with items and draft, with price from the PIR and eligible supplier.
+4. **G4:** Approval Cockpit, with mass approval respecting each user's approval limit.
+5. **G5:** synchronous ERP integration (CPI and S/4HANA simulated by a CAP service).
 
 ---
 

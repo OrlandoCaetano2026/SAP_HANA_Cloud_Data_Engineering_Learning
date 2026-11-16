@@ -194,7 +194,7 @@ The architecture will be built progressively. A component shown in the diagram i
 | GitHub Repository | ✅ Created |
 | HDI Container | ✅ Completed (Blocks C and F) |
 | CAP / OData | ✅ Completed (Block F) |
-| SAP Fiori | 🟡 In progress (G1 completed locally; BTP deployment pending) |
+| SAP Fiori | 🟡 In progress (G1 completed and deployed to BTP, with a Launchpad tile and phone access) |
 | Kyma / Kubernetes | ⏳ Roadmap |
 
 First SQL validation:
@@ -375,7 +375,7 @@ The block was reorganized as a **Purchase-to-Pay (P2P) extension** on SAP BTP, w
 
 <table>
 <tr><th>#</th><th>Scenario</th><th>Objective</th><th>Status</th><th>Doc</th></tr>
-<tr><td>G1</td><td>Material Master Explorer</td><td>Look up materials and eligible suppliers (PIR + QIR) with Fiori Elements, EN/PT i18n</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/G%20—%20SAP%20Fiori%20Data%20Applications/EN/01-g1-material-master-explorer.en.md">📄</a></td></tr>
+<tr><td>G1</td><td>Material Master Explorer</td><td>Look up materials and eligible suppliers (PIR + QIR) with Fiori Elements, EN/PT i18n, deployed to BTP (Cloud Foundry + HANA Cloud), Launchpad tile and phone access</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/G%20—%20SAP%20Fiori%20Data%20Applications/EN/01-g1-material-master-explorer.en.md">📄</a></td></tr>
 <tr><td>G2</td><td>Supplier Eligibility Explorer</td><td>Dedicated app to explore supplier eligibility by reason</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
 <tr><td>G3</td><td>Purchase Order</td><td>Purchase order with items, draft, PIR price and eligible supplier</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
 <tr><td>G4</td><td>Approval Cockpit</td><td>Mass approval by approval limit, mandatory rejection reason and audit log</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>

@@ -5,3 +5,7 @@ default-env.json
 .env
 *.sqlite
 *.db
+.deploy/
+mta_archives/
+*.mtar
+xs-security.backup.json
