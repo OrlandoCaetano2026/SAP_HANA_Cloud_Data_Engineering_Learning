@@ -340,17 +340,18 @@ Novas pastas serão adicionadas apenas quando houver necessidade real de impleme
 
 ## 🅴 Bloco E — Transactional SAP Data
 
-| # | Cenário | Objetivo | Status |
-|---|---|---|---|
-| E1 | Purchase Orders | Modelar dados transacionais fictícios de pedidos de compra | ✅ Entregue via A5 (DOC 04) |
-| E2 | Goods Receipt | Relacionar recebimentos de mercadorias aos documentos de compras | ✅ Entregue via A6 (DOC 04) |
-| E3 | Material Movements | Modelar movimentações e tipos de movimento de estoque | ✅ Entregue via A6/A12 (DOC 04) |
-| E4 | Inventory Snapshot | Construir uma visão consolidada da posição de estoque | ✅ Entregue via A6 `STOCK_BALANCE` (DOC 04) |
-| E5 | Production Orders | Modelar ordens de produção e seus relacionamentos principais | ✅ Entregue via A9 (DOC 04) |
-| E6 | Production Confirmations | Registrar e analisar confirmações de produção | ✅ Entregue via A11 (DOC 04) |
-| E7 | Inspection Lots | Modelar lotes de inspeção dentro do contexto QM | ✅ Entregue via A10 (DOC 04) |
-| E8 | Quality Results | Estruturar resultados e indicadores de qualidade | ✅ Entregue via A10 `UD_CODE` (DOC 04) |
-| E9 | Warehouse Movements | Modelar movimentações e estruturas relacionadas ao contexto EWM | ✅ Entregue via A12 `WAREHOUSE_TASK` (DOC 04) |
+<table>
+<tr><th>#</th><th>Cenário</th><th>Objetivo</th><th>Status</th><th>Doc</th></tr>
+<tr><td>E1</td><td>Purchase Orders</td><td>Modelar dados transacionais fictícios de pedidos de compra</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+<tr><td>E2</td><td>Goods Receipt</td><td>Relacionar recebimentos de mercadorias aos documentos de compras</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+<tr><td>E3</td><td>Material Movements</td><td>Modelar movimentações e tipos de movimento de estoque</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+<tr><td>E4</td><td>Inventory Snapshot</td><td>Construir uma visão consolidada da posição de estoque</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+<tr><td>E5</td><td>Production Orders</td><td>Modelar ordens de produção e seus relacionamentos principais</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+<tr><td>E6</td><td>Production Confirmations</td><td>Registrar e analisar confirmações de produção</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+<tr><td>E7</td><td>Inspection Lots</td><td>Modelar lotes de inspeção dentro do contexto QM</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+<tr><td>E8</td><td>Quality Results</td><td>Estruturar resultados e indicadores de qualidade</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+<tr><td>E9</td><td>Warehouse Movements</td><td>Modelar movimentações e estruturas relacionadas ao contexto EWM</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/BR/01-e1-e9-dados-transacionais-sap.md">📄</a></td></tr>
+</table>
 
 ## 🅵 Bloco F — CAP & Data APIs
 

@@ -340,17 +340,18 @@ New directories will be introduced only when implementation creates a real need.
 
 ## 🅴 Block E — Transactional SAP Data
 
-| # | Scenario | Objective | Status |
-|---|---|---|---|
-| E1 | Purchase Orders | Model fictional purchase order transactional data | ✅ Delivered via A5 (DOC 04) |
-| E2 | Goods Receipt | Relate goods receipts to purchasing documents | ✅ Delivered via A6 (DOC 04) |
-| E3 | Material Movements | Model inventory movements and movement types | ✅ Delivered via A6/A12 (DOC 04) |
-| E4 | Inventory Snapshot | Build a consolidated view of inventory positions | ✅ Delivered via A6 `STOCK_BALANCE` (DOC 04) |
-| E5 | Production Orders | Model production orders and their main relationships | ✅ Delivered via A9 (DOC 04) |
-| E6 | Production Confirmations | Record and analyze production confirmations | ✅ Delivered via A11 (DOC 04) |
-| E7 | Inspection Lots | Model inspection lots within the SAP QM context | ✅ Delivered via A10 (DOC 04) |
-| E8 | Quality Results | Structure quality results and indicators | ✅ Delivered via A10 `UD_CODE` (DOC 04) |
-| E9 | Warehouse Movements | Model movements and structures related to the EWM context | ✅ Delivered via A12 `WAREHOUSE_TASK` (DOC 04) |
+<table>
+<tr><th>#</th><th>Scenario</th><th>Objective</th><th>Status</th><th>Doc</th></tr>
+<tr><td>E1</td><td>Purchase Orders</td><td>Model fictional purchase order transactional data</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+<tr><td>E2</td><td>Goods Receipt</td><td>Relate goods receipts to purchasing documents</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+<tr><td>E3</td><td>Material Movements</td><td>Model inventory movements and movement types</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+<tr><td>E4</td><td>Inventory Snapshot</td><td>Build a consolidated view of inventory positions</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+<tr><td>E5</td><td>Production Orders</td><td>Model production orders and their main relationships</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+<tr><td>E6</td><td>Production Confirmations</td><td>Record and analyze production confirmations</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+<tr><td>E7</td><td>Inspection Lots</td><td>Model inspection lots within the SAP QM context</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+<tr><td>E8</td><td>Quality Results</td><td>Structure quality results and indicators</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+<tr><td>E9</td><td>Warehouse Movements</td><td>Model movements and structures related to the EWM context</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/E%20—%20Transactional%20SAP%20Data/EN/01-e1-e9-transactional-sap-data.en.md">📄</a></td></tr>
+</table>
 
 ## 🅵 Block F — CAP & Data APIs
 
