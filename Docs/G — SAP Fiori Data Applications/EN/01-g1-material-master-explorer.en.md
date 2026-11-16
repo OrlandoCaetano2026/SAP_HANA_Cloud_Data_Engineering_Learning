@@ -709,11 +709,12 @@ Next: a **Group** `Compras` with the app, the app assigned to the **Everyone** r
 
 The app opened on the phone **without installing anything**: the device's browser was enough, with the same IAS login.
 
-![G1-BTP-43 — List Report on the phone](../../../Evidences/LAB_G/G1-BTP-43-mobile-list-report.jpg)
-*G1-BTP-43 — The List Report on the phone: stacked filters and the materials list.*
-
-![G1-BTP-44 — Object Page on the phone](../../../Evidences/LAB_G/G1-BTP-44-mobile-object-page-elegiveis.jpg)
-*G1-BTP-44 — The `EC-200001` Object Page with its three eligible suppliers (SUP-001, SUP-002 and SUP-005).*
+<table>
+<tr>
+<td align="center" valign="top"><img src="../../../Evidences/LAB_G/G1-BTP-43-mobile-list-report.jpg" alt="G1-BTP-43 — List Report on the phone" width="280"/><br/><sub><i>G1-BTP-43 — The List Report on the phone: stacked filters and the materials list.</i></sub></td>
+<td align="center" valign="top"><img src="../../../Evidences/LAB_G/G1-BTP-44-mobile-object-page-elegiveis.jpg" alt="G1-BTP-44 — Object Page on the phone" width="280"/><br/><sub><i>G1-BTP-44 — The `EC-200001` Object Page with its three eligible suppliers (SUP-001, SUP-002 and SUP-005).</i></sub></td>
+</tr>
+</table>
 
 On the phone only **Material** (list) and **Supplier** (eligible suppliers) appear. This is not an error: on small screens Fiori Elements shows only the most important columns. The fix is to mark the relevant columns with `@UI.Importance: #High` in the annotations (`LineItem` and `LineItem#ByMaterial`) and redeploy. It stays as an improvement.
 
