@@ -32,7 +32,7 @@ This document walks through G1 end to end, including the stumbles. The app was g
 | G1.7 | Object Page | ✅ Title, description and "Material data" section |
 | G1.8 | Eligible suppliers | ✅ Table on the Object Page with colored status (PIR + QIR + supplier status) |
 | G1.9 | Internationalization | ✅ Screen and database texts in English (default) and Portuguese |
-| G1.10 | Deployment to BTP | ✅ MTA on Cloud Foundry + HANA Cloud, Launchpad tile (Work Zone) and phone access; eligibility validated on HANA |
+| G1.10 | Deployment to BTP | ✅ MTA on Cloud Foundry + HANA Cloud, Launchpad tile (Work Zone) and phone access (browser and Joule Work); eligibility validated on HANA |
 
 > [!IMPORTANT]
 > No credentials were written to any repository file. `node_modules/`, `gen/`, `default-env.json`, `.cdsrc-private.json` and `.env` are in `.gitignore`.
@@ -724,7 +724,25 @@ The three ways to bring the app to a phone:
 |---|---|---|
 | 1 | **Tile in the Launchpad** (Work Zone) | ✅ Done (G1.10.4) |
 | 2 | **Responsive web**: open the Launchpad URL in the phone browser, with a home screen shortcut (Chrome menu, "Add to Home screen") | ✅ Worked in the browser; the shortcut was not captured |
-| 3 | **Native app** with SAP Mobile Services (SAP Mobile Start or an MDK app) | ⏳ Not done. Requires configuring Mobile Services; feasibility on the trial was not verified |
+| 3 | **Native app**: **Joule Work** (the current name of SAP Mobile Start), through SAP Mobile Services | ✅ Worked on Android (see below). MDK was not tested |
+
+**Option 3 in practice: Joule Work.** SAP's native app for Work Zone content (formerly called SAP Mobile Start, which is why it does not appear under that name in the Play Store) worked with the trial site. SAP Mobile Services is already included in the Work Zone standard subscription. Onboarding is by **QR code**, generated on the site itself:
+
+1. In the site settings (Site Settings → Edit), the SAP Mobile Start flag must be **Yes**, according to SAP's documentation.
+2. In the Launchpad, user avatar → Settings → the SAP Mobile Start tab → **Register QR code**.
+3. In Joule Work, tap **Scan** and scan the QR **inside the app** (the device camera does not work). The app showed "Scan Succeeded" and redirected to the site's mobile address (the same Launchpad host, with an `m` after the tenant subdomain).
+4. Log in through IAS and create a passcode.
+
+The tile appears on the **Start** screen (under App Suggestions), and the app opens inside Joule Work.
+
+<table>
+<tr>
+<td align="center" valign="top"><img src="../../../Evidences/LAB_G/G1-BTP-45-joule-work-start-tile.jpg" alt="G1-BTP-45 — Joule Work Start screen" width="280"/><br/><sub><i>G1-BTP-45 — The Joule Work Start screen, with Material Master Explorer under App Suggestions.</i></sub></td>
+<td align="center" valign="top"><img src="../../../Evidences/LAB_G/G1-BTP-46-joule-work-object-page.jpg" alt="G1-BTP-46 — Object Page in Joule Work" width="280"/><br/><sub><i>G1-BTP-46 — The `RM-100001` Object Page inside Joule Work, with eligible suppliers (SUP-001 and SUP-007).</i></sub></td>
+</tr>
+</table>
+
+The app is the same Fiori app, so the phone column limitation remains. The QR code registers the device on the site and **must not be shared or versioned**.
 
 #### G1.10.6 — Licensing: a hypothesis to validate
 
@@ -772,6 +790,8 @@ An idea that came up during the work: **a user who accesses the application thro
 | 24 | Content Explorer shows `HTML5 Apps (0)` although the app is in the HTML5 repo | The provider's automatic discovery did not find the app (cause not identified) | Create the app manually in Content Manager, with the approuter URL (G1.10.4) |
 | 25 | `cf dmol` created an `mta-op-*` folder inside the project | Deployment operation log | Add `mta-op-*/` to `.gitignore` |
 | 26 | The tile opened a blank tab on desktop | Not diagnosed (navigation hash, cache or incognito window) | Open the approuter URL directly; check the Console (F12). Pending |
+| 27 | "SAP Mobile Start" does not exist in the Play Store | The app was renamed **Joule Work** | Search for Joule Work (G1.10.5) |
+| 28 | Joule Work asks to scan a QR code | Onboarding is by QR, generated on the Work Zone site | Enable the SAP Mobile Start flag on the site, generate the **Register QR code** in the user settings and scan it inside the app |
 
 ---
 
@@ -853,6 +873,8 @@ app-deployer + p2pmaterials      (HTML5 repo)            ─► Work Zone: tile 
 | 42 | App opened on desktop | G1.10 | [G1-BTP-42](../../../Evidences/LAB_G/G1-BTP-42-app-aberto-via-approuter-desktop.png) |
 | 43 | List Report on the phone | G1.10 | [G1-BTP-43](../../../Evidences/LAB_G/G1-BTP-43-mobile-list-report.jpg) |
 | 44 | Object Page on the phone | G1.10 | [G1-BTP-44](../../../Evidences/LAB_G/G1-BTP-44-mobile-object-page-elegiveis.jpg) |
+| 45 | Joule Work: Start screen with the app | G1.10 | [G1-BTP-45](../../../Evidences/LAB_G/G1-BTP-45-joule-work-start-tile.jpg) |
+| 46 | Joule Work: Object Page | G1.10 | [G1-BTP-46](../../../Evidences/LAB_G/G1-BTP-46-joule-work-object-page.jpg) |
 
 ---
 
@@ -861,7 +883,7 @@ app-deployer + p2pmaterials      (HTML5 repo)            ─► Work Zone: tile 
 - **Blank tile on desktop.** The first click on the tile opened a blank tab; opening the approuter URL directly worked, and on the phone the whole flow worked. The cause was not diagnosed and the tile must be revalidated on desktop (G1.10.4).
 - **Manually registered app.** Work Zone's HTML5 Apps provider did not discover the app (`HTML5 Apps (0)`), so it was created in Content Manager with the approuter URL. If the org or space changes, the URL must be updated.
 - **Phone columns.** Only the most important columns show. The improvement is to mark the relevant columns with `@UI.Importance: #High` and redeploy.
-- **Native app.** SAP Mobile Start and MDK with SAP Mobile Services were not tested; feasibility on the trial was not verified.
+- **Native app.** Joule Work (formerly SAP Mobile Start) worked on Android, but shows the same layout as the browser. A custom native app (MDK or SAP Build Apps) was not tested.
 - **Licensing.** The idea that accessing through BTP reduces ERP license consumption is a hypothesis, not validated with SAP (G1.10.6).
 - **Trial environment.** Trial instances (HANA Cloud, for example) may be stopped by SAP. If the app stops responding, first check that the HANA instance is running.
 - **`cflinuxfs5`.** The cockpit warns that `db`, `procurement-p2p-cap`, `procurement-p2p-cap-db-deployer` and `procurement-p2p-cap-srv` must migrate stacks. It is only a warning for now.

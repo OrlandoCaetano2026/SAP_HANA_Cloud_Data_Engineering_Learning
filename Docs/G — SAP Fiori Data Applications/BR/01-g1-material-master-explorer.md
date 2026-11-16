@@ -32,7 +32,7 @@ Este documento mostra o G1 do começo ao fim, incluindo os tropeços. O app foi 
 | G1.7 | Object Page | ✅ Título, descrição e seção "Dados do material" |
 | G1.8 | Fornecedores elegíveis | ✅ Tabela na Object Page com situação colorida (PIR + QIR + status) |
 | G1.9 | Internacionalização | ✅ Textos das telas e do banco em inglês (padrão) e português |
-| G1.10 | Publicação no BTP | ✅ MTA no Cloud Foundry + HANA Cloud, tile no Launchpad (Work Zone) e acesso pelo celular; elegibilidade validada no HANA |
+| G1.10 | Publicação no BTP | ✅ MTA no Cloud Foundry + HANA Cloud, tile no Launchpad (Work Zone) e acesso pelo celular (navegador e Joule Work); elegibilidade validada no HANA |
 
 > [!IMPORTANT]
 > Nenhuma credencial foi gravada em arquivo do repositório. `node_modules/`, `gen/`, `default-env.json`, `.cdsrc-private.json` e `.env` estão no `.gitignore`.
@@ -709,11 +709,12 @@ Em seguida: um **Group** `Compras` com o app, o app atribuído à role **Everyon
 
 O app abriu no celular **sem instalar nada**: bastou o navegador do aparelho, com o mesmo login do IAS.
 
-![G1-BTP-43 — List Report no celular](../../../Evidences/LAB_G/G1-BTP-43-mobile-list-report.jpg)
-*G1-BTP-43 — O List Report no celular: filtros empilhados e a lista de materiais.*
-
-![G1-BTP-44 — Object Page no celular](../../../Evidences/LAB_G/G1-BTP-44-mobile-object-page-elegiveis.jpg)
-*G1-BTP-44 — A Object Page do `EC-200001` com os três fornecedores elegíveis (SUP-001, SUP-002 e SUP-005).*
+<table>
+<tr>
+<td align="center" valign="top"><img src="../../../Evidences/LAB_G/G1-BTP-43-mobile-list-report.jpg" alt="G1-BTP-43 — List Report no celular" width="280"/><br/><sub><i>G1-BTP-43 — O List Report no celular: filtros empilhados e a lista de materiais.</i></sub></td>
+<td align="center" valign="top"><img src="../../../Evidences/LAB_G/G1-BTP-44-mobile-object-page-elegiveis.jpg" alt="G1-BTP-44 — Object Page no celular" width="280"/><br/><sub><i>G1-BTP-44 — A Object Page do `EC-200001` com os três fornecedores elegíveis (SUP-001, SUP-002 e SUP-005).</i></sub></td>
+</tr>
+</table>
 
 No celular só aparecem **Material** (lista) e **Supplier** (elegíveis). Não é erro: em tela pequena, o Fiori Elements mostra só as colunas de maior importância. A correção é marcar as colunas relevantes com `@UI.Importance: #High` nas anotações (`LineItem` e `LineItem#ByMaterial`) e publicar de novo. Fica como melhoria.
 
@@ -723,7 +724,25 @@ As três formas de levar o app ao celular:
 |---|---|---|
 | 1 | **Tile no Launchpad** (Work Zone) | ✅ Feito (G1.10.4) |
 | 2 | **Web responsiva**: abrir a URL do Launchpad no navegador do celular, com atalho na tela inicial (menu do Chrome, "Adicionar à tela inicial") | ✅ Funcionou no navegador; o atalho não foi capturado |
-| 3 | **App nativo** com SAP Mobile Services (SAP Mobile Start ou um app MDK) | ⏳ Não feito. Exige configurar o Mobile Services; a viabilidade no trial não foi verificada |
+| 3 | **App nativo**: o **Joule Work** (nome atual do SAP Mobile Start), via SAP Mobile Services | ✅ Funcionou no Android (veja abaixo). O MDK não foi testado |
+
+**Opção 3 na prática: Joule Work.** O app nativo da SAP para o conteúdo do Work Zone (antes chamado SAP Mobile Start, por isso não aparece com esse nome na Play Store) funcionou com o site do trial. O SAP Mobile Services já vem incluído na assinatura do Work Zone standard. O onboarding é por **QR code**, gerado no próprio site:
+
+1. Nas configurações do site (Site Settings → Edit), o flag do SAP Mobile Start precisa estar em **Yes**, conforme a documentação da SAP.
+2. No Launchpad, avatar do usuário → Settings → aba do SAP Mobile Start → **Register QR code**.
+3. No Joule Work, tocar em **Scan** e escanear o QR **dentro do app** (a câmera do aparelho não serve). O app mostrou "Scan Succeeded" e redirecionou para o endereço móvel do site (o mesmo host do Launchpad, com um `m` depois do subdomínio do tenant).
+4. Login pelo IAS e criação de um passcode.
+
+O tile aparece na tela **Start** (em App Suggestions), e o app abre dentro do Joule Work.
+
+<table>
+<tr>
+<td align="center" valign="top"><img src="../../../Evidences/LAB_G/G1-BTP-45-joule-work-start-tile.jpg" alt="G1-BTP-45 — Tela Start do Joule Work" width="280"/><br/><sub><i>G1-BTP-45 — A tela Start do Joule Work, com o Material Master Explorer em App Suggestions.</i></sub></td>
+<td align="center" valign="top"><img src="../../../Evidences/LAB_G/G1-BTP-46-joule-work-object-page.jpg" alt="G1-BTP-46 — Object Page no Joule Work" width="280"/><br/><sub><i>G1-BTP-46 — A Object Page do `RM-100001` dentro do Joule Work, com os fornecedores elegíveis (SUP-001 e SUP-007).</i></sub></td>
+</tr>
+</table>
+
+O app é o mesmo Fiori, então a limitação das colunas no celular continua. O QR code serve para registrar o aparelho no site e **não deve ser compartilhado nem versionado**.
 
 #### G1.10.6 — Licenciamento: uma hipótese a validar
 
@@ -771,6 +790,8 @@ Uma ideia que surgiu durante o trabalho: **o usuário que acessa a aplicação p
 | 24 | Content Explorer com `HTML5 Apps (0)` mesmo com o app no HTML5 repo | A descoberta automática do provedor não encontrou o app (causa não identificada) | Criar o app manualmente no Content Manager, com a URL do approuter (G1.10.4) |
 | 25 | `cf dmol` criou a pasta `mta-op-*` dentro do projeto | Log de operação do deploy | Incluir `mta-op-*/` no `.gitignore` |
 | 26 | O tile abriu uma aba em branco no desktop | Não diagnosticado (hash de navegação, cache ou janela anônima) | Abrir a URL do approuter diretamente; olhar o Console (F12). Pendente |
+| 27 | "SAP Mobile Start" não existe na Play Store | O app foi renomeado para **Joule Work** | Procurar por Joule Work (G1.10.5) |
+| 28 | O Joule Work pede a leitura de um QR code | O onboarding é por QR, gerado no site do Work Zone | Ativar o flag do SAP Mobile Start no site, gerar o **Register QR code** nas configurações do usuário e escanear dentro do app |
 
 ---
 
@@ -852,6 +873,8 @@ app-deployer + p2pmaterials      (HTML5 repo)            ─► Work Zone: tile 
 | 42 | App aberto no desktop | G1.10 | [G1-BTP-42](../../../Evidences/LAB_G/G1-BTP-42-app-aberto-via-approuter-desktop.png) |
 | 43 | List Report no celular | G1.10 | [G1-BTP-43](../../../Evidences/LAB_G/G1-BTP-43-mobile-list-report.jpg) |
 | 44 | Object Page no celular | G1.10 | [G1-BTP-44](../../../Evidences/LAB_G/G1-BTP-44-mobile-object-page-elegiveis.jpg) |
+| 45 | Joule Work: tela Start com o app | G1.10 | [G1-BTP-45](../../../Evidences/LAB_G/G1-BTP-45-joule-work-start-tile.jpg) |
+| 46 | Joule Work: Object Page | G1.10 | [G1-BTP-46](../../../Evidences/LAB_G/G1-BTP-46-joule-work-object-page.jpg) |
 
 ---
 
@@ -860,7 +883,7 @@ app-deployer + p2pmaterials      (HTML5 repo)            ─► Work Zone: tile 
 - **Tile em branco no desktop.** O primeiro clique no tile abriu uma aba em branco; abrir a URL do approuter diretamente funcionou, e no celular o fluxo completo funcionou. A causa não foi diagnosticada e o tile precisa ser revalidado no desktop (G1.10.4).
 - **App cadastrado manualmente.** O provedor HTML5 Apps do Work Zone não descobriu o app (`HTML5 Apps (0)`), então ele foi criado no Content Manager com a URL do approuter. Se a org ou o espaço mudar, a URL precisa ser atualizada.
 - **Colunas no celular.** Só aparecem as colunas de maior importância. A melhoria é marcar as colunas relevantes com `@UI.Importance: #High` e publicar de novo.
-- **App nativo.** O SAP Mobile Start e o MDK com SAP Mobile Services não foram testados; a viabilidade no trial não foi verificada.
+- **App nativo.** O Joule Work (antigo SAP Mobile Start) funcionou no Android, mas mostra o mesmo layout do navegador. Um app nativo próprio (MDK ou SAP Build Apps) não foi testado.
 - **Licenciamento.** A ideia de que acessar pelo BTP reduz o consumo de licenças do ERP é uma hipótese, não validada com a SAP (G1.10.6).
 - **Ambiente trial.** As instâncias do trial (HANA Cloud, por exemplo) podem ser paradas pela SAP. Se o app deixar de responder, confira primeiro se a instância HANA está iniciada.
 - **`cflinuxfs5`.** O cockpit avisa que `db`, `procurement-p2p-cap`, `procurement-p2p-cap-db-deployer` e `procurement-p2p-cap-srv` precisam migrar de stack. É só aviso por enquanto.
