@@ -1,0 +1,32 @@
+{
+  "generationParameters": {
+    "generationDate": "Mon Nov 16 2026 09:45:56 GMT-0300 (Brasilia Standard Time)",
+    "generatorPlatform": "Visual Studio Code",
+    "serviceType": "Local CAP",
+    "metadataFilename": "",
+    "serviceUrl": "http://localhost:4004/odata/v4/p2p/",
+    "appName": "materials",
+    "appTitle": "Material Master Explorer",
+    "appDescription": "Material lookup and eligible suppliers (PIR + QIR)",
+    "appNamespace": "p2p",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.154.0",
+    "enableEslint": true,
+    "enableTypeScript": false,
+    "showMockDataInfo": false,
+    "generatorVersion": "1.34.0",
+    "template": "List Report Page V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [
+      {
+        "type": "Main Entity",
+        "value": "Materials"
+      },
+      {
+        "type": "Navigation Entity",
+        "value": "None"
+      }
+    ],
+    "launchText": "To launch the generated app, start your CAP project:  and navigate to the following location in your browser:\n\nhttp://localhost:4004/materials/webapp/index.html"
+  }
+}

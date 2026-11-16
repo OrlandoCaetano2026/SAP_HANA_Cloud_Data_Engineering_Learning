@@ -1,0 +1,8 @@
+CODE,TEXT,CRITICALITY
+ELIGIBLE,Eligible,3
+SUPPLIER_NOT_ACTIVE,Supplier blocked or pending,1
+PIR_EXPIRED,Purchasing info record expired,1
+PIR_NOT_YET_VALID,Purchasing info record not yet valid,2
+QIR_MISSING,No quality info record,1
+QIR_BLOCKED,Blocked for quality,1
+CERT_EXPIRED,Quality certificate expired,1

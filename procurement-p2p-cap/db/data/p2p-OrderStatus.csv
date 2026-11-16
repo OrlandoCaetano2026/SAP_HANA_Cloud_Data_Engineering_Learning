@@ -1,0 +1,8 @@
+CODE,TEXT,CRITICALITY
+NEW,New - not submitted,0
+IN_APPROVAL,In approval,2
+APPROVED,Approved - pending ERP,2
+REJECTED,Rejected,1
+CANCELLED,Cancelled,0
+CREATED_IN_ERP,Created in ERP,3
+ERP_ERROR,ERP creation failed,1

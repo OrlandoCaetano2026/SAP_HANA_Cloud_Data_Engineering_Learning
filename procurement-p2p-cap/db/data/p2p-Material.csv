@@ -1,0 +1,13 @@
+MATNR,MATNR_TEXT,MTART,MATKL,MEINS,QM_ACTIVE
+EC-200001,Electronic Component 001,ROH,SENSORS,EA,true
+EC-200002,Electronic Component 002,ROH,CONTROLS,EA,true
+EC-200003,Electronic Component 003,ROH,DISPLAYS,EA,true
+EC-200004,Electronic Component 004,ROH,POWER,EA,true
+EC-200005,Electronic Component 005,ROH,COMM,EA,true
+RM-100001,Industrial Chemical 100001,ROH,CHEMICALS,KG,true
+RM-100005,Bearing 100005,ROH,BEARINGS,EA,true
+RM-100010,Cable Assembly 100010,ROH,CABLES,M,true
+RM-100015,Wiring Harness 100015,ROH,CABLES,EA,true
+RM-100020,Mechanical Assembly 100020,ROH,ASSEMBLY,EA,true
+HB-400001,Gearbox Housing (semi-finished),HALB,ASSEMBLY,EA,true
+PK-600001,Packaging Box 600001,VERP,ASSEMBLY,EA,false

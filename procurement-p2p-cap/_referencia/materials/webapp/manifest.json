@@ -1,0 +1,54 @@
+{
+  "_version": "1.60.0",
+  "sap.app": {
+    "id": "p2p.materials",
+    "type": "application",
+    "title": "Material Master Explorer",
+    "description": "Consulta de materiais e fornecedores elegíveis",
+    "applicationVersion": { "version": "1.0.0" },
+    "i18n": "i18n/i18n.properties",
+    "dataSources": {
+      "mainService": { "uri": "/odata/v4/p2p/", "type": "OData", "settings": { "odataVersion": "4.0" } }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": { "sap.m": {}, "sap.ui.core": {}, "sap.fe.templates": {} }
+    },
+    "contentDensities": { "compact": true, "cozy": true },
+    "models": {
+      "i18n": { "type": "sap.ui.model.resource.ResourceModel", "settings": { "bundleName": "p2p.materials.i18n.i18n" } },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": { "operationMode": "Server", "autoExpandSelect": true, "earlyRequests": true }
+      }
+    },
+    "routing": {
+      "routes": [
+        { "pattern": ":?query:",        "name": "MaterialsList",       "target": "MaterialsList" },
+        { "pattern": "Materials({key}):?query:", "name": "MaterialsObjectPage", "target": "MaterialsObjectPage" }
+      ],
+      "targets": {
+        "MaterialsList": {
+          "type": "Component", "id": "MaterialsList", "name": "sap.fe.templates.ListReport",
+          "options": { "settings": {
+            "contextPath": "/Materials",
+            "variantManagement": "Page",
+            "navigation": { "Materials": { "detail": { "route": "MaterialsObjectPage" } } }
+          } }
+        },
+        "MaterialsObjectPage": {
+          "type": "Component", "id": "MaterialsObjectPage", "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/Materials", "editableHeaderContent": false } }
+        }
+      }
+    }
+  },
+  "sap.fiori": { "registrationIds": [], "archeType": "transactional" }
+}

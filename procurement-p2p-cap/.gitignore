@@ -1,0 +1,7 @@
+node_modules/
+gen/
+default-env.json
+.cdsrc-private.json
+.env
+*.sqlite
+*.db

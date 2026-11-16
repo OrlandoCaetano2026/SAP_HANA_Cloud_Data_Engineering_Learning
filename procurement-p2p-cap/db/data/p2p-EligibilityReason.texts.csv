@@ -1,0 +1,8 @@
+locale,CODE,TEXT
+pt,ELIGIBLE,Elegível
+pt,SUPPLIER_NOT_ACTIVE,Fornecedor bloqueado ou pendente
+pt,PIR_EXPIRED,Info record de compras vencido
+pt,PIR_NOT_YET_VALID,Info record de compras ainda sem vigência
+pt,QIR_MISSING,Sem info record de qualidade
+pt,QIR_BLOCKED,Bloqueado por qualidade
+pt,CERT_EXPIRED,Certificado de qualidade vencido

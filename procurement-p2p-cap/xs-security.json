@@ -1,0 +1,16 @@
+{
+  "xsappname": "procurement-p2p",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.Viewer",         "description": "Leitura dos dados de compras" },
+    { "name": "$XSAPPNAME.Buyer",          "description": "Criação de pedidos" },
+    { "name": "$XSAPPNAME.Approver",       "description": "Aprovação na alçada nível 1" },
+    { "name": "$XSAPPNAME.ApproverSenior", "description": "Aprovação na alçada nível 2 e 3" }
+  ],
+  "role-templates": [
+    { "name": "Viewer",         "description": "Somente leitura",         "scope-references": ["$XSAPPNAME.Viewer"] },
+    { "name": "Buyer",          "description": "Comprador",               "scope-references": ["$XSAPPNAME.Viewer", "$XSAPPNAME.Buyer"] },
+    { "name": "Approver",       "description": "Aprovador nível 1",       "scope-references": ["$XSAPPNAME.Viewer", "$XSAPPNAME.Approver"] },
+    { "name": "ApproverSenior", "description": "Aprovador nível 2 e 3",   "scope-references": ["$XSAPPNAME.Viewer", "$XSAPPNAME.Approver", "$XSAPPNAME.ApproverSenior"] }
+  ]
+}

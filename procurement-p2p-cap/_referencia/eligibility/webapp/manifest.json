@@ -1,0 +1,54 @@
+{
+  "_version": "1.60.0",
+  "sap.app": {
+    "id": "p2p.eligibility",
+    "type": "application",
+    "title": "Supplier Eligibility Explorer",
+    "description": "Elegibilidade de fornecedor por PIR e QIR",
+    "applicationVersion": { "version": "1.0.0" },
+    "i18n": "i18n/i18n.properties",
+    "dataSources": {
+      "mainService": { "uri": "/odata/v4/p2p/", "type": "OData", "settings": { "odataVersion": "4.0" } }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": { "desktop": true, "tablet": true, "phone": true }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": { "sap.m": {}, "sap.ui.core": {}, "sap.fe.templates": {} }
+    },
+    "contentDensities": { "compact": true, "cozy": true },
+    "models": {
+      "i18n": { "type": "sap.ui.model.resource.ResourceModel", "settings": { "bundleName": "p2p.eligibility.i18n.i18n" } },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": { "operationMode": "Server", "autoExpandSelect": true, "earlyRequests": true }
+      }
+    },
+    "routing": {
+      "routes": [
+        { "pattern": ":?query:",        "name": "SupplierEligibilityList",       "target": "SupplierEligibilityList" },
+        { "pattern": "SupplierEligibility({key}):?query:", "name": "SupplierEligibilityObjectPage", "target": "SupplierEligibilityObjectPage" }
+      ],
+      "targets": {
+        "SupplierEligibilityList": {
+          "type": "Component", "id": "SupplierEligibilityList", "name": "sap.fe.templates.ListReport",
+          "options": { "settings": {
+            "contextPath": "/SupplierEligibility",
+            "variantManagement": "Page",
+            "navigation": { "SupplierEligibility": { "detail": { "route": "SupplierEligibilityObjectPage" } } }
+          } }
+        },
+        "SupplierEligibilityObjectPage": {
+          "type": "Component", "id": "SupplierEligibilityObjectPage", "name": "sap.fe.templates.ObjectPage",
+          "options": { "settings": { "contextPath": "/SupplierEligibility", "editableHeaderContent": false } }
+        }
+      }
+    }
+  },
+  "sap.fiori": { "registrationIds": [], "archeType": "transactional" }
+}

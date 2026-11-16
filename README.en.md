@@ -194,7 +194,7 @@ The architecture will be built progressively. A component shown in the diagram i
 | GitHub Repository | ✅ Created |
 | HDI Container | ✅ Completed (Blocks C and F) |
 | CAP / OData | ✅ Completed (Block F) |
-| SAP Fiori | ⏳ Roadmap |
+| SAP Fiori | 🟡 In progress (G1 completed locally; BTP deployment pending) |
 | Kyma / Kubernetes | ⏳ Roadmap |
 
 First SQL validation:
@@ -246,6 +246,7 @@ The query confirmed a functional connection to the SAP HANA Cloud instance.
 | `Evidences/` | Technical execution and validation evidence |
 | `Fiori-Applications/` | SAP Fiori / Fiori Elements applications |
 | `industrial-data-cap/` | Block F CAP project (OData/REST service, business rules, XSUAA) |
+| `procurement-p2p-cap/` | Block G CAP project + SAP Fiori apps (Purchase-to-Pay extension) |
 | `HANA-Data-Models/` | SAP HANA modeling artifacts and projects |
 | `Integration-Suite/` | Data ingestion and SAP Integration Suite scenarios |
 | `MES-Manufacturing-Execution/` | Simulated Manufacturing Execution Systems scenarios |
@@ -366,6 +367,22 @@ New directories will be introduced only when implementation creates a real need.
 <tr><td>F7</td><td>Business Logic</td><td>Add validation and business logic to services</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
 <tr><td>F8</td><td>Authentication</td><td>Protect applications and services with authentication</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
 <tr><td>F9</td><td>Authorization</td><td>Control access to data and operations through authorization</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/F%20—%20CAP%20%26%20Data%20APIs/EN/01-f1-f9-cap-and-data-apis.en.md">📄</a></td></tr>
+</table>
+
+## 🅶 Block G — SAP Fiori Data Applications
+
+The block was reorganized as a **Purchase-to-Pay (P2P) extension** on SAP BTP, without touching the ERP core, built with the official SAP Fiori tools on top of the CAP project [`procurement-p2p-cap/`](./procurement-p2p-cap). The Quality, Inventory, Manufacturing and MES cockpits from the previous roadmap come after P2P.
+
+<table>
+<tr><th>#</th><th>Scenario</th><th>Objective</th><th>Status</th><th>Doc</th></tr>
+<tr><td>G1</td><td>Material Master Explorer</td><td>Look up materials and eligible suppliers (PIR + QIR) with Fiori Elements, EN/PT i18n</td><td><img src="https://img.shields.io/badge/status-completed-success?style=flat-square" alt="completed"/></td><td><a href="./Docs/G%20—%20SAP%20Fiori%20Data%20Applications/EN/01-g1-material-master-explorer.en.md">📄</a></td></tr>
+<tr><td>G2</td><td>Supplier Eligibility Explorer</td><td>Dedicated app to explore supplier eligibility by reason</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
+<tr><td>G3</td><td>Purchase Order</td><td>Purchase order with items, draft, PIR price and eligible supplier</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
+<tr><td>G4</td><td>Approval Cockpit</td><td>Mass approval by approval limit, mandatory rejection reason and audit log</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
+<tr><td>G5</td><td>ERP Integration</td><td>Synchronous ERP integration (CPI + S/4HANA simulated by a CAP service)</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
+<tr><td>G6</td><td>Goods Receipt & Invoice</td><td>Goods receipt and invoice with three-way match</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
+<tr><td>G7</td><td>Payment Tracking</td><td>Payment tracking</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
+<tr><td>G8</td><td>Orders Dashboard</td><td>Order dashboard with Analytical List Page</td><td><img src="https://img.shields.io/badge/status-pending-lightgrey?style=flat-square" alt="pending"/></td><td>—</td></tr>
 </table>
 
 ---

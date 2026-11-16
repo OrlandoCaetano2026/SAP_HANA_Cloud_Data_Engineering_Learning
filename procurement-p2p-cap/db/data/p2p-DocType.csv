@@ -1,0 +1,7 @@
+CODE,TEXT,VIA_APP
+NB,Standard Purchase Order,false
+FO,Framework Order,false
+ZC,Consignment Order,false
+ZF,Standard Purchase Order (Fiori),true
+ZR,Framework Order (Fiori),true
+ZK,Consignment Order (Fiori),true

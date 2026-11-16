@@ -194,7 +194,7 @@ A arquitetura será construída progressivamente. A presença de um componente n
 | GitHub Repository | ✅ Criado |
 | HDI Container | ✅ Concluído (Blocos C e F) |
 | CAP / OData | ✅ Concluído (Bloco F) |
-| SAP Fiori | ⏳ Roadmap |
+| SAP Fiori | 🟡 Em andamento (G1 concluído localmente; deploy no BTP pendente) |
 | Kyma / Kubernetes | ⏳ Roadmap |
 
 Primeira validação SQL realizada:
@@ -246,6 +246,7 @@ A consulta confirmou conexão funcional com a instância SAP HANA Cloud.
 | `Evidences/` | Evidências técnicas de execução e validação |
 | `Fiori-Applications/` | Aplicações SAP Fiori / Fiori Elements |
 | `industrial-data-cap/` | Projeto CAP do Bloco F (serviço OData/REST, regras de negócio, XSUAA) |
+| `procurement-p2p-cap/` | Projeto CAP + apps SAP Fiori do Bloco G (extensão Purchase-to-Pay) |
 | `HANA-Data-Models/` | Artefatos e projetos de modelagem SAP HANA |
 | `Integration-Suite/` | Cenários de ingestão e integração com SAP Integration Suite |
 | `MES-Manufacturing-Execution/` | Cenários simulados de Manufacturing Execution Systems |
@@ -370,14 +371,19 @@ Novas pastas serão adicionadas apenas quando houver necessidade real de impleme
 
 ## 🅶 Bloco G — SAP Fiori Data Applications
 
-| # | Cenário | Objetivo | Status |
-|---|---|---|---|
-| G1 | Material Master Explorer | Criar uma aplicação Fiori para consulta do modelo de materiais | ⏳ |
-| G2 | Procurement Explorer | Explorar fornecedores, materiais, Info Records e dados de compras | ⏳ |
-| G3 | Quality Cockpit | Visualizar informações e indicadores do contexto QM | ⏳ |
-| G4 | Inventory Cockpit | Visualizar estoque por material, centro e localização | ⏳ |
-| G5 | Manufacturing Cockpit | Acompanhar ordens, operações, centros de trabalho e produção | ⏳ |
-| G6 | MES Production Cockpit | Consumir dados MES e apresentar produção, scrap, recursos e downtime | ⏳ |
+O bloco foi reorganizado como uma **extensão Purchase-to-Pay (P2P)** no SAP BTP, sem alterar o núcleo do ERP, construída com as ferramentas oficiais SAP Fiori tools sobre o projeto CAP [`procurement-p2p-cap/`](./procurement-p2p-cap). Os cockpits de Qualidade, Estoque, Manufatura e MES do roadmap anterior ficam para depois do P2P.
+
+<table>
+<tr><th>#</th><th>Cenário</th><th>Objetivo</th><th>Status</th><th>Doc</th></tr>
+<tr><td>G1</td><td>Material Master Explorer</td><td>Consultar materiais e fornecedores elegíveis (PIR + QIR) com Fiori Elements, i18n EN/PT</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/G%20—%20SAP%20Fiori%20Data%20Applications/BR/01-g1-material-master-explorer.md">📄</a></td></tr>
+<tr><td>G2</td><td>Supplier Eligibility Explorer</td><td>App próprio para explorar a elegibilidade de fornecedores por motivo</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+<tr><td>G3</td><td>Purchase Order</td><td>Pedido de compra com itens, rascunho, preço do PIR e fornecedor elegível</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+<tr><td>G4</td><td>Approval Cockpit</td><td>Aprovação em massa por alçada, motivo de recusa obrigatório e auditoria</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+<tr><td>G5</td><td>ERP Integration</td><td>Integração síncrona com o ERP (CPI + S/4HANA simulado por serviço CAP)</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+<tr><td>G6</td><td>Goods Receipt & Invoice</td><td>Recebimento e fatura com conferência de três vias</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+<tr><td>G7</td><td>Payment Tracking</td><td>Acompanhamento de pagamentos</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+<tr><td>G8</td><td>Orders Dashboard</td><td>Dashboard de pedidos com Analytical List Page</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+</table>
 
 ## 🅷 Bloco H — Analytics & Business KPIs
 
