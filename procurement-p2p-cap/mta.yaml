@@ -73,6 +73,10 @@ modules:
           artifacts:
             - materials.zip
           target-path: app/
+        - name: procurementp2pcapeligibility
+          artifacts:
+            - eligibility.zip
+          target-path: app/
     requires:
       - name: procurement-p2p-cap-auth
       - name: srv-api
@@ -95,6 +99,17 @@ modules:
   - name: procurementp2pcapmaterials
     type: html5
     path: app/materials
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms:
+        []
+
+  - name: procurementp2pcapeligibility
+    type: html5
+    path: app/eligibility
     build-parameters:
       build-result: dist
       builder: custom

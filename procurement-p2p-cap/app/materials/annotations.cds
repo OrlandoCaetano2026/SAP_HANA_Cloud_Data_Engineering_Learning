@@ -67,30 +67,36 @@ annotate service.Materials with @(
             $Type : 'UI.DataField',
             Label : '{i18n>material}',
             Value : MATNR,
+            ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Label : '{i18n>description}',
             Value : MATNR_TEXT,
+            ![@UI.Importance] : #High,
         },
         {
             $Type : 'UI.DataField',
             Label : '{i18n>materialType}',
             Value : MTART,
+            ![@UI.Importance] : #Medium,
         },
         {
             $Type : 'UI.DataField',
             Label : '{i18n>materialGroup}',
             Value : MATKL,
+            ![@UI.Importance] : #Low,
         },
         {
             $Type : 'UI.DataField',
             Label : '{i18n>baseUnitShort}',
             Value : MEINS,
+            ![@UI.Importance] : #Low,
         },
         {
             $Type : 'UI.DataField',
             Value : QM_ACTIVE,
+            ![@UI.Importance] : #Medium,
         },
     ],
     UI.SelectionFields : [

@@ -15,14 +15,14 @@ Serviço OData V4: `http://localhost:4004/odata/v4/p2p` · usuários locais (só
 
 ## Aplicações Fiori Elements (G1 e G2)
 
-Com o servidor no ar (`npx.cmd cds watch`), abra no navegador (login `alice` / `alice`):
+Com o servidor no ar (`npm.cmd run watch-eligibility`, ou `npx.cmd cds watch`), um único processo serve os dois apps. Abra no navegador (login `bob` / `bob`, papel `Viewer`):
 
 | App | Endereço |
 |---|---|
-| G1 — Material Master Explorer | `http://localhost:4004/materials/webapp/index.html` |
-| G2 — Supplier Eligibility Explorer | `http://localhost:4004/eligibility/webapp/index.html` |
+| G1 — Material Master Explorer | `http://localhost:4004/p2p.materials/index.html` |
+| G2 — Supplier Eligibility Explorer | `http://localhost:4004/p2p.eligibility/index.html` |
 
-As telas são geradas por anotações CDS (`app/*/annotations.cds`) lidas pelo Fiori Elements; não há JavaScript de tela. O SAPUI5 é carregado do CDN `ui5.sap.com` (versão 1.120).
+As telas são geradas por anotações CDS (`app/*/annotations*.cds`) lidas pelo Fiori Elements; o JavaScript de tela é só o `Component.js`. O SAPUI5 (1.154.0) é carregado do CDN `sapui5.hana.ondemand.com`. No BTP, os dois apps são módulos HTML5 do mesmo MTA (`mbt.cmd build` e `cf deploy`).
 
 ## Modelo
 

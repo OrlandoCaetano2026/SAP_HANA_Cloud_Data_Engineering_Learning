@@ -194,7 +194,7 @@ A arquitetura será construída progressivamente. A presença de um componente n
 | GitHub Repository | ✅ Criado |
 | HDI Container | ✅ Concluído (Blocos C e F) |
 | CAP / OData | ✅ Concluído (Bloco F) |
-| SAP Fiori | 🟡 Em andamento (G1 concluído e publicado no BTP, com tile no Launchpad e acesso pelo celular) |
+| SAP Fiori | 🟡 Em andamento (G1 e G2 concluídos e publicados no BTP, com dois tiles no Launchpad, navegação entre apps e acesso pelo celular) |
 | Kyma / Kubernetes | ⏳ Roadmap |
 
 Primeira validação SQL realizada:
@@ -376,7 +376,7 @@ O bloco foi reorganizado como uma **extensão Purchase-to-Pay (P2P)** no SAP BTP
 <table>
 <tr><th>#</th><th>Cenário</th><th>Objetivo</th><th>Status</th><th>Doc</th></tr>
 <tr><td>G1</td><td>Material Master Explorer</td><td>Consultar materiais e fornecedores elegíveis (PIR + QIR) com Fiori Elements, i18n EN/PT, publicado no BTP (Cloud Foundry + HANA Cloud), tile no Launchpad e acesso pelo celular</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/G%20—%20SAP%20Fiori%20Data%20Applications/BR/01-g1-material-master-explorer.md">📄</a></td></tr>
-<tr><td>G2</td><td>Supplier Eligibility Explorer</td><td>App próprio para explorar a elegibilidade de fornecedores por motivo</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
+<tr><td>G2</td><td>Supplier Eligibility Explorer</td><td>App por fornecedor: o que ele pode fornecer hoje e por que itens estão bloqueados (contadores, filtros por material e situação), segundo tile no Launchpad, navegação G1 ↔ G2 e celular em cartões</td><td><img src="https://img.shields.io/badge/status-conclu%C3%ADdo-success?style=flat-square" alt="concluído"/></td><td><a href="./Docs/G%20—%20SAP%20Fiori%20Data%20Applications/BR/02-g2-supplier-eligibility-explorer.md">📄</a></td></tr>
 <tr><td>G3</td><td>Purchase Order</td><td>Pedido de compra com itens, rascunho, preço do PIR e fornecedor elegível</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
 <tr><td>G4</td><td>Approval Cockpit</td><td>Aprovação em massa por alçada, motivo de recusa obrigatório e auditoria</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>
 <tr><td>G5</td><td>ERP Integration</td><td>Integração síncrona com o ERP (CPI + S/4HANA simulado por serviço CAP)</td><td><img src="https://img.shields.io/badge/status-pendente-lightgrey?style=flat-square" alt="pendente"/></td><td>—</td></tr>

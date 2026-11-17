@@ -1,0 +1,32 @@
+/* Faixa do cabeçalho: fundo azul escuro e texto branco */
+.sapFDynamicPageTitle,
+.sapFDynamicPageHeader,
+.sapFDynamicPageTitleWrapper {
+    background-color: #0a4a82 !important;
+}
+
+/* Tudo o que é texto ou ícone dentro do título ("Standard", "No filters active") */
+.sapFDynamicPageTitle * {
+    color: #ffffff !important;
+}
+
+/* Rótulos dos filtros (Material:, Tipo de material:...) quando a barra está aberta */
+.sapFDynamicPageHeader .sapMLabel {
+    color: #ffffff !important;
+}
+/* Botões de texto da barra de filtros (Adapt Filters) e ações do título */
+.sapFDynamicPageHeader .sapMBtnTransparent .sapMBtnContent,
+.sapFDynamicPageTitle .sapMBtnTransparent .sapMBtnContent,
+.sapFDynamicPageTitle .sapMBtnIcon {
+    color: #ffffff !important;
+}
+/* Object Page (G2): o corpo do cabeçalho volta a ser claro para os indicadores
+   (verde/vermelho) ficarem legíveis; só a faixa do título continua azul. */
+.sapUxAPObjectPageLayout .sapFDynamicPageHeader,
+.sapUxAPObjectPageLayout .sapUxAPObjectPageHeaderContent {
+    background-color: #ffffff !important;
+}
+.sapUxAPObjectPageLayout .sapFDynamicPageHeader .sapMLabel,
+.sapUxAPObjectPageLayout .sapFDynamicPageHeader .sapMText {
+    color: #32363a !important;
+}

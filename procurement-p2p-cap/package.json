@@ -16,13 +16,15 @@
   "scripts": {
     "start": "cds-serve",
     "watch": "cds watch",
-    "watch-materials": "cds watch --open p2p.materials/index.html?sap-ui-xx-viewCache=false --livereload false"
+    "watch-materials": "cds watch --open p2p.materials/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "watch-eligibility": "cds watch --open p2p.eligibility/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "workspaces": [
     "app/*"
   ],
   "sapux": [
-    "app/materials"
+    "app/materials",
+    "app/eligibility"
   ],
   "cds": {
     "requires": {

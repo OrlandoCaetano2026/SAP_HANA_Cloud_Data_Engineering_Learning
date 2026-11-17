@@ -9,7 +9,21 @@ service ProcurementService @(path: '/odata/v4/p2p') @(requires: 'authenticated-u
     mixin { eligibility : Association to many SupplierEligibility on eligibility.MATNR = $projection.MATNR; }
     into  { *, eligibility };
   @readonly @requires: ['Viewer','Buyer','Approver','ApproverSenior'] entity MaterialTypes     as projection on db.MaterialType;
-  @readonly @requires: ['Viewer','Buyer','Approver','ApproverSenior'] entity Suppliers         as projection on db.Supplier;
+  // Fornecedores (G2): associação com a elegibilidade + contadores por situação (para a lista e o cabeçalho da Object Page)
+  @readonly @requires: ['Viewer','Buyer','Approver','ApproverSenior']
+  entity Suppliers as select from db.Supplier as s
+    mixin { eligibility : Association to many SupplierEligibility on eligibility.LIFNR = $projection.LIFNR; }
+    into  {
+      key s.LIFNR, s.LIFNR_TEXT, s.LIFNR_STATUS, s.COUNTRY, s.CURRENCY, s.PAYMENT_TERMS, s.QUALITY_CERTIFIED,
+      s.status,
+      eligibility,
+      (select count(*) from SupplierEligibility as x where x.LIFNR = s.LIFNR)                           as ITEMS_TOTAL    : Integer,
+      (select count(*) from SupplierEligibility as x where x.LIFNR = s.LIFNR and x.REASON =  'ELIGIBLE') as ITEMS_ELIGIBLE : Integer,
+      (select count(*) from SupplierEligibility as x where x.LIFNR = s.LIFNR and x.REASON <> 'ELIGIBLE') as ITEMS_BLOCKED  : Integer,
+      case when s.LIFNR_STATUS = 'ACTIVE' then 3 else 1 end                                              as STATUS_CRIT   : Integer,
+      case when exists (select 1 from SupplierEligibility as x where x.LIFNR = s.LIFNR and x.REASON <> 'ELIGIBLE')
+           then 1 else 3 end                                                                             as BLOCKED_CRIT  : Integer
+    };
   @readonly @requires: ['Viewer','Buyer','Approver','ApproverSenior'] entity SupplierStatuses  as projection on db.SupplierStatus;
   @readonly @requires: ['Viewer','Buyer','Approver','ApproverSenior'] entity Plants            as projection on db.Plant;
   @readonly @requires: ['Viewer','Buyer','Approver','ApproverSenior'] entity PurchasingOrgs    as projection on db.PurchasingOrg;

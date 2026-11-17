@@ -5,7 +5,7 @@ using from './annotations';
 // ───────────────────────────────────────────────────────────────
 // Elegibilidade de fornecedores (PIR + QIR + status do fornecedor)
 // Usada pela tabela "Fornecedores elegíveis" da Object Page do material (G1)
-// e, mais adiante, pelo app próprio de elegibilidade (G2).
+// e pelo app próprio de elegibilidade (G2), na tabela #BySupplier (annotations do G2).
 // ───────────────────────────────────────────────────────────────
 
 annotate service.SupplierEligibility with {
@@ -39,12 +39,13 @@ annotate service.SupplierEligibility with @(
   // Tabela embutida na Object Page do material.
   // REASON_CRIT (0-3) pinta a situação; CERT_CRIT pinta a validade do certificado.
   UI.LineItem #ByMaterial : [
-    { $Type: 'UI.DataField', Value: LIFNR },
-    { $Type: 'UI.DataField', Value: LIFNR_TEXT },
-    { $Type: 'UI.DataField', Value: REASON_TEXT, Criticality: REASON_CRIT, CriticalityRepresentation: #WithIcon },
-    { $Type: 'UI.DataField', Value: NET_PRICE },
-    { $Type: 'UI.DataField', Value: LEAD_TIME_DAYS },
-    { $Type: 'UI.DataField', Value: CERT_VALID_TO, Criticality: CERT_CRIT },
-    { $Type: 'UI.DataField', Value: BLOCK_REASON }
+    // Fornecedor = link para o G2 (Supplier Eligibility Explorer) via navegação entre apps
+    { $Type: 'UI.DataFieldWithIntentBasedNavigation', Value: LIFNR, SemanticObject: 'Suppliers', Action: 'display', ![@UI.Importance]: #High },
+    { $Type: 'UI.DataField', Value: LIFNR_TEXT,     ![@UI.Importance]: #High },
+    { $Type: 'UI.DataField', Value: REASON_TEXT,    Criticality: REASON_CRIT, CriticalityRepresentation: #WithIcon, ![@UI.Importance]: #High },
+    { $Type: 'UI.DataField', Value: NET_PRICE,      ![@UI.Importance]: #Medium },
+    { $Type: 'UI.DataField', Value: LEAD_TIME_DAYS, ![@UI.Importance]: #Low },
+    { $Type: 'UI.DataField', Value: CERT_VALID_TO,  Criticality: CERT_CRIT, ![@UI.Importance]: #Medium },
+    { $Type: 'UI.DataField', Value: BLOCK_REASON,   ![@UI.Importance]: #Low }
   ]
 );
